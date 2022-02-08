@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44523ddef44e91449b2249ff429f0d18, type: 3}
+  m_Name: TestRecipe 2
+  m_EditorClassIdentifier: 
+  title: RRB
+  ingredients:
+  - {fileID: 5339405034935385636, guid: e09aff4dab78036489ae648d96bfc090, type: 3}
+  - {fileID: 5339405034935385636, guid: e09aff4dab78036489ae648d96bfc090, type: 3}
+  - {fileID: 6518939699727230265, guid: 551d50af5f64e8c4da11c27ce1d4d7a8, type: 3}
