@@ -207,8 +207,8 @@ MonoBehaviour:
   SwitchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: 
-  sourceBankPath: 
+  sourceProjectPath: Assets/Audio/FMOD/FMOD.fspro
+  sourceBankPath: Assets/Audio/FMOD/Build
   SourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -243,20 +243,20 @@ MonoBehaviour:
   SharedLibraryUpdateStage: 0
   SharedLibraryTimeSinceStart: 0
   CurrentVersion: 131588
-  HideSetupWizard: 0
-  LastEventReferenceScanVersion: 0
+  HideSetupWizard: 1
+  LastEventReferenceScanVersion: 131588
   Platforms:
-  - {fileID: 4395204698862349598}
-  - {fileID: 5989534296281128169}
-  - {fileID: -5708755574622221121}
-  - {fileID: 7909519218422662936}
-  - {fileID: 8803107878121645891}
   - {fileID: -8896797811586337649}
-  - {fileID: 3399418482799272073}
-  - {fileID: 4226282337975474759}
   - {fileID: -7726613388988564621}
+  - {fileID: -5708755574622221121}
   - {fileID: 63515829837463230}
   - {fileID: 3104372965303722161}
+  - {fileID: 3399418482799272073}
+  - {fileID: 4226282337975474759}
+  - {fileID: 4395204698862349598}
+  - {fileID: 5989534296281128169}
+  - {fileID: 7909519218422662936}
+  - {fileID: 8803107878121645891}
   MigratedPlatforms: 0c000000150000000b0000000a00000009000000120000000800000005000000060000000200000001000000
 --- !u!114 &63515829837463230
 MonoBehaviour:
@@ -327,10 +327,10 @@ MonoBehaviour:
   - 0f8eb3f400726694eb47beb1a9f94ce8
   - b7716510a1f36934c87976f3a81dbf3d
   - 52eb9df5db46521439908db3a29a1bbb
-  - e7a046c753c3c3d4aacc91f6597f310d
   - 2c5177b11d81d824dbb064f9ac8527da
   - fd7c55dab0fce234b8c25f6ffca523c1
   - c88d16e5272a4e241b0ef0ac2e53b73d
+  - e7a046c753c3c3d4aacc91f6597f310d
 --- !u!114 &3104372965303722161
 MonoBehaviour:
   m_ObjectHideFlags: 0
