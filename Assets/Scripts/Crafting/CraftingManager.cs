@@ -20,6 +20,7 @@ public class CraftingManager : MonoBehaviour
         checkPossibleRecipes();
     }
 
+
     private void checkCraftableRecipes()
     {
         craftableRecipes.Clear();
