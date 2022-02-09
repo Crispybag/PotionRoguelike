@@ -58,7 +58,8 @@ public class IngredientSpawning : MonoBehaviour
         respawnPos = possibleSpawnCoords[Random.Range(0, possibleSpawnCoords.Count)];
 
         //instantiate it
-        Instantiate(gObject, new Vector3(respawnPos.x, respawnPos.y, transform.position.z), gameObject.transform.rotation);
+        GameObject newIngredient = Instantiate(gObject, new Vector3(respawnPos.x, respawnPos.y, transform.position.z), gameObject.transform.rotation);
+        newIngredient.name = gObject.name;
     }
 
 

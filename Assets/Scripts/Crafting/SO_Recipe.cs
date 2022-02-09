@@ -7,7 +7,7 @@ public class SO_Recipe : ScriptableObject
 {
     public string title;
     public List<GameObject> ingredients;
-    private Dictionary<GameObject, int> ingredientCount = new Dictionary<GameObject, int>();
+    private Dictionary<string, int> ingredientCount = new Dictionary<string, int>();
 
     private void OnValidate()
     {
@@ -16,14 +16,14 @@ public class SO_Recipe : ScriptableObject
         foreach(GameObject ingredient in ingredients)
         {
             //if it doesnt exist in the dictionary yet, add it, with value 1
-            if (!ingredientCount.ContainsKey(ingredient))
+            if (!ingredientCount.ContainsKey(ingredient.name))
             {
-                ingredientCount.Add(ingredient, 1);
+                ingredientCount.Add(ingredient.name, 1);
             }
             //if it does exist, get its value, and increase it by one
             else
             {
-                ingredientCount[ingredient] = ingredientCount[ingredient] + 1;
+                ingredientCount[ingredient.name] = ingredientCount[ingredient.name] + 1;
             }
         }
     }
@@ -34,7 +34,7 @@ public class SO_Recipe : ScriptableObject
     /// </summary>
     /// <param name="currentIngredients"> The current ingredients in the pot. </param>
     /// <returns></returns>
-    public bool canCraft(Dictionary<GameObject, int> currentIngredients)
+    public bool canCraft(Dictionary<string, int> currentIngredients)
     {
         //check if the dictionary sizes are the same size, else we know already it cant be crafted.
         if(currentIngredients.Count != ingredientCount.Count)
@@ -42,7 +42,7 @@ public class SO_Recipe : ScriptableObject
             return false;
         }
         //then loop through all the ingredients of the given dictionary
-        foreach(KeyValuePair<GameObject, int> ingredient in currentIngredients)
+        foreach(KeyValuePair<string, int> ingredient in currentIngredients)
         {
             //if it doesnt contain the ingredient, then we know it isnt craftable already.
             if (!ingredientCount.ContainsKey(ingredient.Key))
@@ -60,7 +60,7 @@ public class SO_Recipe : ScriptableObject
     }
 
 
-    public bool canStillBeCrafted(Dictionary<GameObject, int> currentIngredients)
+    public bool canStillBeCrafted(Dictionary<string, int> currentIngredients)
     {
         //check if the dictionary size is bigger than the ingredients needed, if so, its uncraftable.
         if (currentIngredients.Count > ingredientCount.Count)
@@ -68,7 +68,7 @@ public class SO_Recipe : ScriptableObject
             return false;
         }
         //loop through all the ingredients of the given dictionary
-        foreach (KeyValuePair<GameObject, int> ingredient in currentIngredients)
+        foreach (KeyValuePair<string, int> ingredient in currentIngredients)
         {
             //if it doesnt contain the ingredient, then we know it isnt craftable already.
             if (!ingredientCount.ContainsKey(ingredient.Key))
