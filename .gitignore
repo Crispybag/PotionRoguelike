@@ -76,7 +76,7 @@ Fmod/[Aa]ssets/Plugins/FMOD/Cache/Editor.meta
 # Log-files
 Project Innovation/fmod.log
 Project Innovation/fmod_editor.log
-
+Logs/shadercompiler-UnityShaderCompiler.exe0.log
 # FMOD 1.10.x (Legacy)
 Fmod/Assets/FMODAssets/*
 Fmod/Assets/FMODStudioCache.meta
