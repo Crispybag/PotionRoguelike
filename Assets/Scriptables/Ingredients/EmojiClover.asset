@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: caf1a71ab5d4bdd4293e8629c4922fc6, type: 3}
-  m_Name: BIngredient
+  m_Name: EmojiClover
   m_EditorClassIdentifier: 
-  gameSprite: {fileID: 21300000, guid: 4ea4e0a1e3b46af489536a65cb7d3072, type: 3}
-  icon: {fileID: 21300000, guid: 4ea4e0a1e3b46af489536a65cb7d3072, type: 3}
-  title: BIngredient
+  gameSprite: {fileID: 21300000, guid: 70c350bcb6d739542b05d45fd86eba50, type: 3}
+  icon: {fileID: 0}
+  title: EmojiClover

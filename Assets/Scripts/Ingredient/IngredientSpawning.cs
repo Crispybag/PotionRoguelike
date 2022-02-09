@@ -22,12 +22,11 @@ public class IngredientSpawning : MonoBehaviour
             //dont spawn on top row (-1)
             for (int y = 0; y < _map.size.y - 1; y++)
             {
-                bool isAvailable = false;
+                bool isAvailable = true;
                 Vector3Int position = GridObject.ToVector3Int(new Vector3(x + _map.origin.x, y + _map.origin.y, 0));
                 //check if any objects are on this position
                 foreach (GameObject obj in MapManager.mapManager.getObjectsOnBoard())
                 {
-                    isAvailable = true;
                     //return false if spot isnt available
                     if (GridObject.ToVector3Int(obj.transform.position) == position)
                     {
@@ -50,11 +49,9 @@ public class IngredientSpawning : MonoBehaviour
     }
 
     //respawn ingredient at new place
-    private void RespawnIngredient(GameObject gObject)
+    public void RespawnIngredient(GameObject gObject)
     {
-        //Vector3Int mapOffset = new Vector3Int(Mathf.RoundToInt(_map.transform.position.x), Mathf.RoundToInt(_map.transform.position.y));
-        //Vector3Int respawnPos = new Vector3Int(0,0,0);
-
+        if (_map == null) _map = MapManager.mapManager.GetTilemap();
         //make sure it found a proper place to spawn
 
         List<Vector3Int> possibleSpawnCoords = generateAvailablePlaces();

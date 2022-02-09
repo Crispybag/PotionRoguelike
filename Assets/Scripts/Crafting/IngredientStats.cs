@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IngredientStats : MonoBehaviour
 {
-    public SO_Ingredient ingredientStats;
+    [HideInInspector] public SO_Ingredient ingredientStats;
     private SpriteRenderer spriteRenderer;
 
     public void Setup()
@@ -12,9 +12,8 @@ public class IngredientStats : MonoBehaviour
         if (GetComponent<SpriteRenderer>())
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
-            return;
+            spriteRenderer.sprite = ingredientStats.gameSprite;
         }
-        spriteRenderer.sprite = ingredientStats.gameSprite;
 
     }
 
