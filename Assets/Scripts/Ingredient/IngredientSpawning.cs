@@ -21,7 +21,7 @@ public class IngredientSpawning : MonoBehaviour
 
         //make sure it found a proper place to spawn
         List<Vector3Int> possibleSpawnCoords = new List<Vector3Int>();
-        for (int x = 0; x < _map.size.x; x++)
+        for (int x = 0; x < _map.size.x -1; x++)
         {
             //dont spawn on top row (-1)
             for (int y = 0; y < _map.size.y - 1; y++)

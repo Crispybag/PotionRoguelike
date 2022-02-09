@@ -91,6 +91,6 @@ public abstract class Movement : MonoBehaviour
 
     private void OnDestroy()
     {
-        MapManager.mapManager.RemoveObjectsFromBoard(this.gameObject);
+        MapManager.mapManager.RemoveObjectsFromBoard(gameObject);
     }
 }
