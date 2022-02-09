@@ -13,25 +13,20 @@ public class IngredientSpawning : MonoBehaviour
         _map = MapManager.mapManager.GetTilemap();
     }
 
-    //respawn ingredient at new place
-    private void RespawnIngredient(GameObject gObject)
-    {
-        //Vector3Int mapOffset = new Vector3Int(Mathf.RoundToInt(_map.transform.position.x), Mathf.RoundToInt(_map.transform.position.y));
-        //Vector3Int respawnPos = new Vector3Int(0,0,0);
 
-        //make sure it found a proper place to spawn
+    private List<Vector3Int> generateAvailablePlaces()
+    {
         List<Vector3Int> possibleSpawnCoords = new List<Vector3Int>();
-        for (int x = 0; x < _map.size.x -1; x++)
+        for (int x = 0; x < _map.size.x - 1; x++)
         {
             //dont spawn on top row (-1)
             for (int y = 0; y < _map.size.y - 1; y++)
             {
-                bool isAvailable = false;
-                Vector3Int position =  GridObject.ToVector3Int(new Vector3(x + _map.origin.x, y + _map.origin.y, 0));
+                bool isAvailable = true;
+                Vector3Int position = GridObject.ToVector3Int(new Vector3(x + _map.origin.x, y + _map.origin.y, 0));
                 //check if any objects are on this position
                 foreach (GameObject obj in MapManager.mapManager.getObjectsOnBoard())
                 {
-                    isAvailable = true;
                     //return false if spot isnt available
                     if (GridObject.ToVector3Int(obj.transform.position) == position)
                     {
@@ -50,7 +45,16 @@ public class IngredientSpawning : MonoBehaviour
                 if (isAvailable) possibleSpawnCoords.Add(position);
             }
         }
+        return possibleSpawnCoords;
+    }
 
+    //respawn ingredient at new place
+    public void RespawnIngredient(GameObject gObject)
+    {
+        if (_map == null) _map = MapManager.mapManager.GetTilemap();
+        //make sure it found a proper place to spawn
+
+        List<Vector3Int> possibleSpawnCoords = generateAvailablePlaces();
         //dont instantiate if there is nothing to pick from
         if (possibleSpawnCoords.Count == 0) return;
 
