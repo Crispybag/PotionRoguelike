@@ -26,6 +26,7 @@ public class FallOffMap : MonoBehaviour
             if(intPos.y < _map.origin.y)
             {
                 // go to crafting recipe
+                FindObjectOfType<CraftingManager>().AddIngredient(this.gameObject);
             }
             Destroy(this.gameObject);
         }

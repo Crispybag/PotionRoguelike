@@ -6,7 +6,7 @@ public class CraftingManager : MonoBehaviour
 {
 
     public List<SO_Recipe> recipes;
-    private Dictionary<GameObject, int> currentIngredients = new Dictionary<GameObject, int>();
+    private Dictionary<string, int> currentIngredients = new Dictionary<string, int>();
 
     private List<SO_Recipe> possibleRecipes = new List<SO_Recipe>();
     private List<SO_Recipe> craftableRecipes = new List<SO_Recipe>();
@@ -81,14 +81,14 @@ public class CraftingManager : MonoBehaviour
         //check if there is a dictionary
         if (currentIngredients == null) return;
         //if the dictionary does not contain a key for the ingredient yet, create it, with value 1 (because there is one of that ingredient so far)
-        if (!currentIngredients.ContainsKey(ingredient))
+        if (!currentIngredients.ContainsKey(ingredient.name))
         {
-            currentIngredients.Add(ingredient, 1);
+            currentIngredients.Add(ingredient.name, 1);
         }
         //if it does exist, increase the value with one
         else
         {
-            currentIngredients[ingredient] = currentIngredients[ingredient] + 1;
+            currentIngredients[ingredient.name] = currentIngredients[ingredient.name] + 1;
         }
         //since we adjusted the current ingredients, the result can be different now.
         UpdateRecipe();
