@@ -10,11 +10,13 @@ public class CraftingUIManager : MonoBehaviour
     public CraftingManager craftingManager;
     public List<GameObject> currentIngredients;
     public GameObject ingredientPrefab;
+    public List<GameObject> tierBlocks;
 
     public void Start()
     {
         craftingManager = FindObjectOfType<CraftingManager>();
         CraftingManager.onIngredientUpdate += UpdateIngredients;
+        CraftingManager.onTierUpdate += UpdateTier;
     }
 
     public void UpdateIngredients()
@@ -39,6 +41,26 @@ public class CraftingUIManager : MonoBehaviour
     }
 
 
-    
+    private void UpdateTier()
+    {
+        DisableTiers();
+        for(int i = 0; i <=  craftingManager.recipeTier; i++)
+        {
+            Debug.Log("updating tiers....");
+            Color newColor = tierBlocks[i].GetComponent<Image>().color;
+            newColor.a = 1f;
+            tierBlocks[i].GetComponent<Image>().color = newColor;
+        }
+    }
+
+    private void DisableTiers()
+    {
+        foreach(GameObject tier in tierBlocks)
+        {
+            Color newColor = tier.GetComponent<Image>().color;
+            newColor.a = 0.5f;
+            tier.GetComponent<Image>().color = newColor;
+        }
+    }
 
 }

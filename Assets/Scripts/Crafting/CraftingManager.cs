@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 public delegate void IngredientUpdateHandler();
+public delegate void TierUpdateHandler();
 
 public class CraftingManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class CraftingManager : MonoBehaviour
     [HideInInspector] public List<GameObject> correctOrderIngredients = new List<GameObject>();
 
     public static IngredientUpdateHandler onIngredientUpdate;
+    public static TierUpdateHandler onTierUpdate;
 
     private List<SO_Recipe> possibleRecipes = new List<SO_Recipe>();
     private List<SO_Recipe> craftableRecipes = new List<SO_Recipe>();
@@ -47,8 +49,7 @@ public class CraftingManager : MonoBehaviour
             }
             else
             {
-                //--------- throw potion ------
-
+                ThrowPotion();
                 //clear everything
                 ClearIngredients();
             }
@@ -61,11 +62,24 @@ public class CraftingManager : MonoBehaviour
         if (craftableRecipes.Count == 1)
         {
             currentRecipe = craftableRecipes[0];
-            currentIngredients.Clear();
-            correctOrderIngredients.Clear();
-            onIngredientUpdate();
-            recipeTier++;
+            increaseTier();
         }
+    }
+
+    private void increaseTier()
+    {
+        currentIngredients.Clear();
+        correctOrderIngredients.Clear();
+        onIngredientUpdate();
+        recipeTier++;
+        //4 because we start counting at 0
+        if (recipeTier == 4)
+        {
+            ThrowPotion();
+
+        }
+        onTierUpdate();
+        Debug.Log("Tier of crafting just went up... now tier : " + recipeTier);
     }
 
 
@@ -157,11 +171,8 @@ public class CraftingManager : MonoBehaviour
         //check if we can craft the recipe, if so increase the tier
         if (currentRecipe.canCraft(currentIngredients))
         {
-            recipeTier++;
-            currentIngredients.Clear();
-            correctOrderIngredients.Clear();
-            onIngredientUpdate();
-            Debug.Log("Tier of crafting just went up... now tier : " + recipeTier);
+            increaseTier();
+            return;
         }
         //if we cant craft it, check if we still can craft it, if not, destroy recipe and clear ingredients
         if (!currentRecipe.canStillBeCrafted(currentIngredients))
@@ -171,6 +182,12 @@ public class CraftingManager : MonoBehaviour
             return;
         }
 
+    }
+
+    private void ThrowPotion()
+    {
+        Debug.Log("Threw potion! :D       *Not implemented*");
+        ClearIngredients();
     }
 
     private void AddIngredientList(GameObject ingredient)
@@ -203,6 +220,7 @@ public class CraftingManager : MonoBehaviour
         craftableRecipes.Clear();
         correctOrderIngredients.Clear();
         onIngredientUpdate();
+        onTierUpdate();
     }
 
 
