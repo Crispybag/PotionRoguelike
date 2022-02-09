@@ -16,8 +16,8 @@ public class IngredientSpawning : MonoBehaviour
     //respawn ingredient at new place
     private void RespawnIngredient(GameObject gObject)
     {
-        Vector3Int mapOffset = new Vector3Int(Mathf.RoundToInt(_map.transform.position.x), Mathf.RoundToInt(_map.transform.position.y));
-        Vector3Int respawnPos = new Vector3Int(0,0,0);
+        //Vector3Int mapOffset = new Vector3Int(Mathf.RoundToInt(_map.transform.position.x), Mathf.RoundToInt(_map.transform.position.y));
+        //Vector3Int respawnPos = new Vector3Int(0,0,0);
 
         //make sure it found a proper place to spawn
         List<Vector3Int> possibleSpawnCoords = new List<Vector3Int>();
@@ -55,7 +55,7 @@ public class IngredientSpawning : MonoBehaviour
         if (possibleSpawnCoords.Count == 0) return;
 
         //get possible spawn coordinates
-        respawnPos = possibleSpawnCoords[Random.Range(0, possibleSpawnCoords.Count)];
+        Vector3Int respawnPos = possibleSpawnCoords[Random.Range(0, possibleSpawnCoords.Count)];
 
         //instantiate it
         GameObject newIngredient = Instantiate(gObject, new Vector3(respawnPos.x, respawnPos.y, transform.position.z), gameObject.transform.rotation);

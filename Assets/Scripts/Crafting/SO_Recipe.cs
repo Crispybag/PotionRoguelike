@@ -28,6 +28,18 @@ public class SO_Recipe : ScriptableObject
         }
     }
 
+    public bool hasIngredient(string ingredientName)
+    {
+        foreach(KeyValuePair<string, int> ingredient in ingredientCount)
+        {
+            if(ingredientName == ingredient.Key)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /// <summary>
     /// Checks if the recipe is craftable

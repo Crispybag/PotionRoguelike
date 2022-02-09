@@ -10,22 +10,62 @@ public class CraftingManager : MonoBehaviour
 
     private List<SO_Recipe> possibleRecipes = new List<SO_Recipe>();
     private List<SO_Recipe> craftableRecipes = new List<SO_Recipe>();
+    private SO_Recipe currentRecipe;
+    //-1 because it means no crafting recipe has been set yet
+    private int recipeTier =  -1;
 
     /// <summary>
     /// Updates the current craftable recipe (if there is any)
     /// </summary>
     public void UpdateRecipe()
     {
-        checkCraftableRecipes();
+
         checkPossibleRecipes();
+        checkCraftableRecipes();
+    }
+
+
+
+
+    public void Update()
+    {
+        //reset crafting
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ClearIngredients();
+        }
+        //confirm crafting or throw potion
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if(currentRecipe == null){
+                setCraftingRecipe();
+            }
+            else
+            {
+
+            }
+        }
+    }
+
+    private void setCraftingRecipe()
+    {
+        //set crafting
+        if (craftableRecipes.Count == 1)
+        {
+            currentRecipe = craftableRecipes[0];
+            currentIngredients.Clear();
+            recipeTier++;
+        }
     }
 
 
     private void checkCraftableRecipes()
     {
         craftableRecipes.Clear();
+        //check if there is a possible recipe
+        if (possibleRecipes == null || possibleRecipes.Count == 0) return;
         //loop through all recipes
-        foreach(SO_Recipe recipe in recipes)
+        foreach(SO_Recipe recipe in possibleRecipes)
         {
             //check if the recipe can be crafted
             if (recipe.canCraft(currentIngredients))
@@ -37,7 +77,7 @@ public class CraftingManager : MonoBehaviour
         //a check if there are more than 1 possible crafting recipe, this is not allowed.
         if(craftableRecipes.Count > 1)
         {
-            Debug.LogWarning(craftableRecipes[0].title + " and " + craftableRecipes[1].title + " have the same crafting recipe, this is not allowed, please solve this");
+            Debug.LogError(craftableRecipes[0].title + " and " + craftableRecipes[1].title + " have the same crafting recipe, this is not allowed, please solve this");
             return;
         }
         else if(craftableRecipes.Count > 0)
@@ -80,6 +120,12 @@ public class CraftingManager : MonoBehaviour
     {
         //check if there is a dictionary
         if (currentIngredients == null) return;
+
+        if (currentRecipe != null)
+        {
+            AddTierRecipe(ingredient);
+            return;
+        }
         //if the dictionary does not contain a key for the ingredient yet, create it, with value 1 (because there is one of that ingredient so far)
         if (!currentIngredients.ContainsKey(ingredient.name))
         {
@@ -94,12 +140,51 @@ public class CraftingManager : MonoBehaviour
         UpdateRecipe();
     }
 
+    public void AddTierRecipe(GameObject ingredient)
+    {
+        //check if the ingredient is an ingredient in current recipe, if not, clear the recipe and everything else
+        if(!currentRecipe.hasIngredient(ingredient.name))
+        {
+            Debug.Log("Incorrect crafting material to tier up, clearing crafting...");
+            ClearIngredients();
+            return;
+        }
+        //if the dictionary does not contain a key for the ingredient yet, create it, with value 1 (because there is one of that ingredient so far)
+        if (!currentIngredients.ContainsKey(ingredient.name))
+        {
+            currentIngredients.Add(ingredient.name, 1);
+        }
+        //if it does exist, increase the value with one
+        else
+        {
+            currentIngredients[ingredient.name] = currentIngredients[ingredient.name] + 1;
+        }
+        //check if we can craft the recipe, if so increase the tier
+        if (currentRecipe.canCraft(currentIngredients))
+        {
+            recipeTier++;
+            currentIngredients.Clear();
+            Debug.Log("Tier of crafting just went up... now tier : " + recipeTier);
+        }
+        //if we cant craft it, check if we still can craft it, if not, destroy recipe and clear ingredients
+        if (!currentRecipe.canStillBeCrafted(currentIngredients))
+        {
+            Debug.Log("Incorrect crafting material to tier up, clearing crafting...");
+            ClearIngredients();
+            return;
+        }
+
+    }
+
+
 
     /// <summary>
-    /// clears all ingredients and possible/craftable recipes
+    /// Clears all ingredients and possible/craftable recipes
     /// </summary>
     public void ClearIngredients()
     {
+        currentRecipe = null;
+        recipeTier = -1;
         currentIngredients.Clear();
         possibleRecipes.Clear();
         craftableRecipes.Clear();
