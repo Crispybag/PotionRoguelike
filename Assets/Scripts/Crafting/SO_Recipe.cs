@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Recipe")]
+[CreateAssetMenu(menuName = "CraftingSystem/Recipe")]
 public class SO_Recipe : ScriptableObject
 {
     public string title;

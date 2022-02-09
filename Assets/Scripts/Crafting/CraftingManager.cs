@@ -2,30 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public delegate void IngredientUpdateHandler();
+
 public class CraftingManager : MonoBehaviour
 {
 
     public List<SO_Recipe> recipes;
     private Dictionary<string, int> currentIngredients = new Dictionary<string, int>();
+    [HideInInspector] public List<GameObject> correctOrderIngredients = new List<GameObject>();
+
+    public static IngredientUpdateHandler onIngredientUpdate;
 
     private List<SO_Recipe> possibleRecipes = new List<SO_Recipe>();
     private List<SO_Recipe> craftableRecipes = new List<SO_Recipe>();
-    private SO_Recipe currentRecipe;
+    [HideInInspector] public SO_Recipe currentRecipe;
     //-1 because it means no crafting recipe has been set yet
-    private int recipeTier =  -1;
+    public int recipeTier { get; private set; }
+
+
+
 
     /// <summary>
     /// Updates the current craftable recipe (if there is any)
     /// </summary>
     public void UpdateRecipe()
     {
-
         checkPossibleRecipes();
         checkCraftableRecipes();
     }
-
-
-
 
     public void Update()
     {
@@ -42,7 +47,10 @@ public class CraftingManager : MonoBehaviour
             }
             else
             {
+                //--------- throw potion ------
 
+                //clear everything
+                ClearIngredients();
             }
         }
     }
@@ -54,6 +62,8 @@ public class CraftingManager : MonoBehaviour
         {
             currentRecipe = craftableRecipes[0];
             currentIngredients.Clear();
+            correctOrderIngredients.Clear();
+            onIngredientUpdate();
             recipeTier++;
         }
     }
@@ -107,6 +117,7 @@ public class CraftingManager : MonoBehaviour
         }
         else
         {
+            ClearIngredients();
             return false;
         }
     }
@@ -126,16 +137,8 @@ public class CraftingManager : MonoBehaviour
             AddTierRecipe(ingredient);
             return;
         }
-        //if the dictionary does not contain a key for the ingredient yet, create it, with value 1 (because there is one of that ingredient so far)
-        if (!currentIngredients.ContainsKey(ingredient.name))
-        {
-            currentIngredients.Add(ingredient.name, 1);
-        }
-        //if it does exist, increase the value with one
-        else
-        {
-            currentIngredients[ingredient.name] = currentIngredients[ingredient.name] + 1;
-        }
+        //add ingredient to current ingredient list
+        AddIngredientList(ingredient);
         //since we adjusted the current ingredients, the result can be different now.
         UpdateRecipe();
     }
@@ -149,21 +152,15 @@ public class CraftingManager : MonoBehaviour
             ClearIngredients();
             return;
         }
-        //if the dictionary does not contain a key for the ingredient yet, create it, with value 1 (because there is one of that ingredient so far)
-        if (!currentIngredients.ContainsKey(ingredient.name))
-        {
-            currentIngredients.Add(ingredient.name, 1);
-        }
-        //if it does exist, increase the value with one
-        else
-        {
-            currentIngredients[ingredient.name] = currentIngredients[ingredient.name] + 1;
-        }
+        //add ingredient to current ingredient list
+        AddIngredientList(ingredient);
         //check if we can craft the recipe, if so increase the tier
         if (currentRecipe.canCraft(currentIngredients))
         {
             recipeTier++;
             currentIngredients.Clear();
+            correctOrderIngredients.Clear();
+            onIngredientUpdate();
             Debug.Log("Tier of crafting just went up... now tier : " + recipeTier);
         }
         //if we cant craft it, check if we still can craft it, if not, destroy recipe and clear ingredients
@@ -174,6 +171,22 @@ public class CraftingManager : MonoBehaviour
             return;
         }
 
+    }
+
+    private void AddIngredientList(GameObject ingredient)
+    {
+        //if the dictionary does not contain a key for the ingredient yet, create it, with value 1 (because there is one of that ingredient so far)
+        if (!currentIngredients.ContainsKey(ingredient.name))
+        {
+            currentIngredients.Add(ingredient.name, 1);
+        }
+        //if it does exist, increase the value with one
+        else
+        {
+            currentIngredients[ingredient.name] = currentIngredients[ingredient.name] + 1;
+        }
+        correctOrderIngredients.Add(ingredient);
+        onIngredientUpdate();
     }
 
 
@@ -188,6 +201,8 @@ public class CraftingManager : MonoBehaviour
         currentIngredients.Clear();
         possibleRecipes.Clear();
         craftableRecipes.Clear();
+        correctOrderIngredients.Clear();
+        onIngredientUpdate();
     }
 
 
