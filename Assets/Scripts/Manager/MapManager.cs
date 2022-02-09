@@ -2,27 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-public class TileManager : MonoBehaviour
+public class MapManager : MonoBehaviour
 {
     // Start is called before the first frame update
     private List<GameObject> objectsOnBoard;
-    public static TileManager tileManager;
+    public static MapManager mapManager;
     [SerializeField] private Tilemap _tilemap;
-
+    [SerializeField] private GameObject _garbagePrefab;
+    [SerializeField] private float _gameSpeed = 4;
     private void Awake()
     {
-        if (tileManager != null) { Destroy(this.gameObject); return; }
-        tileManager = this;
+        if (mapManager != null) { Destroy(gameObject); return; }
+        mapManager = this;
+        objectsOnBoard = new List<GameObject>();
     }
     void Start()
     {
-        objectsOnBoard = new List<GameObject>();
     }
-
+    public GameObject GetGarbagePrefab()
+    {
+        return _garbagePrefab;
+    }
 
     public void AddObjectsOnBoard(GameObject obj)
     {
         objectsOnBoard.Add(obj);
+    }
+
+    public float GetGameSpeed()
+    {
+        return _gameSpeed;
     }
 
     public void RemoveObjectsFromBoard(GameObject obj)

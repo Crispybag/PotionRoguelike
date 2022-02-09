@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public abstract class Movement : MonoBehaviour
 {
-    [SerializeField] private float _playerSpeed;
+    private float _playerSpeed;
     //[SerializeField] protected Tilemap _map;
     //Lerp vectors
     private Vector3 _startPosition;
@@ -13,14 +13,16 @@ public abstract class Movement : MonoBehaviour
 
     protected Vector3 _moveDir;
     private bool wantsToMove;
+
+
     public bool CanMove(Vector3 direction)
     {
         //where I want to go
-        Vector3 goalTile = transform.position + direction;
-        foreach (GameObject obj in TileManager.tileManager.getObjectsOnBoard())
+        Vector3Int goalTile = GridObject.ToVector3Int(transform.position) + GridObject.ToVector3Int(direction);
+        foreach (GameObject obj in MapManager.mapManager.getObjectsOnBoard())
         {
             //check if there is an object on the location
-            if (obj.transform.position == goalTile)
+            if (GridObject.ToVector3Int(obj.transform.position) == goalTile)
             {
 
                 //if it doesnt have a movement script
@@ -32,7 +34,7 @@ public abstract class Movement : MonoBehaviour
                 {
                     _moveDir = direction;
                     updateLerp(direction);
-                    return wantsToMove;
+                    return true;
                 }
             }
         }
@@ -51,6 +53,7 @@ public abstract class Movement : MonoBehaviour
         _lerpVal = 1.0f;
         _startPosition = transform.position;
         _endPosition = transform.position;
+        _playerSpeed = MapManager.mapManager.GetGameSpeed();
     }
 
     //function to update the lerp once it is done
@@ -69,7 +72,10 @@ public abstract class Movement : MonoBehaviour
     }
 
 
-
+    public Vector3Int GetEndPos()
+    {
+        return GridObject.ToVector3Int(_endPosition);
+    }
 
 
 
@@ -77,7 +83,7 @@ public abstract class Movement : MonoBehaviour
     protected virtual void Update()
     {
         //update lerp
-        _lerpVal += _playerSpeed * Time.deltaTime;
+        _lerpVal += _playerSpeed * Time.deltaTime + 2 *_lerpVal * _playerSpeed * Time.deltaTime;
         
         //lerp the player between the 2 coordinates
         transform.position = Vector3.Lerp(_startPosition, _endPosition, _lerpVal);
@@ -85,6 +91,6 @@ public abstract class Movement : MonoBehaviour
 
     private void OnDestroy()
     {
-        TileManager.tileManager.RemoveObjectsFromBoard(this.gameObject);
+        MapManager.mapManager.RemoveObjectsFromBoard(this.gameObject);
     }
 }

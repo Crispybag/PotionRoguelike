@@ -13,12 +13,12 @@ public class PlayerMovement : Movement
         float vert = walkDir.y;
 
         //check if the mouse doesnt go off grid
-        Vector3Int intPos = new Vector3Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), Mathf.RoundToInt(transform.position.z));
+        Vector3Int intPos = GridObject.ToVector3Int(transform.position);
         Vector3Int intDir = new Vector3Int(Mathf.RoundToInt(hori), Mathf.RoundToInt(vert), 0);
         Vector3Int goalTile = intPos + intDir;
-        Vector3Int mapOffset = new Vector3Int(Mathf.RoundToInt(TileManager.tileManager.GetTilemap().transform.position.x), Mathf.RoundToInt(TileManager.tileManager.GetTilemap().transform.position.y));
+        Vector3Int mapOffset = GridObject.ToVector3Int(MapManager.mapManager.GetTilemap().transform.position);
 
-        if (TileManager.tileManager.GetTilemap().GetTile(goalTile - mapOffset))
+        if (MapManager.mapManager.GetTilemap().GetTile(goalTile - mapOffset))
         {
             oldestWalkDir = new Vector3(hori, vert, 0);
             base.updateLerp(walkDir);
