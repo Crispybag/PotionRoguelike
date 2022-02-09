@@ -22,6 +22,11 @@ public class FallOffMap : MonoBehaviour
         {
             //make ingredientspawning do its thing if its there
             if (gameObject.GetComponent<IngredientSpawning>()) gameObject.GetComponent<IngredientSpawning>().OnGameObjectDestroy();
+            
+            if(intPos.y < _map.origin.y)
+            {
+                // go to crafting recipe
+            }
             Destroy(this.gameObject);
         }
     }
