@@ -22,13 +22,58 @@ public class CraftingUIManager : MonoBehaviour
     public void UpdateIngredients()
     {
         ClearIngredients();
-        foreach(GameObject ingredient in craftingManager.correctOrderIngredients)
+        List<SO_Ingredient> curIngredients = new List<SO_Ingredient>(craftingManager.correctOrderIngredients);
+
+        if(craftingManager.recipeTier != -1)
         {
-            GameObject ingr = Instantiate(ingredientPrefab);
-            ingr.transform.SetParent(craftingPot.transform);
-            currentIngredients.Add(ingr);
-            //ingr.GetComponent<Image>().sprite = ingredient.GetComponent<SpriteRenderer>().sprite;
+            foreach (SO_Ingredient ingredient in craftingManager.currentRecipe.ingredients)
+            {
+                GameObject ingr = Instantiate(ingredientPrefab);
+                ingr.transform.SetParent(craftingPot.transform);
+                currentIngredients.Add(ingr);
+                ingr.name = ingredient.title;
+                ingr.GetComponent<Image>().sprite = ingredient.icon;
+
+                SetAlpha(ingr, 0.5f);
+
+                List<SO_Ingredient> ingredientsToRemove = new List<SO_Ingredient>();
+                foreach (SO_Ingredient curIngr in curIngredients)
+                {
+                    if (curIngr.title == ingredient.title)
+                    {
+                        SetAlpha(ingr, 1);
+                        ingredientsToRemove.Add(curIngr);
+                        break;
+                    }
+                }
+                foreach (SO_Ingredient ingrToRemove in ingredientsToRemove)
+                {
+                    curIngredients.Remove(ingrToRemove);
+                }
+            }
+
+
+
+
         }
+        else
+        {
+            foreach (SO_Ingredient ingredient in craftingManager.correctOrderIngredients)
+            {
+                GameObject ingr = Instantiate(ingredientPrefab);
+                ingr.transform.SetParent(craftingPot.transform);
+                currentIngredients.Add(ingr);
+                ingr.GetComponent<Image>().sprite = ingredient.icon;
+            }
+        }
+
+    }
+
+    private void SetAlpha(GameObject obj, float alpha)
+    {
+        Color newColor = obj.GetComponent<Image>().color;
+        newColor.a = alpha;
+        obj.GetComponent<Image>().color = newColor;
     }
 
     private void ClearIngredients()
@@ -39,6 +84,10 @@ public class CraftingUIManager : MonoBehaviour
         }
         currentIngredients.Clear();
     }
+
+
+
+
 
 
     private void UpdateTier()

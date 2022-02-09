@@ -14,6 +14,7 @@ public class IngredientStats : MonoBehaviour
             spriteRenderer = GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = ingredientStats.gameSprite;
         }
+        gameObject.name = ingredientStats.title;
 
     }
 

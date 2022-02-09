@@ -11,7 +11,7 @@ public class CraftingManager : MonoBehaviour
 
     public List<SO_Recipe> recipes;
     private Dictionary<string, int> currentIngredients = new Dictionary<string, int>();
-    [HideInInspector] public List<GameObject> correctOrderIngredients = new List<GameObject>();
+    public List<SO_Ingredient> correctOrderIngredients = new List<SO_Ingredient>();
 
     public static IngredientUpdateHandler onIngredientUpdate;
     public static TierUpdateHandler onTierUpdate;
@@ -20,7 +20,7 @@ public class CraftingManager : MonoBehaviour
     private List<SO_Recipe> craftableRecipes = new List<SO_Recipe>();
     [HideInInspector] public SO_Recipe currentRecipe;
     //-1 because it means no crafting recipe has been set yet
-    public int recipeTier { get; private set; }
+    public int recipeTier = -1;
 
 
 
@@ -64,6 +64,7 @@ public class CraftingManager : MonoBehaviour
             currentRecipe = craftableRecipes[0];
             increaseTier();
         }
+        onIngredientUpdate();
     }
 
     private void increaseTier()
@@ -146,6 +147,12 @@ public class CraftingManager : MonoBehaviour
         //check if there is a dictionary
         if (currentIngredients == null) return;
 
+        if (!ingredient.GetComponent<IngredientStats>())
+        {
+            ClearIngredients();
+            return;
+        }
+
         if (currentRecipe != null)
         {
             AddTierRecipe(ingredient);
@@ -202,7 +209,7 @@ public class CraftingManager : MonoBehaviour
         {
             currentIngredients[ingredient.name] = currentIngredients[ingredient.name] + 1;
         }
-        correctOrderIngredients.Add(ingredient);
+        correctOrderIngredients.Add(ingredient.GetComponent<IngredientStats>().ingredientStats);
         onIngredientUpdate();
     }
 

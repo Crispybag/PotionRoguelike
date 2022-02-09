@@ -6,24 +6,24 @@ using UnityEngine;
 public class SO_Recipe : ScriptableObject
 {
     public string title;
-    public List<GameObject> ingredients;
+    public List<SO_Ingredient> ingredients;
     private Dictionary<string, int> ingredientCount = new Dictionary<string, int>();
 
     private void OnValidate()
     {
         ingredientCount.Clear();
         //loop through each ingredient
-        foreach(GameObject ingredient in ingredients)
+        foreach(SO_Ingredient ingredient in ingredients)
         {
             //if it doesnt exist in the dictionary yet, add it, with value 1
-            if (!ingredientCount.ContainsKey(ingredient.name))
+            if (!ingredientCount.ContainsKey(ingredient.title))
             {
-                ingredientCount.Add(ingredient.name, 1);
+                ingredientCount.Add(ingredient.title, 1);
             }
             //if it does exist, get its value, and increase it by one
             else
             {
-                ingredientCount[ingredient.name] = ingredientCount[ingredient.name] + 1;
+                ingredientCount[ingredient.title] = ingredientCount[ingredient.title] + 1;
             }
         }
     }

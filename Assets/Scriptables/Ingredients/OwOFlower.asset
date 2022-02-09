@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: OwOFlower
   m_EditorClassIdentifier: 
   gameSprite: {fileID: 21300000, guid: adaa499c26826ac44a392011f085e500, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: adaa499c26826ac44a392011f085e500, type: 3}
   title: OwOFlower
