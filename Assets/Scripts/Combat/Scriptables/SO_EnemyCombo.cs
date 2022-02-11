@@ -14,11 +14,10 @@ public class SO_EnemyCombo : ScriptableObject
     {
         currentMove++;
         //fire shot currentmove is pointing at
-        if (currentMove >= (moves.Count)) lastShotFired = true;
+        if (currentMove >= (moves.Count)) { lastShotFired = true; currentMove = 0; }
         else
         {
             lastShotFired = false;
-            currentMove = 0;
         }
     }
 

@@ -37,8 +37,7 @@ public class FireMove : MonoBehaviour
 
     void Setup(SO_Move pMove)
     {
-        //add variables here, didnt feel like doing yet
-
+        baseMovePrefab.GetComponent<MoveStats>().Setup(pMove);
     }
 
 }

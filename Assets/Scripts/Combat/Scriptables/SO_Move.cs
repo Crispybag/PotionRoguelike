@@ -6,6 +6,7 @@ using UnityEngine;
 public class SO_Move : ScriptableObject
 {
     public string name;
+    public Sprite sprite;
     public enum Debuff { SLOW, STUN };
 
     public int damage;
