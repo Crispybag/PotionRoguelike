@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf1a71ab5d4bdd4293e8629c4922fc6, type: 3}
   m_Name: SpookyNut
   m_EditorClassIdentifier: 
-  gameSprite: {fileID: 21300000, guid: af5bda073ba105044baab4f968105a13, type: 3}
-  icon: {fileID: 21300000, guid: af5bda073ba105044baab4f968105a13, type: 3}
+  gameSprite: {fileID: 21300000, guid: 9e26b680c6a6748429aee2fcd3d83e6c, type: 3}
+  icon: {fileID: 21300000, guid: 9e26b680c6a6748429aee2fcd3d83e6c, type: 3}
   title: SpookyNut
