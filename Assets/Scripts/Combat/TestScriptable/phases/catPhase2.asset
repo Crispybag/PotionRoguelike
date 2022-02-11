@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5dec5fe510411a48b1f91f89278831b, type: 3}
+  m_Name: catPhase2
+  m_EditorClassIdentifier: 
+  requirementType: 0
+  healthRequirement: 0.5
+  timeRequirement: 0
+  enemyCombos:
+  - {fileID: 11400000, guid: 65606f6a32070404a840d09534d0efb9, type: 2}
+  - {fileID: 11400000, guid: f60ada9ad7872e0458ae4f2dd8d453cb, type: 2}
+  - {fileID: 11400000, guid: 75e792a4c27966246ae57ad57d4069ab, type: 2}
+  isStartingPhase: 0
+  currentEnemyCombo: {fileID: 0}
