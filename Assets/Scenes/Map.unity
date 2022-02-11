@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 688855}
   m_Layer: 0
-  m_Name: SpawnPos (4)
+  m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -416,7 +416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 187153764}
   m_Layer: 0
-  m_Name: SpawnPos (1)
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -480,7 +480,7 @@ GameObject:
   m_Component:
   - component: {fileID: 240587597}
   m_Layer: 0
-  m_Name: SpawnPos (12)
+  m_Name: 12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -511,7 +511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 259944635}
   m_Layer: 0
-  m_Name: SpawnPos (19)
+  m_Name: 19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1148,7 +1148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 617522341}
   m_Layer: 0
-  m_Name: SpawnPos (22)
+  m_Name: 22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1549,7 +1549,7 @@ GameObject:
   m_Component:
   - component: {fileID: 752652688}
   m_Layer: 0
-  m_Name: SpawnPos (14)
+  m_Name: 14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1580,7 +1580,7 @@ GameObject:
   m_Component:
   - component: {fileID: 772986071}
   m_Layer: 0
-  m_Name: SpawnPos (16)
+  m_Name: 16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1779,7 +1779,7 @@ GameObject:
   m_Component:
   - component: {fileID: 868892797}
   m_Layer: 0
-  m_Name: SpawnPos (20)
+  m_Name: 20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1844,7 +1844,7 @@ GameObject:
   m_Component:
   - component: {fileID: 920376614}
   m_Layer: 0
-  m_Name: SpawnPos (13)
+  m_Name: 13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1875,7 +1875,7 @@ GameObject:
   m_Component:
   - component: {fileID: 955517450}
   m_Layer: 0
-  m_Name: SpawnPos (10)
+  m_Name: 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1973,7 +1973,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1130862905}
   m_Layer: 0
-  m_Name: SpawnPos (24)
+  m_Name: 24
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2441,7 +2441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1285275279}
   m_Layer: 0
-  m_Name: SpawnPos (21)
+  m_Name: 21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2758,7 +2758,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1329247470}
   m_Layer: 0
-  m_Name: SpawnPos (17)
+  m_Name: 17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2789,7 +2789,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1329926696}
   m_Layer: 0
-  m_Name: SpawnPos (3)
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2820,7 +2820,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1332180874}
   m_Layer: 0
-  m_Name: SpawnPos (5)
+  m_Name: 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2884,7 +2884,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1357808336}
   m_Layer: 0
-  m_Name: SpawnPos (9)
+  m_Name: 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2949,7 +2949,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1385536015}
   m_Layer: 0
-  m_Name: SpawnPos (15)
+  m_Name: 15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3077,6 +3077,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
   - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
   prefab: {fileID: 4149531741654040039, guid: 1a6b7ff70dd33fc418561803ed09b315, type: 3}
+  dotPrefab: {fileID: 5995050924483480413, guid: d9516ee75092a2f449d8d8ee2f51d981, type: 3}
   availablePositions:
   - {fileID: 1609532131}
   - {fileID: 187153763}
@@ -3103,7 +3104,7 @@ MonoBehaviour:
   - {fileID: 617522340}
   - {fileID: 2109220369}
   - {fileID: 1130862904}
-  sortedList: []
+  sortEnemies: []
 --- !u!1 &1429468544
 GameObject:
   m_ObjectHideFlags: 0
@@ -3316,7 +3317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1589907062}
   m_Layer: 0
-  m_Name: SpawnPos (18)
+  m_Name: 18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3347,7 +3348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1609532132}
   m_Layer: 0
-  m_Name: SpawnPos
+  m_Name: 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3584,7 +3585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1712666350}
   m_Layer: 0
-  m_Name: SpawnPos (8)
+  m_Name: 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4103,7 +4104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1807448268}
   m_Layer: 0
-  m_Name: SpawnPos (6)
+  m_Name: 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4134,7 +4135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1886170467}
   m_Layer: 0
-  m_Name: SpawnPos (11)
+  m_Name: 11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4249,7 +4250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1938260209}
   m_Layer: 0
-  m_Name: SpawnPos (7)
+  m_Name: 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4818,7 +4819,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2109220370}
   m_Layer: 0
-  m_Name: SpawnPos (23)
+  m_Name: 23
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4849,7 +4850,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2139637285}
   m_Layer: 0
-  m_Name: SpawnPos (2)
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
