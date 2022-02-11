@@ -16,9 +16,7 @@ public class GridManager : MonoBehaviour
         mapManager = this;
         objectsOnBoard = new List<GameObject>();
     }
-    void Start()
-    {
-    }
+
     public GameObject GetGarbagePrefab()
     {
         return _garbagePrefab;
