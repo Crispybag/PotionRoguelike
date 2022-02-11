@@ -2980,6 +2980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1394977858}
   - component: {fileID: 1394977857}
+  - component: {fileID: 1394977859}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -3054,6 +3055,55 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1394977859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394977856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b52d4f6e81bb9140bb7e04b4b99aa3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies:
+  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
+  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
+  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
+  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
+  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
+  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
+  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
+  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
+  prefab: {fileID: 4149531741654040039, guid: 1a6b7ff70dd33fc418561803ed09b315, type: 3}
+  availablePositions:
+  - {fileID: 1609532131}
+  - {fileID: 187153763}
+  - {fileID: 2139637284}
+  - {fileID: 1329926695}
+  - {fileID: 688854}
+  - {fileID: 1332180873}
+  - {fileID: 1807448267}
+  - {fileID: 1938260208}
+  - {fileID: 1712666349}
+  - {fileID: 1357808335}
+  - {fileID: 955517449}
+  - {fileID: 1886170466}
+  - {fileID: 240587596}
+  - {fileID: 920376613}
+  - {fileID: 752652687}
+  - {fileID: 1385536014}
+  - {fileID: 772986070}
+  - {fileID: 1329247469}
+  - {fileID: 1589907061}
+  - {fileID: 259944634}
+  - {fileID: 868892796}
+  - {fileID: 1285275278}
+  - {fileID: 617522340}
+  - {fileID: 2109220369}
+  - {fileID: 1130862904}
+  sortedList: []
 --- !u!1 &1429468544
 GameObject:
   m_ObjectHideFlags: 0
@@ -3566,7 +3616,6 @@ GameObject:
   - component: {fileID: 1721565988}
   - component: {fileID: 1721565987}
   - component: {fileID: 1721565986}
-  - component: {fileID: 1721565989}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3640,55 +3689,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1721565989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1721565985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b52d4f6e81bb9140bb7e04b4b99aa3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
-  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
-  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
-  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
-  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
-  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
-  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
-  - {fileID: 11400000, guid: 1cbe05dc4eabbfd45b82e7da6241b77e, type: 2}
-  prefab: {fileID: 4149531741654040039, guid: 1a6b7ff70dd33fc418561803ed09b315, type: 3}
-  availablePositions:
-  - {fileID: 1609532131}
-  - {fileID: 187153763}
-  - {fileID: 2139637284}
-  - {fileID: 1329926695}
-  - {fileID: 688854}
-  - {fileID: 1332180873}
-  - {fileID: 1807448267}
-  - {fileID: 1938260208}
-  - {fileID: 1712666349}
-  - {fileID: 1357808335}
-  - {fileID: 955517449}
-  - {fileID: 1886170466}
-  - {fileID: 240587596}
-  - {fileID: 920376613}
-  - {fileID: 752652687}
-  - {fileID: 1385536014}
-  - {fileID: 772986070}
-  - {fileID: 1329247469}
-  - {fileID: 1589907061}
-  - {fileID: 259944634}
-  - {fileID: 868892796}
-  - {fileID: 1285275278}
-  - {fileID: 617522340}
-  - {fileID: 2109220369}
-  - {fileID: 1130862904}
-  sortedList: []
 --- !u!1 &1723394201
 GameObject:
   m_ObjectHideFlags: 0

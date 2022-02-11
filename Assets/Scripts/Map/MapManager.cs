@@ -12,27 +12,70 @@ public class MapManager : MonoBehaviour
 
     private List<GameObject> positionsToRemove = new List<GameObject>();
 
-    public List<GameObject> sortedList;
-
-
+    public Dictionary<int, GameObject> unsortedEnemies;
+    SortedDictionary<int, GameObject> sortedEnemies;
 
     // Start is called before the first frame update
     void Start()
     {
+        unsortedEnemies = new Dictionary<int, GameObject>();
+        int i = 0;
         foreach (TempEnemy enemy in enemies)
         {
             int randomPos = Random.Range(0, availablePositions.Count);
             Vector3 newPos = availablePositions[randomPos].transform.position;
             GameObject newEnemy = Instantiate(prefab);
             newEnemy.transform.position = newPos;
-            sortedList.Add(newEnemy);
+            unsortedEnemies.Add(int.Parse(availablePositions[randomPos].name), newEnemy);
             RemovePositions(randomPos);
+            i++;
         }
 
+        sortedEnemies = new SortedDictionary<int, GameObject>(unsortedEnemies);
+
+        int index = 0;
+        int bleh = 0;
+        foreach(KeyValuePair<int, GameObject> dunno in sortedEnemies)
+        {
+            switch (index)
+            {
+                case 0:
+                    dunno.Value.GetComponent<SpriteRenderer>().color = Color.red;
+                    break;
+                case 1:
+                    dunno.Value.GetComponent<SpriteRenderer>().color = Color.green;
+                    break;
+                case 2:
+                    dunno.Value.GetComponent<SpriteRenderer>().color = Color.blue;
+                    break;
+                case 3:
+                    dunno.Value.GetComponent<SpriteRenderer>().color = Color.yellow;
+                    break;
+            }
+
+
+
+            if (bleh % 2 == 1)
+            {
+                index++;
+            }
+            bleh++;
+        }
 
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            AdvanceBrackets();
+        }
+    }
 
+    private void AdvanceBrackets()
+    {
+
+    }
 
 
 
