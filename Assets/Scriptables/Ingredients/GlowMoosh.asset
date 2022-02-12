@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: caf1a71ab5d4bdd4293e8629c4922fc6, type: 3}
-  m_Name: OwOFlower
+  m_Name: GlowMoosh
   m_EditorClassIdentifier: 
-  gameSprite: {fileID: 21300000, guid: 90d0c5380c3a4584792db657694ffb71, type: 3}
-  icon: {fileID: 21300000, guid: 90d0c5380c3a4584792db657694ffb71, type: 3}
-  title: OwOFlower
+  gameSprite: {fileID: 21300000, guid: 8b976070d0604fd4ca5137e8abbefc14, type: 3}
+  icon: {fileID: 21300000, guid: 8b976070d0604fd4ca5137e8abbefc14, type: 3}
+  title: GlowMoosh
