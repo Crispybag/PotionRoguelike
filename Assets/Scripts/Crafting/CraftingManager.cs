@@ -23,8 +23,10 @@ public class CraftingManager : MonoBehaviour
 
     //variables for crafting potions
     public SO_PlayerMoveManager moveManager;
-    public GameObject potionPrefab;
 
+    //recipe manager so other parts of code can access what recipe is being crafted
+    public SO_GetCurrentRecipe getRecipe;
+    public GameObject potionPrefab;
 
     /// <summary>
     /// Updates the current craftable recipe (if there is any)
@@ -61,6 +63,7 @@ public class CraftingManager : MonoBehaviour
         if (craftableRecipes.Count == 1)
         {
             currentRecipe = craftableRecipes[0];
+            updateGetCurrentRecipe();
             increaseTier();
         }
         onIngredientUpdate();
@@ -225,6 +228,7 @@ public class CraftingManager : MonoBehaviour
     public void ClearIngredients()
     {
         currentRecipe = null;
+        updateGetCurrentRecipe();
         recipeTier = -1;
         currentIngredients.Clear();
         possibleRecipes.Clear();
@@ -241,5 +245,9 @@ public class CraftingManager : MonoBehaviour
         onTierUpdate = null;
     }
 
-
+    //update the recipe for the ui (this is done when the current recipe is set to a new value)
+    void updateGetCurrentRecipe()
+    {
+        getRecipe.RecipeChanged(currentRecipe);
+    }
 }
