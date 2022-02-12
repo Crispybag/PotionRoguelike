@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requirementType: 1
   healthRequirement: 0
-  timeRequirement: 3
+  timeRequirement: 30
   enemyCombos:
   - {fileID: 11400000, guid: c3fe097b8e450b84b84111234ef59ba0, type: 2}
   isStartingPhase: 0
-  currentEnemyCombo: {fileID: 0}

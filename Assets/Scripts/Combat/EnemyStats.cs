@@ -7,13 +7,15 @@ public class EnemyStats : MonoBehaviour
     [HideInInspector] public SO_Enemy scriptableEnemy;
     int maxHealth;
     int currentHealth;
+    int currentShield;
     float timeAlive;
     float craftingSpeed;
-    
-    public SO_EnemyPhase currentPhase = null;
-    public SO_EnemyCombo currentCombo = null;
-    public bool lastShotFired = true;
-    public int currentMove;
+
+    public SO_MoveTriggerManager moveManager;
+    [HideInInspector] public SO_EnemyPhase currentPhase = null;
+    [HideInInspector] public SO_EnemyCombo currentCombo = null;
+    [HideInInspector] public bool lastShotFired = true;
+    [HideInInspector] public int currentMove;
 
 
     SpriteRenderer spriteRenderer;
@@ -61,5 +63,19 @@ public class EnemyStats : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        moveManager.onMoveReachedEnd.AddListener(doMoveEffects);
+    }
+    private void OnDisable()
+    {
+        moveManager.onMoveReachedEnd.RemoveListener(doMoveEffects);
+    }
 
+
+    private void doMoveEffects(MoveStats s)
+    {
+        currentHealth += s.healing;
+        currentShield += s.shielding;
+    }
 }

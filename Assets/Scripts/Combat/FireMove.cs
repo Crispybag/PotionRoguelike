@@ -7,7 +7,7 @@ public class FireMove : MonoBehaviour
     [SerializeField] private GameObject baseMovePrefab;
     float timeChanneling;
     EnemyStats enemyStats;
-
+    GameObject instantiatedMove;
     void Start()
     {
         enemyStats = GetComponent<EnemyStats>();
@@ -29,15 +29,15 @@ public class FireMove : MonoBehaviour
         Debug.Log("Do Move! " + enemyStats.currentCombo.moves[enemyStats.currentMove].name);
         enemyStats.currentCombo.RegisterShot(ref enemyStats.currentMove, ref enemyStats.lastShotFired);
 
-        Setup(enemyStats.currentCombo.moves[enemyStats.currentMove]);
         timeChanneling = 0;
-        Instantiate(baseMovePrefab);
+        instantiatedMove = Instantiate(baseMovePrefab);
+        Setup(enemyStats.currentCombo.moves[enemyStats.currentMove]);
 
     }
 
     void Setup(SO_Move pMove)
     {
-        baseMovePrefab.GetComponent<MoveStats>().Setup(pMove);
+        instantiatedMove.GetComponent<MoveStats>().Setup(pMove, enemyStats.moveManager);
     }
 
 }

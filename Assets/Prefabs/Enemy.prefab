@@ -99,8 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: 0514621c2553e4845bbe6b944ebe22dd, type: 2}
+  moveManager: {fileID: 11400000, guid: b82662e3a6d92954685a483293856082, type: 2}
   currentPhase: {fileID: 11400000, guid: caa8d0825ced72049b859bd0cad15e30, type: 2}
-  currentCombo: {fileID: 11400000, guid: 65606f6a32070404a840d09534d0efb9, type: 2}
+  currentCombo: {fileID: 11400000, guid: f60ada9ad7872e0458ae4f2dd8d453cb, type: 2}
   lastShotFired: 0
   currentMove: 0
 --- !u!114 &1008941838019493254

@@ -9,14 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8273908d3ec8f0d409a3c029f30ab639, type: 3}
-  m_Name: pew
+  m_Script: {fileID: 11500000, guid: 55e5a14d0be2abb4eae0d5c8a185cf2d, type: 3}
+  m_Name: Yo
   m_EditorClassIdentifier: 
-  name: pew
-  sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  damage: 5
-  healing: 0
-  shielding: 0
-  castTime: 5
-  travelTime: 15
-  debuffs: 
+  onMoveReachedEnd:
+    m_PersistentCalls:
+      m_Calls: []
