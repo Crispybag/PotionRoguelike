@@ -9,12 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5dec5fe510411a48b1f91f89278831b, type: 3}
-  m_Name: catPhaseRage
+  m_Script: {fileID: 11500000, guid: 63bbd6cc23664aa439ce1e350b81da9d, type: 3}
+  m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  requirementType: 1
-  healthRequirement: 0
-  timeRequirement: 120
-  enemyCombos:
-  - {fileID: 11400000, guid: c3fe097b8e450b84b84111234ef59ba0, type: 2}
-  isStartingPhase: 0

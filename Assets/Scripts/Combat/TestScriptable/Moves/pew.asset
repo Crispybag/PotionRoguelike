@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: pew
   m_EditorClassIdentifier: 
   name: pew
-  sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  sprite: {fileID: 21300000, guid: d8e412a3743479241a07fd10a4f33b81, type: 3}
   damage: 5
   healing: 0
   shielding: 0

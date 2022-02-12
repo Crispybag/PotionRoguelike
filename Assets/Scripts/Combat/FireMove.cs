@@ -30,7 +30,7 @@ public class FireMove : MonoBehaviour
         enemyStats.currentCombo.RegisterShot(ref enemyStats.currentMove, ref enemyStats.lastShotFired);
 
         timeChanneling = 0;
-        instantiatedMove = Instantiate(baseMovePrefab);
+        instantiatedMove = Instantiate(baseMovePrefab, gameObject.transform);
         Setup(enemyStats.currentCombo.moves[enemyStats.currentMove]);
 
     }

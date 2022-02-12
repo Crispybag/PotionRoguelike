@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb6a97eb4c63e5e44b3b1203bb643c3a, type: 3}
-  m_Name: cat
+  m_Name: slime
   m_EditorClassIdentifier: 
-  enemyName: Cat
-  sprite: {fileID: 21300000, guid: fd098fb4cf57bad419701c802e442b7e, type: 3}
+  enemyName: Slime
+  sprite: {fileID: 21300000, guid: 59cdaede75c6c0342b903427065332df, type: 3}
   baseHealth: 100
   craftingSpeed: 1
   enemyPhases:

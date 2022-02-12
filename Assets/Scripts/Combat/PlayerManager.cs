@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     //build observer
-    private int  _currentHealth, _currentShield;
+    public int  _currentHealth, _currentShield;
+    [SerializeField] private SO_PlayerStats playerStats;
+
     [SerializeField] private SO_MoveTriggerManager moveManager;
     private void TakeDamage(int pDmg)
     {
@@ -32,5 +34,6 @@ public class PlayerManager : MonoBehaviour
     {
         if(_currentShield > 0 && move.damage > 0) { _currentShield--; return; }
         _currentHealth -= move.damage;
+        playerStats.onPlayerStatsChanged(this);
     }
 }

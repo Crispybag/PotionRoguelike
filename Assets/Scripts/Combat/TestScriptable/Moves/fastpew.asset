@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: fastpew
   m_EditorClassIdentifier: 
   name: fast pew
-  sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  sprite: {fileID: 21300000, guid: 9a10caf34d61fbc47a4686c4bb8fa4e3, type: 3}
   damage: 1
   healing: 0
   shielding: 0

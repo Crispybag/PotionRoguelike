@@ -17,6 +17,6 @@ public class EnemyManager : MonoBehaviour
     {
         baseEnemyPrefab.GetComponent<EnemyStats>().scriptableEnemy = enemy;
         baseEnemyPrefab.GetComponent<EnemyStats>().Setup();
-        Instantiate(baseEnemyPrefab);
+        Instantiate(baseEnemyPrefab, gameObject.transform);
     }
 }
