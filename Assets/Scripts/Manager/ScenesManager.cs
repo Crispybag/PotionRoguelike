@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class ScenesManager : MonoBehaviour
 {
     int playerHealth = 1;
-    SO_PlayerStats playerStats;
+    [SerializeField] SO_PlayerStats playerStats;
     void Start()
     {
         
@@ -30,17 +30,17 @@ public class ScenesManager : MonoBehaviour
         playerHealth = manager._currentHealth;
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(int sceneIndex)
     {
         SceneManager.GetActiveScene();
-        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        SceneManager.LoadScene(sceneIndex, LoadSceneMode.Single);
     }
     // Update is called once per frame
     void Update()
     {
         if (playerHealth <= 0)
         {
-            LoadScene("Menu");
+            LoadScene(1);
         }
     }
 }
