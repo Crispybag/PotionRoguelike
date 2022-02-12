@@ -16,9 +16,9 @@ public class PlayerMovement : Movement
         Vector3Int intPos = GridObject.ToVector3Int(transform.position);
         Vector3Int intDir = new Vector3Int(Mathf.RoundToInt(hori), Mathf.RoundToInt(vert), 0);
         Vector3Int goalTile = intPos + intDir;
-        Vector3Int mapOffset = GridObject.ToVector3Int(MapManager.mapManager.GetTilemap().transform.position);
+        Vector3Int mapOffset = GridObject.ToVector3Int(GridManager.mapManager.GetTilemap().transform.position);
 
-        if (MapManager.mapManager.GetTilemap().GetTile(goalTile - mapOffset))
+        if (GridManager.mapManager.GetTilemap().GetTile(goalTile - mapOffset))
         {
             oldestWalkDir = new Vector3(hori, vert, 0);
             base.updateLerp(walkDir);

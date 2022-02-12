@@ -19,7 +19,7 @@ public abstract class Movement : MonoBehaviour
     {
         //where I want to go
         Vector3Int goalTile = GridObject.ToVector3Int(transform.position) + GridObject.ToVector3Int(direction);
-        foreach (GameObject obj in MapManager.mapManager.getObjectsOnBoard())
+        foreach (GameObject obj in GridManager.mapManager.getObjectsOnBoard())
         {
             //check if there is an object on the location
             if (GridObject.ToVector3Int(obj.transform.position) == goalTile)
@@ -53,7 +53,7 @@ public abstract class Movement : MonoBehaviour
         _lerpVal = 1.0f;
         _startPosition = transform.position;
         _endPosition = transform.position;
-        _playerSpeed = MapManager.mapManager.GetGameSpeed();
+        _playerSpeed = GridManager.mapManager.GetGameSpeed();
     }
 
     //function to update the lerp once it is done
@@ -91,6 +91,6 @@ public abstract class Movement : MonoBehaviour
 
     private void OnDestroy()
     {
-        MapManager.mapManager.RemoveObjectsFromBoard(gameObject);
+        GridManager.mapManager.RemoveObjectsFromBoard(gameObject);
     }
 }

@@ -50,8 +50,6 @@ public class CraftingManager : MonoBehaviour
             else
             {
                 ThrowPotion();
-                //clear everything
-                ClearIngredients();
             }
         }
     }

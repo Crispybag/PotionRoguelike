@@ -34,7 +34,7 @@ public class CraftingUIManager : MonoBehaviour
                 ingr.name = ingredient.title;
                 ingr.GetComponent<Image>().sprite = ingredient.icon;
 
-                SetAlpha(ingr, 0.5f);
+                SetAlpha(ingr, 0.25f);
 
                 List<SO_Ingredient> ingredientsToRemove = new List<SO_Ingredient>();
                 foreach (SO_Ingredient curIngr in curIngredients)

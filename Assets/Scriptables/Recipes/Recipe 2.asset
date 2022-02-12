@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caf1a71ab5d4bdd4293e8629c4922fc6, type: 3}
-  m_Name: Trash
+  m_Script: {fileID: 11500000, guid: 44523ddef44e91449b2249ff429f0d18, type: 3}
+  m_Name: Recipe 2
   m_EditorClassIdentifier: 
-  gameSprite: {fileID: 21300000, guid: ec2eb3c8338c0fd4aa8f89c0daabbada, type: 3}
-  icon: {fileID: 0}
-  title: Trash
+  title: PinPin
+  ingredients:
+  - {fileID: 11400000, guid: 075871bb9be5f564a9a8012994ee1af1, type: 2}
+  - {fileID: 11400000, guid: 075871bb9be5f564a9a8012994ee1af1, type: 2}

@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caf1a71ab5d4bdd4293e8629c4922fc6, type: 3}
-  m_Name: OwOFlower
+  m_Script: {fileID: 11500000, guid: 44523ddef44e91449b2249ff429f0d18, type: 3}
+  m_Name: Recipe 6
   m_EditorClassIdentifier: 
-  gameSprite: {fileID: 21300000, guid: adaa499c26826ac44a392011f085e500, type: 3}
-  icon: {fileID: 21300000, guid: adaa499c26826ac44a392011f085e500, type: 3}
-  title: OwOFlower
+  title: GlowNoon
+  ingredients:
+  - {fileID: 11400000, guid: 0f4aa9995efa21f4d8c7b5ff4ed36be5, type: 2}
+  - {fileID: 11400000, guid: f34fc971013c35c438ae161eb9692b7b, type: 2}

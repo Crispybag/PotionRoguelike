@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: caf1a71ab5d4bdd4293e8629c4922fc6, type: 3}
-  m_Name: EmojiClover
+  m_Name: GlowMoosh
   m_EditorClassIdentifier: 
-  gameSprite: {fileID: 21300000, guid: 70c350bcb6d739542b05d45fd86eba50, type: 3}
-  icon: {fileID: 21300000, guid: 70c350bcb6d739542b05d45fd86eba50, type: 3}
-  title: EmojiClover
+  gameSprite: {fileID: 21300000, guid: 8b976070d0604fd4ca5137e8abbefc14, type: 3}
+  icon: {fileID: 21300000, guid: 8b976070d0604fd4ca5137e8abbefc14, type: 3}
+  title: GlowMoosh

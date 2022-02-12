@@ -16,16 +16,16 @@ public class GridObject : MonoBehaviour
 
     private void Awake()
     {
-        if (MapManager.mapManager != null && MapManager.mapManager.getObjectsOnBoard() != null)
+        if (GridManager.mapManager != null && GridManager.mapManager.getObjectsOnBoard() != null)
         {
-            MapManager.mapManager.AddObjectsOnBoard(gameObject);
+            GridManager.mapManager.AddObjectsOnBoard(gameObject);
             isAdded = true;
         }
     }
 
     void Start()
     {
-        if(!isAdded)MapManager.mapManager.AddObjectsOnBoard(gameObject);
+        if(!isAdded)GridManager.mapManager.AddObjectsOnBoard(gameObject);
     }
     
 }

@@ -10,7 +10,7 @@ public class IngredientSpawning : MonoBehaviour
     private void Start()
     {
         amountOfGarbage = 2;
-        _map = MapManager.mapManager.GetTilemap();
+        _map = GridManager.mapManager.GetTilemap();
     }
 
 
@@ -25,7 +25,7 @@ public class IngredientSpawning : MonoBehaviour
                 bool isAvailable = true;
                 Vector3Int position = GridObject.ToVector3Int(new Vector3(x + _map.origin.x, y + _map.origin.y, 0));
                 //check if any objects are on this position
-                foreach (GameObject obj in MapManager.mapManager.getObjectsOnBoard())
+                foreach (GameObject obj in GridManager.mapManager.getObjectsOnBoard())
                 {
                     //return false if spot isnt available
                     if (GridObject.ToVector3Int(obj.transform.position) == position)
@@ -51,7 +51,7 @@ public class IngredientSpawning : MonoBehaviour
     //respawn ingredient at new place
     public void RespawnIngredient(GameObject gObject)
     {
-        if (_map == null) _map = MapManager.mapManager.GetTilemap();
+        if (_map == null) _map = GridManager.mapManager.GetTilemap();
         //make sure it found a proper place to spawn
 
         List<Vector3Int> possibleSpawnCoords = generateAvailablePlaces();
@@ -72,7 +72,7 @@ public class IngredientSpawning : MonoBehaviour
         RespawnIngredient(gameObject);
         for (int i = 0; i < amountOfGarbage; i++)
         {
-            RespawnIngredient(MapManager.mapManager.GetGarbagePrefab());
+            RespawnIngredient(GridManager.mapManager.GetGarbagePrefab());
         }
     }
 }

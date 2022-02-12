@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-public class MapManager : MonoBehaviour
+public class GridManager : MonoBehaviour
 {
     // Start is called before the first frame update
     private List<GameObject> objectsOnBoard;
-    public static MapManager mapManager;
+    public static GridManager mapManager;
     [SerializeField] private Tilemap _tilemap;
     [SerializeField] private GameObject _garbagePrefab;
     [SerializeField] private float _gameSpeed = 4;
