@@ -83,7 +83,7 @@ public abstract class Movement : MonoBehaviour
     protected virtual void Update()
     {
         //update lerp
-        _lerpVal += _playerSpeed * Time.deltaTime + 2 *_lerpVal * _playerSpeed * Time.deltaTime;
+        _lerpVal += _playerSpeed * Time.deltaTime + 4 *_lerpVal * _playerSpeed * Time.deltaTime;
         
         //lerp the player between the 2 coordinates
         transform.position = Vector3.Lerp(_startPosition, _endPosition, _lerpVal);

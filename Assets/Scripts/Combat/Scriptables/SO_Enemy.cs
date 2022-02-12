@@ -38,10 +38,8 @@ public class SO_Enemy : ScriptableObject
             if (currentEnemyPhase.requirementType == SO_EnemyPhase.RequirementType.TIME) continue;
 
             //needs to be equal or lower than current hp
-            if (phase.healthRequirement >= percentageHealth) continue;
-
-            //dont replace when the health requirement is lower
-            if (phase.healthRequirement <= currentEnemyPhase.healthRequirement) continue;
+            if (phase.healthRequirement < percentageHealth) continue;
+            if (phase.healthRequirement >= currentEnemyPhase.healthRequirement) continue;
 
             //set current enemy phase to value with highest hp requirement
             Debug.Log("Go to phase: " + phase.name);

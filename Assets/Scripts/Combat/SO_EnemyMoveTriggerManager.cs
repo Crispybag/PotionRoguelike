@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(menuName = "Managers/Move Trigger Manager")]
-public class SO_MoveTriggerManager : ScriptableObject
+[CreateAssetMenu(menuName = "Manager/Move Trigger Manager")]
+public class SO_EnemyMoveTriggerManager : ScriptableObject
 {
     public UnityEvent<MoveStats> onMoveReachedEnd;
 

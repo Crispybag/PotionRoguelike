@@ -12,7 +12,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private float _gameSpeed = 4;
     private void Awake()
     {
-        if (mapManager != null) { Destroy(gameObject); return; }
+        if (mapManager != null) { Destroy(mapManager.gameObject);}
         mapManager = this;
         objectsOnBoard = new List<GameObject>();
     }

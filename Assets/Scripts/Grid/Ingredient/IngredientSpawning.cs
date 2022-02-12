@@ -9,7 +9,7 @@ public class IngredientSpawning : MonoBehaviour
     private int amountOfGarbage;
     private void Start()
     {
-        amountOfGarbage = 2;
+        amountOfGarbage = 1;
         _map = GridManager.mapManager.GetTilemap();
     }
 

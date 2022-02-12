@@ -17,6 +17,6 @@ MonoBehaviour:
   damage: 0
   healing: 1
   shielding: 0
-  castTime: 5
-  travelTime: 1
+  castTime: 7
+  travelTime: 0
   debuffs: 

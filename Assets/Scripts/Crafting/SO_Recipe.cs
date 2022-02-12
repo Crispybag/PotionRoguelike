@@ -9,6 +9,7 @@ public class SO_Recipe : ScriptableObject
 {
     public string title;
     public List<SO_Ingredient> ingredients;
+    public SO_Potion potion;
     private Dictionary<string, int> ingredientCount = new Dictionary<string, int>();
 
 

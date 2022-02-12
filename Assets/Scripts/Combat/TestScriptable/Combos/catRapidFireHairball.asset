@@ -16,7 +16,4 @@ MonoBehaviour:
   moves:
   - {fileID: 11400000, guid: 4d0fc3f6a22e7f740b885b8003738f3a, type: 2}
   - {fileID: 11400000, guid: 4d0fc3f6a22e7f740b885b8003738f3a, type: 2}
-  - {fileID: 11400000, guid: 4d0fc3f6a22e7f740b885b8003738f3a, type: 2}
-  - {fileID: 11400000, guid: 4d0fc3f6a22e7f740b885b8003738f3a, type: 2}
-  - {fileID: 11400000, guid: 4d0fc3f6a22e7f740b885b8003738f3a, type: 2}
-  - {fileID: 11400000, guid: 90955c784e6dbbb4792068328b8b4560, type: 2}
+  - {fileID: 11400000, guid: ccd174a9e13c6294cb7c98f246ebaf8f, type: 2}

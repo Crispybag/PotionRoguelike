@@ -16,7 +16,7 @@ public class MoveStats : MonoBehaviour
 
     [HideInInspector] public float timeTravelled;
 
-    private SO_MoveTriggerManager manager;
+    private SO_EnemyMoveTriggerManager manager;
     public Vector3 travelFrom;
     public Vector3 travelTo;
     void Start()
@@ -30,7 +30,7 @@ public class MoveStats : MonoBehaviour
         transform.position = Vector3.Lerp(travelTo, travelFrom, timeTravelled / travelTime);
         sr = GetComponent<SpriteRenderer>(); 
     }
-     public void Setup(SO_Move moveData, SO_MoveTriggerManager pManager)
+     public void Setup(SO_Move moveData, SO_EnemyMoveTriggerManager pManager)
     {
         travelFrom = transform.position;
         travelTo = transform.position + new Vector3(0, -6, 0);

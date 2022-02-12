@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Slime
   sprite: {fileID: 21300000, guid: 59cdaede75c6c0342b903427065332df, type: 3}
-  baseHealth: 100
+  baseHealth: 50
   craftingSpeed: 1
   enemyPhases:
+  - {fileID: 11400000, guid: 7efca1da02128ea429900fa2fcfc6a3d, type: 2}
   - {fileID: 11400000, guid: caa8d0825ced72049b859bd0cad15e30, type: 2}
   - {fileID: 11400000, guid: ce47d0e8381ee1847bd0862fbc864921, type: 2}
   - {fileID: 11400000, guid: b51c01507ee5d104fab4d01046be5fdb, type: 2}

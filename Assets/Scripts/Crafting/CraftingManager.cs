@@ -8,7 +8,6 @@ public delegate void TierUpdateHandler();
 
 public class CraftingManager : MonoBehaviour
 {
-
     public List<SO_Recipe> recipes;
     private Dictionary<string, int> currentIngredients = new Dictionary<string, int>();
     public List<SO_Ingredient> correctOrderIngredients = new List<SO_Ingredient>();
@@ -22,7 +21,9 @@ public class CraftingManager : MonoBehaviour
     //-1 because it means no crafting recipe has been set yet
     public int recipeTier = -1;
 
-
+    //variables for crafting potions
+    public SO_PlayerMoveManager moveManager;
+    public GameObject potionPrefab;
 
 
     /// <summary>
@@ -191,7 +192,12 @@ public class CraftingManager : MonoBehaviour
 
     private void ThrowPotion()
     {
-        Debug.Log("Threw potion! :D       *Not implemented*");
+        //Ayo o/ Leo Here, potion will now be thrown based on the potion linked to the recipe and the tier
+        Instantiate(potionPrefab);
+        //pass through the potion and the crafting manager for stats
+        potionPrefab.GetComponent<PotionStats>().Setup(currentRecipe.potion, this);
+
+
         ClearIngredients();
     }
 
@@ -228,6 +234,12 @@ public class CraftingManager : MonoBehaviour
         onTierUpdate();
     }
 
+    //flush delegate when reloading scene
+    private void OnDisable()
+    {
+        onIngredientUpdate = null;
+        onTierUpdate = null;
+    }
 
 
 }

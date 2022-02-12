@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Actually Leo.unity
     guid: 503f790ef9134a3479b2fa58321bb340
+  - enabled: 1
+    path: Assets/Scenes/Combining Crafting.unity
+    guid: 0a6aa40014c7de04f883c62a918a3de3
   m_configObjects: {}

@@ -16,5 +16,4 @@ MonoBehaviour:
   moves:
   - {fileID: 11400000, guid: 5a764218399b3f14a8963ab2189c5d0a, type: 2}
   - {fileID: 11400000, guid: 90955c784e6dbbb4792068328b8b4560, type: 2}
-  - {fileID: 11400000, guid: 90955c784e6dbbb4792068328b8b4560, type: 2}
   - {fileID: 11400000, guid: 5a764218399b3f14a8963ab2189c5d0a, type: 2}
