@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: 0514621c2553e4845bbe6b944ebe22dd, type: 2}
+  enemyName: Slime
   currentHealth: 50
   currentShield: 0
   moveManager: {fileID: 11400000, guid: d6c89f59f0a2434409cf21811a327b8b, type: 2}

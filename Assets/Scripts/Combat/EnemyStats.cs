@@ -6,6 +6,8 @@ public class EnemyStats : MonoBehaviour
 {
     [HideInInspector] public SO_Enemy scriptableEnemy;
     int maxHealth;
+
+    public string enemyName;
     public int currentHealth;
     public int currentShield;
     float timeAlive;
@@ -29,7 +31,7 @@ public class EnemyStats : MonoBehaviour
         maxHealth = scriptableEnemy.baseHealth;                         //add health
         currentHealth = maxHealth;
         craftingSpeed = scriptableEnemy.craftingSpeed;                  //add crafting speed
-
+        enemyName = scriptableEnemy.enemyName;
         enemyPhases = scriptableEnemy.enemyPhases;                      //fill phase list
         
         //get first phase
