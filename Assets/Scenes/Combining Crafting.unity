@@ -366,6 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3d187b9cda2bc43b8ead5ac286d6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fastTapLimiter: 0.5
 --- !u!212 &163709535
 SpriteRenderer:
   m_ObjectHideFlags: 0

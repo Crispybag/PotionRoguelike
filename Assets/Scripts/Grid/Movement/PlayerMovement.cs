@@ -6,7 +6,9 @@ public class PlayerMovement : Movement
 {
     // Start is called before the first frame update
     private Vector3 oldestWalkDir;
-
+    [SerializeField]
+    [Range(0f, 1f)]
+    float _fastTapLimiter = 0.5f;
     protected override void updateLerp(Vector3 walkDir)
     {
         float hori = walkDir.x;
@@ -92,7 +94,7 @@ public class PlayerMovement : Movement
     private bool CustomGetAxisDown()
     {
         //hard limiter to prevent extremely jittery turns
-        if (_lerpVal < 0.5f) return false;
+        if (_lerpVal < _fastTapLimiter) return false;
         return (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W));   
     }
 
