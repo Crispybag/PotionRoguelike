@@ -87,14 +87,13 @@ public class PlayerMovement : Movement
                 
             }
         }
-        prevHoriAxisVal = Mathf.Ceil(Input.GetAxis("Horizontal"));
-        prevVertAxisVal = Mathf.Ceil(Input.GetAxis("Vertical"));
     }
 
     private bool CustomGetAxisDown()
     {
-        return (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W));
-        
+        //hard limiter to prevent extremely jittery turns
+        if (_lerpVal < 0.5f) return false;
+        return (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W));   
     }
 
 

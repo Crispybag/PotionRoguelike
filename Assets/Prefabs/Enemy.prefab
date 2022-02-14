@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ddce3e2576917d54299ed487a9d5c0ad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 59cdaede75c6c0342b903427065332df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,15 +98,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e88689980401d4479ff01809c11f6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableEnemy: {fileID: 11400000, guid: 105b4efdef200f64e970e600c609ca5a, type: 2}
-  enemyName: Smol Cat
-  currentHealth: 5
+  scriptableEnemy: {fileID: 11400000, guid: 0514621c2553e4845bbe6b944ebe22dd, type: 2}
+  enemyName: Slime
+  currentHealth: 50
   currentShield: 0
   moveManager: {fileID: 11400000, guid: d6c89f59f0a2434409cf21811a327b8b, type: 2}
   playerManager: {fileID: 11400000, guid: 8fe55836746e67f44845a32f3c388d99, type: 2}
   enemyStatManager: {fileID: 11400000, guid: 3fc65623983612f4a8f2e799bcebdcb6, type: 2}
-  currentPhase: {fileID: 11400000, guid: b51c01507ee5d104fab4d01046be5fdb, type: 2}
-  currentCombo: {fileID: 11400000, guid: c3fe097b8e450b84b84111234ef59ba0, type: 2}
+  currentPhase: {fileID: 11400000, guid: 7efca1da02128ea429900fa2fcfc6a3d, type: 2}
+  currentCombo: {fileID: 11400000, guid: 3680502ecb769b04b94935fe1dda7d44, type: 2}
   lastShotFired: 0
   currentMove: 0
 --- !u!114 &1008941838019493254
