@@ -688,6 +688,7 @@ MonoBehaviour:
   enemy:
   - {fileID: 11400000, guid: 0514621c2553e4845bbe6b944ebe22dd, type: 2}
   - {fileID: 11400000, guid: 105b4efdef200f64e970e600c609ca5a, type: 2}
+  - {fileID: 11400000, guid: 105b4efdef200f64e970e600c609ca5a, type: 2}
   baseEnemyPrefab: {fileID: 3661300169536816202, guid: a8d5aeddfcaf30d458c6291748f63998, type: 3}
   statUpdater: {fileID: 11400000, guid: 3fc65623983612f4a8f2e799bcebdcb6, type: 2}
 --- !u!4 &319794052
@@ -2964,7 +2965,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tilemap: {fileID: 2054987952}
   _garbagePrefab: {fileID: 3686372803579754830, guid: 2e0a06e8b7e646741b93c38ce1e18031, type: 3}
-  _gameSpeed: 3
+  _gameSpeed: 2
+  jitteriness: 6
 --- !u!156049354 &1838686122
 Grid:
   m_ObjectHideFlags: 0

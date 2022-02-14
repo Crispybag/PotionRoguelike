@@ -10,6 +10,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Tilemap _tilemap;
     [SerializeField] private GameObject _garbagePrefab;
     [SerializeField] private float _gameSpeed = 4;
+    [SerializeField] public float jitteriness = 6;
     private void Awake()
     {
         if (mapManager != null) { Destroy(mapManager.gameObject);}
