@@ -23,7 +23,7 @@ public class BezierCurve : MonoBehaviour
     {
         float distance = 1f / amount;
         Debug.Log("Distance: " + distance);
-        for (int i = 1; i < amount; i++)
+        for (int i = 0; i < amount; i++)
         {
             float time = i * distance;
 

@@ -86,22 +86,6 @@ public class MapManager : MonoBehaviour
             createPath(fPosition,encounterPosition);
             createPath(sPosition, encounterPosition);
 
-
-
-
-
-
-
-
-            //secondLine
-            float sDistance = Vector3.Distance(sPosition, encounterPosition);
-            Vector3 sDirection = encounterPosition - sPosition;
-            sDirection.Normalize();
-
-            Vector3 sLineMiddlePoint = sPosition + sDirection * sDistance /2 ;
-            BezierCurve.createLine(sPosition, sLineMiddlePoint, 10, dotPrefab);
-
-
         }
     }
 
@@ -118,7 +102,7 @@ public class MapManager : MonoBehaviour
 
 
         Vector3 fLineMiddlePoint = fPosition + fDirection * fRandomDistance;
-        BezierCurve.createLine(fPosition, fLineMiddlePoint, 10, dotPrefab);
+        //BezierCurve.createLine(fPosition, fLineMiddlePoint, 10, dotPrefab);
 
         //generate random number to decide if left or right first
         int randDirection = Random.Range(0, 2);
@@ -150,7 +134,8 @@ public class MapManager : MonoBehaviour
 
         Vector3 ffNormalPoint = f2LineMiddlePoint + ffNormalDirection * f2Distance / 2;
 
-        BezierCurve.createLine(f2LineMiddlePoint, ffNormalPoint, 10, dotPrefab);
+        //BezierCurve.createLine(f2LineMiddlePoint, ffNormalPoint, 10, dotPrefab);
+        BezierCurve.createBezier(fPosition, ffNormalPoint, fLineMiddlePoint, 10, dotPrefab);
 
         //second section of the first line
         float f3Distance = Vector3.Distance(fLineMiddlePoint, encounterPosition);
@@ -163,10 +148,10 @@ public class MapManager : MonoBehaviour
 
         Vector3 fsNormalPoint = f3LineMiddlePoint + fsNormalDirection * f3Distance / 2;
 
-        BezierCurve.createLine(f3LineMiddlePoint, fsNormalPoint, 10, dotPrefab);
+        //BezierCurve.createLine(f3LineMiddlePoint, fsNormalPoint, 10, dotPrefab);
+        BezierCurve.createBezier(fLineMiddlePoint, fsNormalPoint, encounterPosition, 10, dotPrefab);
 
-
-        BezierCurve.createLine(fLineMiddlePoint, encounterPosition, 10, dotPrefab);
+        //BezierCurve.createLine(fLineMiddlePoint, encounterPosition, 10, dotPrefab);
     }
 
     public void CreateBezier()
