@@ -67,15 +67,155 @@ public class MapManager : MonoBehaviour
             bleh++;
         }
 
-        CreateBezier();
+        //CreateBezier();
+        Temp();
+    }
 
+
+    public void Temp()
+    {
+        for (int i = 0; i < sortEnemies.Count; i += 2)
+        {
+
+            Vector3 fPosition = sortEnemies[i].transform.position;
+            Vector3 sPosition = sortEnemies[i + 1].transform.position;
+
+
+            Vector3 encounterPosition = BezierCurve.getBezierPos(fPosition, new Vector3(0, 0, 0), sPosition, 20, 10, dotPrefab);
+
+            createPath(fPosition,encounterPosition);
+            createPath(sPosition, encounterPosition);
+
+
+
+
+
+
+
+
+            //secondLine
+            float sDistance = Vector3.Distance(sPosition, encounterPosition);
+            Vector3 sDirection = encounterPosition - sPosition;
+            sDirection.Normalize();
+
+            Vector3 sLineMiddlePoint = sPosition + sDirection * sDistance /2 ;
+            BezierCurve.createLine(sPosition, sLineMiddlePoint, 10, dotPrefab);
+
+
+        }
+    }
+
+    public void createPath(Vector3 fPosition, Vector3 encounterPosition)
+    {
+        //First line
+        float fDistance = Vector3.Distance(fPosition, encounterPosition);
+        //minus encounter position, because 0,0,0 is in the middle.
+        Vector3 fDirection = encounterPosition - fPosition;
+        fDirection.Normalize();
+
+        float fOffset = fDistance / 6;
+        float fRandomDistance = Random.Range((fDistance / 2) - fOffset, (fDistance / 2) + fOffset);
+
+
+        Vector3 fLineMiddlePoint = fPosition + fDirection * fRandomDistance;
+        BezierCurve.createLine(fPosition, fLineMiddlePoint, 10, dotPrefab);
+
+        //generate random number to decide if left or right first
+        int randDirection = Random.Range(0, 2);
+
+        Vector3 ffNormalDirection;
+        Vector3 fsNormalDirection;
+
+        if (randDirection == 0)
+        {
+            ffNormalDirection = new Vector3(fDirection.y * -1, fDirection.x, fDirection.z);
+            fsNormalDirection = new Vector3(fDirection.y, fDirection.x * -1, fDirection.z);
+        }
+        else
+        {
+            ffNormalDirection = new Vector3(fDirection.y, fDirection.x * -1, fDirection.z);
+            fsNormalDirection = new Vector3(fDirection.y * -1, fDirection.x, fDirection.z);
+        }
+
+
+
+        //first section of the first line
+        float f2Distance = Vector3.Distance(fPosition, fLineMiddlePoint);
+
+        float f2Offset = f2Distance / 4;
+        float f2RandomDistance = Random.Range((f2Distance / 2) - f2Offset, (f2Distance / 2) + f2Offset);
+
+        Vector3 f2LineMiddlePoint = fPosition + fDirection * f2RandomDistance;
+
+
+        Vector3 ffNormalPoint = f2LineMiddlePoint + ffNormalDirection * f2Distance / 2;
+
+        BezierCurve.createLine(f2LineMiddlePoint, ffNormalPoint, 10, dotPrefab);
+
+        //second section of the first line
+        float f3Distance = Vector3.Distance(fLineMiddlePoint, encounterPosition);
+
+        float f3Offset = f3Distance / 4;
+        float f3RandomDistance = Random.Range((f3Distance / 2) - f3Offset, (f3Distance / 2) + f3Offset);
+
+        Vector3 f3LineMiddlePoint = fLineMiddlePoint + fDirection * f3RandomDistance;
+
+
+        Vector3 fsNormalPoint = f3LineMiddlePoint + fsNormalDirection * f3Distance / 2;
+
+        BezierCurve.createLine(f3LineMiddlePoint, fsNormalPoint, 10, dotPrefab);
+
+
+        BezierCurve.createLine(fLineMiddlePoint, encounterPosition, 10, dotPrefab);
     }
 
     public void CreateBezier()
     {
         for (int i = 0; i < sortEnemies.Count; i += 2)
         {
-            BezierCurve.createBezier(sortEnemies[i].transform.position, new Vector3(0, 0, 0), sortEnemies[i + 1].transform.position, 20, dotPrefab);
+            //middle point
+            //distance
+            //get middle of distance + offset
+            //get normals between middle and start point, and normal between middle and end point
+            //random middle for both sides,
+            //random distance
+            Vector3 middlePos = BezierCurve.getBezierPos(sortEnemies[i].transform.position, new Vector3(0, 0, 0), sortEnemies[i + 1].transform.position, 20, 10, dotPrefab);
+            //BezierCurve.createBezier(sortEnemies[i].transform.position, sortEnemies[i + 1].transform.position, middlePos, 10, dotPrefab);
+
+            float distanceSM = Vector3.Distance(sortEnemies[i].transform.position, middlePos);
+            float distanceEM = Vector3.Distance(sortEnemies[i + 1].transform.position, middlePos);
+
+            float offset = distanceSM / 6;
+            float randomMiddle = Random.Range(distanceSM / 2 - offset, distanceSM / 2 + offset);
+            Vector3 direction = sortEnemies[i + 1].transform.position - sortEnemies[i].transform.position;
+            Vector3 midPointFL = sortEnemies[i].transform.position + direction * (randomMiddle / distanceSM);
+
+
+            Vector3 midPointSM = new Vector3(0, 0, 0);
+            Vector3 midPointEM = new Vector3(0, 0, 0);
+
+            //decide which way it goes first
+            int rand = Random.Range(0, 1);
+            if (rand == 0)
+            {
+
+                float disFL = Vector3.Distance(sortEnemies[i].transform.position, midPointFL);
+                float FLoffset = disFL / 6;
+                float randomFLMiddle = Random.Range(disFL / 2 - FLoffset, disFL / 2 + FLoffset);
+                midPointSM = sortEnemies[i].transform.position + direction * (randomFLMiddle / disFL) / 2;
+
+
+                Vector3 normal = new Vector3(direction.y * -1, direction.x, direction.z);
+
+                midPointSM += normal;
+            }
+            else
+            {
+
+            }
+
+            BezierCurve.createBezier(sortEnemies[i].transform.position, midPointSM, midPointFL, 10, dotPrefab);
+
         }
     }
 
