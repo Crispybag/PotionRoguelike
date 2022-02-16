@@ -117,7 +117,7 @@ public class MapManager : MonoBehaviour
 
 
         Vector3 fLineMiddlePoint = fPosition + fDirection * fRandomDistance;
-        //BezierCurve.createLine(fPosition, fLineMiddlePoint, 10, dotPrefab);
+
 
         //generate random number to decide if left or right first
         int randDirection = Random.Range(0, 2);
@@ -149,7 +149,6 @@ public class MapManager : MonoBehaviour
 
         Vector3 ffNormalPoint = f2LineMiddlePoint + ffNormalDirection * f2Distance / 2;
 
-        //BezierCurve.createLine(f2LineMiddlePoint, ffNormalPoint, 10, dotPrefab);
         BezierCurve.createBezier(fPosition, ffNormalPoint, fLineMiddlePoint, dotPrefab);
 
         //second section of the first line
@@ -163,10 +162,9 @@ public class MapManager : MonoBehaviour
 
         Vector3 fsNormalPoint = f3LineMiddlePoint + fsNormalDirection * f3Distance / 2;
 
-        //BezierCurve.createLine(f3LineMiddlePoint, fsNormalPoint, 10, dotPrefab);
+
         BezierCurve.createBezier(fLineMiddlePoint, fsNormalPoint, encounterPosition, dotPrefab);
 
-        //BezierCurve.createLine(fLineMiddlePoint, encounterPosition, 10, dotPrefab);
     }
 
     public void CreateBezier()
