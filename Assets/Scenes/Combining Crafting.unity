@@ -673,7 +673,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &319794051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,7 +688,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy:
   - {fileID: 11400000, guid: 0514621c2553e4845bbe6b944ebe22dd, type: 2}
-  - {fileID: 11400000, guid: 105b4efdef200f64e970e600c609ca5a, type: 2}
   - {fileID: 11400000, guid: 105b4efdef200f64e970e600c609ca5a, type: 2}
   baseEnemyPrefab: {fileID: 3661300169536816202, guid: a8d5aeddfcaf30d458c6291748f63998, type: 3}
   statUpdater: {fileID: 11400000, guid: 3fc65623983612f4a8f2e799bcebdcb6, type: 2}
@@ -1036,7 +1035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 0.8156863}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2166,7 +2165,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.254717, g: 0.24150054, b: 0.24150054, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2510,12 +2509,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ee167175ee74e42b739b64e04bf2aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentHealth: 5
-  _currentShield: 0
-  _maxHealth: 10
   playerStats: {fileID: 11400000, guid: efb2c46033c637a40919479472eb3902, type: 2}
   playerMoveManager: {fileID: 11400000, guid: 8fe55836746e67f44845a32f3c388d99, type: 2}
   moveManager: {fileID: 11400000, guid: d6c89f59f0a2434409cf21811a327b8b, type: 2}
+  _currentHealth: 5
+  _currentShield: 0
+  _maxHealth: 10
 --- !u!4 &1675179874
 Transform:
   m_ObjectHideFlags: 0
@@ -2988,7 +2987,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1838686120}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3012,6 +3011,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 15634ff71b9ac204ea0e25a87edea4e4, type: 2}
   - {fileID: 11400000, guid: 5f72a40a4ef2ea04da1553367c41f5d7, type: 2}
   - {fileID: 11400000, guid: 112b25adc000a47459a8b412ea0a762f, type: 2}
+  - {fileID: 11400000, guid: 4a710c7ee148da641abebbf2a05d4343, type: 2}
   correctOrderIngredients: []
   currentRecipe: {fileID: 0}
   recipeTier: -1
@@ -3030,11 +3030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3bdf1de4c9e88d4bb931a7ad2ce4242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadOut:
-  - {fileID: 11400000, guid: e317782aa6d389d458968992c0bef45c, type: 2}
-  - {fileID: 11400000, guid: 075871bb9be5f564a9a8012994ee1af1, type: 2}
-  - {fileID: 11400000, guid: 075871bb9be5f564a9a8012994ee1af1, type: 2}
-  - {fileID: 11400000, guid: e317782aa6d389d458968992c0bef45c, type: 2}
+  inventory: {fileID: 11400000, guid: cbde04cde7b90044ba0aa589afd4e20a, type: 2}
   baseIngredientPrefab: {fileID: 44091997056576414, guid: 55da9beab1a4d9b478324ff57bd99fdf, type: 3}
 --- !u!1 &1839782610
 GameObject:
@@ -4023,7 +4019,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -7, y: -2, z: 0}
   m_Size: {x: 7, y: 6, z: 1}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileAnchor: {x: 0, y: 0, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
