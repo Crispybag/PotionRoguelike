@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16c7f33547260644f9bae89d1ba87eb4, type: 3}
-  m_Name: Inventory
+  m_Script: {fileID: 11500000, guid: dbe418679b0b96b43816f3a84032a7fb, type: 3}
+  m_Name: RecipeBook
   m_EditorClassIdentifier: 
-  inventory: []
-  loadOut: []
-  recipeBook: {fileID: 11400000, guid: d49b8ea2f49090c4a8817febab152854, type: 2}
-  loadOutRecipes: []
-  inventoryRecipes: []
+  inGameRecipes: []

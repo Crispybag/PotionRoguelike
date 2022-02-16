@@ -469,9 +469,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: cbde04cde7b90044ba0aa589afd4e20a, type: 2}
   ingredientTestList:
+  - {fileID: 11400000, guid: 075871bb9be5f564a9a8012994ee1af1, type: 2}
+  - {fileID: 11400000, guid: e317782aa6d389d458968992c0bef45c, type: 2}
+  - {fileID: 11400000, guid: e317782aa6d389d458968992c0bef45c, type: 2}
+  - {fileID: 11400000, guid: e317782aa6d389d458968992c0bef45c, type: 2}
   - {fileID: 11400000, guid: e317782aa6d389d458968992c0bef45c, type: 2}
   - {fileID: 11400000, guid: f34fc971013c35c438ae161eb9692b7b, type: 2}
-  - {fileID: 11400000, guid: f6dd0db528dd5ad4394993510df25cb8, type: 2}
+  recipeBook: {fileID: 11400000, guid: d49b8ea2f49090c4a8817febab152854, type: 2}
 --- !u!4 &1554884032
 Transform:
   m_ObjectHideFlags: 0

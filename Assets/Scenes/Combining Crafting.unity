@@ -3011,7 +3011,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 15634ff71b9ac204ea0e25a87edea4e4, type: 2}
   - {fileID: 11400000, guid: 5f72a40a4ef2ea04da1553367c41f5d7, type: 2}
   - {fileID: 11400000, guid: 112b25adc000a47459a8b412ea0a762f, type: 2}
-  - {fileID: 11400000, guid: 4a710c7ee148da641abebbf2a05d4343, type: 2}
+  - {fileID: 11400000, guid: e0a8ae53b3724dd4f94d92aa63357748, type: 2}
   correctOrderIngredients: []
   currentRecipe: {fileID: 0}
   recipeTier: -1

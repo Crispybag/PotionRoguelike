@@ -20,10 +20,6 @@ public abstract class Movement : MonoBehaviour
 
     public bool CanMove(Vector3 direction)
     {
-        if (doubleTap)
-        {
-            int e = 0;
-        }
         Debug.Log(gameObject.name + "reached here");
         doubleTap = true;
         //where I want to go
@@ -107,7 +103,7 @@ public abstract class Movement : MonoBehaviour
     protected virtual void Update()
     {
         _timeValue += Time.deltaTime ;
-        if(_timeValue > 0.1f) { _timeValue = 0f; doubleTap = false; }
+        if(_timeValue > 0.1f) { _timeValue = 0f;}
         //update lerp
         _lerpVal += _playerSpeed * Time.deltaTime + _jitteriness * (1-_lerpVal) * _playerSpeed * Time.deltaTime;
         

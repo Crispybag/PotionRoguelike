@@ -6,6 +6,7 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private SO_Inventory inventory;
     [SerializeField] private List<SO_Ingredient> ingredientTestList;
+    [SerializeField] private SO_RecipeBook recipeBook;
     
     void Start()
     {
@@ -18,7 +19,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         Autofill();
-        
+        inventory.updateCurrentRecipes();
     }
 
     void Autofill()
@@ -28,9 +29,8 @@ public class InventoryManager : MonoBehaviour
             inventory.equipIngredient(inventory.inventory[0]);
         }
     }
-    // Update is called once per frame
-    void Update()
+    public void FillRecipeBook()
     {
-        
+        recipeBook.fillGameRecipes();
     }
 }
