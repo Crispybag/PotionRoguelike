@@ -17,6 +17,7 @@ public class MapManager : MonoBehaviour
 
     public List<GameObject> sortEnemies = new List<GameObject>();
 
+    public List<Vector3> encounterPositions = new List<Vector3>();
 
     // Start is called before the first frame update
     void Start()
@@ -81,7 +82,21 @@ public class MapManager : MonoBehaviour
             Vector3 sPosition = sortEnemies[i + 1].transform.position;
 
 
-            Vector3 encounterPosition = BezierCurve.getBezierPos(fPosition, new Vector3(0, 0, 0), sPosition, 20, 10, dotPrefab);
+            Vector3 pointDirection = fPosition - sPosition;
+            pointDirection.Normalize();
+            Vector3 midPoint = fPosition + pointDirection * Vector3.Distance(fPosition, sPosition) / 2;
+
+            //midpoint is the direction, because center is 0,0,0
+            Vector3 midDirection = midPoint;
+            midDirection.Normalize();
+
+            Vector3 halfway = midDirection * (Vector3.Distance(new Vector3(0, 0, 0), midPoint) / 3);
+
+
+
+            Vector3 encounterPosition = BezierCurve.getBezierPos(fPosition, halfway, sPosition, 20, 10, dotPrefab);
+
+            encounterPositions.Add(encounterPosition);
 
             createPath(fPosition,encounterPosition);
             createPath(sPosition, encounterPosition);
@@ -135,7 +150,7 @@ public class MapManager : MonoBehaviour
         Vector3 ffNormalPoint = f2LineMiddlePoint + ffNormalDirection * f2Distance / 2;
 
         //BezierCurve.createLine(f2LineMiddlePoint, ffNormalPoint, 10, dotPrefab);
-        BezierCurve.createBezier(fPosition, ffNormalPoint, fLineMiddlePoint, 10, dotPrefab);
+        BezierCurve.createBezier(fPosition, ffNormalPoint, fLineMiddlePoint, dotPrefab);
 
         //second section of the first line
         float f3Distance = Vector3.Distance(fLineMiddlePoint, encounterPosition);
@@ -149,7 +164,7 @@ public class MapManager : MonoBehaviour
         Vector3 fsNormalPoint = f3LineMiddlePoint + fsNormalDirection * f3Distance / 2;
 
         //BezierCurve.createLine(f3LineMiddlePoint, fsNormalPoint, 10, dotPrefab);
-        BezierCurve.createBezier(fLineMiddlePoint, fsNormalPoint, encounterPosition, 10, dotPrefab);
+        BezierCurve.createBezier(fLineMiddlePoint, fsNormalPoint, encounterPosition, dotPrefab);
 
         //BezierCurve.createLine(fLineMiddlePoint, encounterPosition, 10, dotPrefab);
     }
@@ -228,6 +243,43 @@ public class MapManager : MonoBehaviour
             sortEnemies.Remove(removable[j]);
             Destroy(removable[j]);
         }
+        AdvancePaths();
+    }
+
+    private void AdvancePaths()
+    {
+        List<Vector3> newEncounterPositions = new List<Vector3>();
+
+        for (int i = 0; i < encounterPositions.Count; i += 2)
+        {
+
+            Vector3 fPosition = encounterPositions[i];
+            Vector3 sPosition = encounterPositions[i + 1];
+
+
+            Vector3 pointDirection = fPosition - sPosition;
+            pointDirection.Normalize();
+            Vector3 midPoint = fPosition + pointDirection * Vector3.Distance(fPosition, sPosition) / 2;
+
+            //midpoint is the direction, because center is 0,0,0
+            Vector3 midDirection = midPoint;
+            midDirection.Normalize();
+
+            Vector3 halfway = midDirection * (Vector3.Distance(new Vector3(0, 0, 0), midPoint) / 3);
+
+            Vector3 encounterPosition = BezierCurve.getBezierPos(fPosition, halfway, sPosition, 20, 10, dotPrefab);
+            
+            
+            newEncounterPositions.Add(encounterPosition);
+
+            createPath(fPosition, encounterPosition);
+            createPath(sPosition, encounterPosition);
+
+        }
+
+        encounterPositions.Clear();
+        encounterPositions = newEncounterPositions;
+
     }
 
 

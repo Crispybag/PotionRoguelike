@@ -34,6 +34,31 @@ public class BezierCurve : MonoBehaviour
         }
     }
 
+    public static void createBezier(Vector3 pos1, Vector3 pos2, Vector3 pos3, GameObject dot)
+    {
+        float initalStep = 0.1f;
+        float step = 2f;
+        float time = 0;
+
+        float distance = Vector3.Distance(pos1, pos2) + Vector3.Distance(pos2, pos3);
+        distance *= step;
+        step = 1f / distance;
+
+        while (!(time >= 0.95f))
+        {
+            Vector3 result = Mathf.Pow((1 - time), 2) * pos1 + 2 * (1 - time) * time * pos2 + Mathf.Pow(time, 2) * pos3;
+            GameObject newDot = Instantiate(dot);
+            newDot.transform.position = result;
+
+
+            time += step;
+        }
+
+
+
+    }
+
+
     public static void createLine(Vector3 pos1, Vector3 pos2, int amount, GameObject dot)
     {
         float distance = Vector3.Distance(pos1, pos2);
