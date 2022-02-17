@@ -1446,7 +1446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tilemap: {fileID: 2054987952}
   _garbagePrefab: {fileID: 3686372803579754830, guid: 2e0a06e8b7e646741b93c38ce1e18031, type: 3}
-  _gameSpeed: 4
+  _gameSpeed: 3
 --- !u!156049354 &1838686122
 Grid:
   m_ObjectHideFlags: 0
@@ -1497,6 +1497,8 @@ MonoBehaviour:
   correctOrderIngredients: []
   currentRecipe: {fileID: 0}
   recipeTier: -1
+  moveManager: {fileID: 0}
+  potionPrefab: {fileID: 0}
 --- !u!114 &1838686125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1510,10 +1512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadOut:
-  - {fileID: 11400000, guid: f34fc971013c35c438ae161eb9692b7b, type: 2}
   - {fileID: 11400000, guid: e317782aa6d389d458968992c0bef45c, type: 2}
-  - {fileID: 11400000, guid: f6dd0db528dd5ad4394993510df25cb8, type: 2}
-  - {fileID: 11400000, guid: 0f4aa9995efa21f4d8c7b5ff4ed36be5, type: 2}
   - {fileID: 11400000, guid: 075871bb9be5f564a9a8012994ee1af1, type: 2}
   baseIngredientPrefab: {fileID: 44091997056576414, guid: 55da9beab1a4d9b478324ff57bd99fdf, type: 3}
 --- !u!1 &2003042394

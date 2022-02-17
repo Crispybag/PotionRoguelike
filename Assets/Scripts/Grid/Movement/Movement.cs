@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 public abstract class Movement : MonoBehaviour
 {
     private float _playerSpeed;
+    private float _jitteriness;
+    
     //[SerializeField] protected Tilemap _map;
     //Lerp vectors
     private Vector3 _startPosition;
@@ -13,10 +15,17 @@ public abstract class Movement : MonoBehaviour
 
     protected Vector3 _moveDir;
     private bool wantsToMove;
+    protected float _lerpVal;
 
 
     public bool CanMove(Vector3 direction)
     {
+        if (doubleTap)
+        {
+            int e = 0;
+        }
+        Debug.Log(gameObject.name + "reached here");
+        doubleTap = true;
         //where I want to go
         Vector3Int goalTile = GridObject.ToVector3Int(transform.position) + GridObject.ToVector3Int(direction);
         foreach (GameObject obj in GridManager.mapManager.getObjectsOnBoard())
@@ -29,16 +38,20 @@ public abstract class Movement : MonoBehaviour
                 if (!obj.GetComponent<Movement>()) return false;
 
                 wantsToMove = obj.GetComponent<Movement>().CanMove(direction);
-                if (!wantsToMove) { return false; }
+                if (!wantsToMove) 
+                { 
+                    return false; 
+                }
                 else
                 {
+                    Debug.Log(gameObject.name + " wants to move to " + (transform.position + direction).ToString());
                     _moveDir = direction;
                     updateLerp(direction);
                     return true;
                 }
             }
         }
-
+        Debug.Log(gameObject.name + " wants to move to " + (transform.position + direction).ToString());
         wantsToMove = true;
         _moveDir = direction;
         updateLerp(direction);
@@ -46,7 +59,6 @@ public abstract class Movement : MonoBehaviour
     }
 
     //determines how far the player is in the lerp movement
-    protected float _lerpVal;
     
     void Start()
     {
@@ -54,6 +66,8 @@ public abstract class Movement : MonoBehaviour
         _startPosition = transform.position;
         _endPosition = transform.position;
         _playerSpeed = GridManager.mapManager.GetGameSpeed();
+        _jitteriness = GridManager.mapManager.jitteriness;
+
     }
 
     //function to update the lerp once it is done
@@ -77,13 +91,25 @@ public abstract class Movement : MonoBehaviour
         return GridObject.ToVector3Int(_endPosition);
     }
 
+    protected void snapAllToEnd()
+    {
+        foreach (GameObject obj in GridManager.mapManager.getObjectsOnBoard())
+        {
+            Movement m = obj.GetComponent<Movement>();
+            m._lerpVal = 1f;
+            obj.transform.position = Vector3.Lerp(m._startPosition, m._endPosition, m._lerpVal);
+        }
+    }
 
-
+    float _timeValue = 0f;
+    bool doubleTap = false;
     // Update is called once per frame
     protected virtual void Update()
     {
+        _timeValue += Time.deltaTime ;
+        if(_timeValue > 0.1f) { _timeValue = 0f; doubleTap = false; }
         //update lerp
-        _lerpVal += _playerSpeed * Time.deltaTime + 2 *_lerpVal * _playerSpeed * Time.deltaTime;
+        _lerpVal += _playerSpeed * Time.deltaTime + _jitteriness * (1-_lerpVal) * _playerSpeed * Time.deltaTime;
         
         //lerp the player between the 2 coordinates
         transform.position = Vector3.Lerp(_startPosition, _endPosition, _lerpVal);

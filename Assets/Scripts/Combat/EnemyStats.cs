@@ -6,26 +6,32 @@ public class EnemyStats : MonoBehaviour
 {
     [HideInInspector] public SO_Enemy scriptableEnemy;
     int maxHealth;
-    int currentHealth;
+
+    public string enemyName;
+    public int currentHealth;
+    public int currentShield;
     float timeAlive;
     float craftingSpeed;
-    
-    public SO_EnemyPhase currentPhase = null;
-    public SO_EnemyCombo currentCombo = null;
-    public bool lastShotFired = true;
-    public int currentMove;
+
+    public SO_EnemyMoveTriggerManager moveManager;
+    public SO_PlayerMoveManager playerManager;
+    public SO_OnEnemyStatUpdate enemyStatManager;
+    [HideInInspector] public SO_EnemyPhase currentPhase = null;
+    [HideInInspector] public SO_EnemyCombo currentCombo = null;
+    [HideInInspector] public bool lastShotFired = true;
+    [HideInInspector] public int currentMove;
 
 
     SpriteRenderer spriteRenderer;
     List<SO_EnemyPhase> enemyPhases;
     public void Setup()
     {
-        currentHealth = maxHealth;
         timeAlive = 0;
         GetComponent<SpriteRenderer>().sprite = scriptableEnemy.sprite; //add sprite
         maxHealth = scriptableEnemy.baseHealth;                         //add health
+        currentHealth = maxHealth;
         craftingSpeed = scriptableEnemy.craftingSpeed;                  //add crafting speed
-
+        enemyName = scriptableEnemy.enemyName;
         enemyPhases = scriptableEnemy.enemyPhases;                      //fill phase list
         
         //get first phase
@@ -47,9 +53,18 @@ public class EnemyStats : MonoBehaviour
 
         gameObject.name = scriptableEnemy.enemyName;
     }
-
+    private void Start()
+    {
+        enemyStatManager.onEnemyStatsChanged(this);
+    }
     private void Update()
     {
+
+        if (currentHealth <= 0 )
+        {
+            Destroy(gameObject);
+        }
+
         //keep track in which phase enemy should be
         timeAlive += Time.deltaTime;
         scriptableEnemy.GoToNextPhase(ref lastShotFired, ref currentCombo, ref currentPhase, currentHealth, timeAlive);
@@ -60,6 +75,36 @@ public class EnemyStats : MonoBehaviour
             currentPhase.StartCombo(ref currentCombo, ref lastShotFired);
         }
     }
+
+    private void OnEnable()
+    {
+        moveManager.onMoveReachedEnd.AddListener(doMoveEffects);
+        playerManager.onMoveReachedEnd.AddListener(doPlayerMoveEffects);
+    }
+    private void OnDisable()
+    {
+        moveManager.onMoveReachedEnd.RemoveListener(doMoveEffects);
+        playerManager.onMoveReachedEnd.RemoveListener(doPlayerMoveEffects);
+
+    }
+
+    private void doPlayerMoveEffects(PotionStats potion)
+    {
+        if (potion.potionEffect == SO_Potion.PotionEffect.DMG)
+        {
+            if(currentShield > 0)  currentShield--;
+            else currentHealth -= potion.strength;
+
+            enemyStatManager.onEnemyStatsChanged(this);
+        }
+    }
+    private void doMoveEffects(MoveStats s)
+    {
+        currentHealth += s.healing;
+        currentShield += s.shielding;
+        enemyStatManager.onEnemyStatsChanged(this);
+    }
+
 
 
 }

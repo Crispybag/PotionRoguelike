@@ -6,7 +6,9 @@ public class PlayerMovement : Movement
 {
     // Start is called before the first frame update
     private Vector3 oldestWalkDir;
-
+    [SerializeField]
+    [Range(0f, 1f)]
+    float _fastTapLimiter = 0.5f;
     protected override void updateLerp(Vector3 walkDir)
     {
         float hori = walkDir.x;
@@ -23,7 +25,7 @@ public class PlayerMovement : Movement
             oldestWalkDir = new Vector3(hori, vert, 0);
             base.updateLerp(walkDir);
         }
-        
+
     }
 
     //System to make player move only horizontally or vertically when both movements are put in
@@ -60,6 +62,9 @@ public class PlayerMovement : Movement
         }
     }
 
+    float prevHoriAxisVal = 0;
+    float prevVertAxisVal = 0;
+
     protected override void Update()
     {
         base.Update();
@@ -67,14 +72,34 @@ public class PlayerMovement : Movement
 
         Vector3 futureWalkDir = new Vector3(0, 0, 0);
 
-
         //break loop if player doesnt have any inputs
-        if (Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0) return;
+        if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
+        {
 
-        //determine which direction the mouse will walk in based on input
-        futureWalkDir = generateWalkDir();
-        _moveDir = futureWalkDir;
-        //accept new input when the lerp is finished
-        if (_lerpVal >= 1.0f) CanMove(_moveDir);
+            //determine which direction the mouse will walk in based on input
+            
+            futureWalkDir = generateWalkDir();
+            _moveDir = futureWalkDir;
+            //accept new input when the lerp is finished
+            if (_lerpVal >= 1.0f) CanMove(_moveDir);
+            else if (CustomGetAxisDown())
+            {
+               snapAllToEnd();
+               CanMove(_moveDir);
+                
+            }
+        }
     }
+
+    private bool CustomGetAxisDown()
+    {
+        //hard limiter to prevent extremely jittery turns
+        if (_lerpVal < _fastTapLimiter) return false;
+        return (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W));   
+    }
+
+
+
+
+
 }
