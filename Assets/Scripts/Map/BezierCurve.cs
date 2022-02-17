@@ -127,12 +127,18 @@ public class BezierCurve : MonoBehaviour
 
     }
 
-    public static Vector3 getBezierPos(Vector3 pos1, Vector3 pos2, Vector3 pos3, int amount, int point, GameObject dot)
+    public static Vector3 getBezierPos(Vector3 pos1, Vector3 pos2, Vector3 pos3, int amount, int point)
     {
         float distance = 1f / amount;
 
         float time = point * distance;
 
+        Vector3 result = Mathf.Pow((1 - time), 2) * pos1 + 2 * (1 - time) * time * pos2 + Mathf.Pow(time, 2) * pos3;
+        return result;
+    }
+
+    public static Vector3 getBezierPos(Vector3 pos1, Vector3 pos2, Vector3 pos3, float time)
+    {
         Vector3 result = Mathf.Pow((1 - time), 2) * pos1 + 2 * (1 - time) * time * pos2 + Mathf.Pow(time, 2) * pos3;
         return result;
     }

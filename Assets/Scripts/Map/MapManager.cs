@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MapManager : MonoBehaviour
 {
-    public List<TempEnemy> enemies;
+    public List<SO_Enemy> enemies;
     public GameObject prefab;
     public GameObject dotPrefab;
 
@@ -26,11 +27,13 @@ public class MapManager : MonoBehaviour
         
         Dictionary<int, GameObject> unsortedEnemies = new Dictionary<int, GameObject>();
         //loop through all enemies to spawn them
-        foreach (TempEnemy enemy in enemies)
+        foreach (SO_Enemy enemy in enemies)
         {
             int randomPos = Random.Range(0, availablePositions.Count);
             Vector3 newPos = availablePositions[randomPos].transform.position;
             GameObject newEnemy = Instantiate(prefab);
+            newEnemy.GetComponent<MapEnemy>().enemy = enemy;
+            newEnemy.GetComponent<MapEnemy>().Setup();
             newEnemy.transform.position = newPos;
             unsortedEnemies.Add(int.Parse(availablePositions[randomPos].name), newEnemy);
             RemovePositions(randomPos);
@@ -80,7 +83,9 @@ public class MapManager : MonoBehaviour
     {
         for (int i = 0; i < sortEnemies.Count; i += 2)
         {
-            createBracket(sortEnemies[i].transform.position, sortEnemies[i + 1].transform.position);
+            Vector3[] positions = createBracket(sortEnemies[i].transform.position, sortEnemies[i + 1].transform.position);
+            sortEnemies[i].GetComponent<MapEnemy>().SetWalkPath(positions[0], positions[1], positions[2], positions[3], positions[4]);
+            sortEnemies[i + 1].GetComponent<MapEnemy>().SetWalkPath(positions[5], positions[6], positions[7], positions[8], positions[9]);
         }
         BezierCurve.StartDotting();
     }
@@ -90,7 +95,7 @@ public class MapManager : MonoBehaviour
     /// </summary>
     /// <param name="startPosition">Start position</param>
     /// <param name="endPosition">End position</param>
-    private void createBracket(Vector3 startPosition, Vector3 endPosition)
+    private Vector3[] createBracket(Vector3 startPosition, Vector3 endPosition)
     {
         //get the direction between the 2 points
         Vector3 pointDirection = startPosition - endPosition;
@@ -106,16 +111,19 @@ public class MapManager : MonoBehaviour
         Vector3 halfway = midDirection * (Vector3.Distance(new Vector3(0, 0, 0), midPoint) / 3);
 
         //with this half way position, we get the position exactly halfway from the 2 points, this way it is smoother between the 2 points
-        Vector3 encounterPosition = BezierCurve.getBezierPos(startPosition, halfway, endPosition, 20, 10, dotPrefab);
+        Vector3 encounterPosition = BezierCurve.getBezierPos(startPosition, halfway, endPosition, 20, 10);
 
         //add this position to the list for later use
         encounterPositions.Add(encounterPosition);
 
         //create the path based on the positions
         //from the first enemy to the encounter position
-        createPath(startPosition, encounterPosition);
+        Vector3[] firstPos = createPath(startPosition, encounterPosition);
         //and from the second enemy to the encounter position
-        createPath(endPosition, encounterPosition);
+        Vector3[] secondPos = createPath(endPosition, encounterPosition);
+
+        Vector3[] allPos = firstPos.Concat(secondPos).ToArray();
+        return allPos;
     }
 
     /// <summary>
@@ -123,7 +131,7 @@ public class MapManager : MonoBehaviour
     /// </summary>
     /// <param name="startPosition"> Start position</param>
     /// <param name="endPosition"> The encounter position, or end position</param>
-    private void createPath(Vector3 startPosition, Vector3 endPosition)
+    private Vector3[] createPath(Vector3 startPosition, Vector3 endPosition)
     {
         //Get the distance between the 2 points
         float distance = Vector3.Distance(startPosition, endPosition);
@@ -160,12 +168,16 @@ public class MapManager : MonoBehaviour
         }
 
         //with the new middle pos and the new normal direction, we get the normal points
-        Vector3 firstNormallPoint = createLineSegment(startPosition, lineMiddlePoint, firstLineSegmentNormalDirection);
-        Vector3 secondNormallPoint = createLineSegment(lineMiddlePoint, endPosition, secondLineSegmentNormalDirection);
+        Vector3 firstNormalPoint = createLineSegment(startPosition, lineMiddlePoint, firstLineSegmentNormalDirection);
+        Vector3 secondNormalPoint = createLineSegment(lineMiddlePoint, endPosition, secondLineSegmentNormalDirection);
         //with these values we generate a double bezier curve
         //start pos -> first normal point -> line middle point
         //line middle point -> second normal point -> end position
-        BezierCurve.CreateDoubleBezier(startPosition, firstNormallPoint, lineMiddlePoint, secondNormallPoint, endPosition, dotPrefab);
+        Vector3[] positions = new[] { startPosition, firstNormalPoint, lineMiddlePoint, secondNormalPoint, endPosition };
+
+        BezierCurve.CreateDoubleBezier(startPosition, firstNormalPoint, lineMiddlePoint, secondNormalPoint, endPosition, dotPrefab);
+
+        return positions;
     }
 
     /// <summary>
@@ -237,7 +249,10 @@ public class MapManager : MonoBehaviour
         for (int i = 0; i < encounterPos.Count; i += 2)
         {
             //fill the encounter positions with new values, based on the previous encounter positions (new brackets)
-            createBracket(encounterPos[i], encounterPos[i + 1]);
+            //createBracket(encounterPos[i], encounterPos[i + 1]);
+            Vector3[] positions = createBracket(encounterPos[i], encounterPos[i + 1]);
+            sortEnemies[i].GetComponent<MapEnemy>().SetWalkPath(positions[0], positions[1], positions[2], positions[3], positions[4]);
+            sortEnemies[i + 1].GetComponent<MapEnemy>().SetWalkPath(positions[5], positions[6], positions[7], positions[8], positions[9]);
         }
 
         BezierCurve.StartDotting();
