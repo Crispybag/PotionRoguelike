@@ -13,14 +13,14 @@ public class SO_Inventory : ScriptableObject
     public void AddToInventory(SO_Ingredient ingredient)
     {
         inventory.Add(ingredient);
-        //updateCurrentRecipes();
+        updateCurrentRecipes();
 
     }
 
     public void RemoveFromInventory(SO_Ingredient ingredient)
     {
         inventory.Remove(ingredient);
-        //updateCurrentRecipes();
+        updateCurrentRecipes();
 
     }
 
@@ -31,15 +31,20 @@ public class SO_Inventory : ScriptableObject
 
         loadOut.Add(inventorySlot);
         inventory.Remove(inventorySlot);
-        //updateCurrentRecipes();
+        updateCurrentRecipes();
         return true;
 
 
     }
     public void reEquipIngredient(int loadoutSlot, int inventorySlot)
     {
+        if (loadoutSlot >= loadOut.Count || inventorySlot >= inventory.Count) {Debug.LogWarning("Trying to access a too high array count"); return; }
+
+
+        SO_Ingredient loadOutIngredient = loadOut[loadoutSlot];
         loadOut[loadoutSlot] = inventory[inventorySlot];
-        //updateCurrentRecipes();
+        inventory[inventorySlot] = loadOutIngredient;
+        updateCurrentRecipes();
 
     }
 
@@ -47,7 +52,7 @@ public class SO_Inventory : ScriptableObject
     {
         inventory.Clear();
         loadOut.Clear(); 
-        //updateCurrentRecipes();
+        updateCurrentRecipes();
     }
 
     public void updateCurrentRecipes()

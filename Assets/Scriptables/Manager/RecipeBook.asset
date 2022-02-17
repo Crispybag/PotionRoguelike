@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe418679b0b96b43816f3a84032a7fb, type: 3}
   m_Name: RecipeBook
   m_EditorClassIdentifier: 
-  inGameRecipes: []
+  inGameRecipes:
+  - {fileID: 11400000, guid: 348a61542bfd7c44793a4499ad7ba310, type: 2}
+  - {fileID: 11400000, guid: 515f153fc4f217d48bfd72073caf08be, type: 2}
+  - {fileID: 11400000, guid: 5bd3afc1d034f4a45b4e91b7468ca716, type: 2}
+  - {fileID: 11400000, guid: 1ea171aa1562b4f40a1bce751b8b3902, type: 2}
+  - {fileID: 11400000, guid: a959b56f1bdaa7b4f90859b010048062, type: 2}
