@@ -23,6 +23,7 @@ public class MapManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         Dictionary<int, GameObject> unsortedEnemies = new Dictionary<int, GameObject>();
         //loop through all enemies to spawn them
         foreach (TempEnemy enemy in enemies)
@@ -81,20 +82,21 @@ public class MapManager : MonoBehaviour
         {
             createBracket(sortEnemies[i].transform.position, sortEnemies[i + 1].transform.position);
         }
+        BezierCurve.StartDotting();
     }
 
     /// <summary>
     /// Creates a bracket
     /// </summary>
-    /// <param name="fPosition">Start position</param>
-    /// <param name="sPosition">End position</param>
-    private void createBracket(Vector3 fPosition, Vector3 sPosition)
+    /// <param name="startPosition">Start position</param>
+    /// <param name="endPosition">End position</param>
+    private void createBracket(Vector3 startPosition, Vector3 endPosition)
     {
         //get the direction between the 2 points
-        Vector3 pointDirection = fPosition - sPosition;
+        Vector3 pointDirection = startPosition - endPosition;
         pointDirection.Normalize();
         //then get their middle point
-        Vector3 midPoint = fPosition + pointDirection * Vector3.Distance(fPosition, sPosition) / 2;
+        Vector3 midPoint = startPosition + pointDirection * Vector3.Distance(startPosition, endPosition) / 2;
 
         //midpoint is the direction, because center is 0,0,0
         Vector3 midDirection = midPoint;
@@ -104,63 +106,66 @@ public class MapManager : MonoBehaviour
         Vector3 halfway = midDirection * (Vector3.Distance(new Vector3(0, 0, 0), midPoint) / 3);
 
         //with this half way position, we get the position exactly halfway from the 2 points, this way it is smoother between the 2 points
-        Vector3 encounterPosition = BezierCurve.getBezierPos(fPosition, halfway, sPosition, 20, 10, dotPrefab);
+        Vector3 encounterPosition = BezierCurve.getBezierPos(startPosition, halfway, endPosition, 20, 10, dotPrefab);
 
         //add this position to the list for later use
         encounterPositions.Add(encounterPosition);
 
         //create the path based on the positions
         //from the first enemy to the encounter position
-        createPath(fPosition, encounterPosition);
+        createPath(startPosition, encounterPosition);
         //and from the second enemy to the encounter position
-        createPath(sPosition, encounterPosition);
+        createPath(endPosition, encounterPosition);
     }
 
     /// <summary>
     /// Creates a path between the middle points
     /// </summary>
-    /// <param name="fPosition"> Start position</param>
-    /// <param name="encounterPosition"> The encounter position, or end position</param>
-    public void createPath(Vector3 fPosition, Vector3 encounterPosition)
+    /// <param name="startPosition"> Start position</param>
+    /// <param name="endPosition"> The encounter position, or end position</param>
+    private void createPath(Vector3 startPosition, Vector3 endPosition)
     {
         //Get the distance between the 2 points
-        float fDistance = Vector3.Distance(fPosition, encounterPosition);
+        float distance = Vector3.Distance(startPosition, endPosition);
 
         //get the direction between the 2 points
-        Vector3 fDirection = encounterPosition - fPosition;
-        fDirection.Normalize();
+        Vector3 direction = endPosition - startPosition;
+        direction.Normalize();
 
         //create an offset
-        float fOffset = fDistance / 6;
+        float offset = distance / 6;
         //get a random distance, the initial distance is divided by two so its around the middle, and then +- the offset so the offset is around the middle point
-        float fRandomDistance = Random.Range((fDistance / 2) - fOffset, (fDistance / 2) + fOffset);
+        float randomDistance = Random.Range((distance / 2) - offset, (distance / 2) + offset);
 
         //get the middle point based on the distance
-        Vector3 fLineMiddlePoint = fPosition + fDirection * fRandomDistance;
+        Vector3 lineMiddlePoint = startPosition + direction * randomDistance;
 
 
         //generate random number to decide if left or right first
         int randDirection = Random.Range(0, 2);
 
-        Vector3 ffNormalDirection;
-        Vector3 fsNormalDirection;
+        Vector3 firstLineSegmentNormalDirection;
+        Vector3 secondLineSegmentNormalDirection;
 
         //using the random direction we set the normals of the line
         if (randDirection == 0)
         {
-            ffNormalDirection = new Vector3(fDirection.y * -1, fDirection.x, fDirection.z);
-            fsNormalDirection = new Vector3(fDirection.y, fDirection.x * -1, fDirection.z);
+            firstLineSegmentNormalDirection = new Vector3(direction.y * -1, direction.x, direction.z);
+            secondLineSegmentNormalDirection = new Vector3(direction.y, direction.x * -1, direction.z);
         }
         else
         {
-            ffNormalDirection = new Vector3(fDirection.y, fDirection.x * -1, fDirection.z);
-            fsNormalDirection = new Vector3(fDirection.y * -1, fDirection.x, fDirection.z);
+            firstLineSegmentNormalDirection = new Vector3(direction.y, direction.x * -1, direction.z);
+            secondLineSegmentNormalDirection = new Vector3(direction.y * -1, direction.x, direction.z);
         }
 
-        //with the new position and the normals we generate a new line segment, because the bezier curve can only take 3 inputs
-        createLineSegment(fPosition, fLineMiddlePoint, ffNormalDirection);
-        createLineSegment(fLineMiddlePoint, encounterPosition, fsNormalDirection);
-
+        //with the new middle pos and the new normal direction, we get the normal points
+        Vector3 firstNormallPoint = createLineSegment(startPosition, lineMiddlePoint, firstLineSegmentNormalDirection);
+        Vector3 secondNormallPoint = createLineSegment(lineMiddlePoint, endPosition, secondLineSegmentNormalDirection);
+        //with these values we generate a double bezier curve
+        //start pos -> first normal point -> line middle point
+        //line middle point -> second normal point -> end position
+        BezierCurve.CreateDoubleBezier(startPosition, firstNormallPoint, lineMiddlePoint, secondNormallPoint, endPosition, dotPrefab);
     }
 
     /// <summary>
@@ -169,28 +174,28 @@ public class MapManager : MonoBehaviour
     /// <param name="pointA">Start position</param>
     /// <param name="pointB">End position</param>
     /// <param name="normalDirection">The normal direction of which way the curve goes</param>
-    public void createLineSegment(Vector3 pointA, Vector3 pointB, Vector3 normalDirection)
+    private Vector3 createLineSegment(Vector3 pointA, Vector3 pointB, Vector3 normalDirection)
     {
         //get the direction between the 2 points
         Vector3 fDirection = pointB - pointA;
         fDirection.Normalize();
 
         //get the distance between the 2 points
-        float f3Distance = Vector3.Distance(pointA, pointB);
+        float distance = Vector3.Distance(pointA, pointB);
 
         //generate an offset based on the distance
-        float f3Offset = f3Distance / 4;
+        float offset = distance / 4;
         //get a random distance, the initial distance is divided by two so its around the middle, and then +- the offset so the offset is around the middle point
-        float f3RandomDistance = Random.Range((f3Distance / 2) - f3Offset, (f3Distance / 2) + f3Offset);
+        float randomDistance = Random.Range((distance / 2) - offset, (distance / 2) + offset);
 
         //get the middle point of the line segment point using the random distance
-        Vector3 f3LineMiddlePoint = pointA + fDirection * f3RandomDistance;
+        Vector3 lineSegmentMiddlePoint = pointA + fDirection * randomDistance;
 
         //then we generate a new point based on the calculate middle point, and add the normal line distance to it, this generates the third point we need to create a bezier
-        Vector3 fsNormalPoint = f3LineMiddlePoint + normalDirection * f3Distance / 2;
+        Vector3 lineSegmentNormalPoint = lineSegmentMiddlePoint + normalDirection * distance / 2;
 
-        //generate the bezier using the 3 points
-        BezierCurve.CreateBezier(pointA, fsNormalPoint, pointB, dotPrefab);
+        //return the new segment
+        return lineSegmentNormalPoint;
     }
 
     public void Update()
@@ -234,6 +239,8 @@ public class MapManager : MonoBehaviour
             //fill the encounter positions with new values, based on the previous encounter positions (new brackets)
             createBracket(encounterPos[i], encounterPos[i + 1]);
         }
+
+        BezierCurve.StartDotting();
     }
 
 
