@@ -12,8 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c7f33547260644f9bae89d1ba87eb4, type: 3}
   m_Name: Inventory
   m_EditorClassIdentifier: 
-  inventory: []
-  loadOut: []
+  inventory:
+  - {fileID: 11400000, guid: 3319934fefe4a8a42880e651d97168cd, type: 2}
+  - {fileID: 11400000, guid: 0f4aa9995efa21f4d8c7b5ff4ed36be5, type: 2}
+  - {fileID: 11400000, guid: 0f4aa9995efa21f4d8c7b5ff4ed36be5, type: 2}
+  - {fileID: 11400000, guid: 0f4aa9995efa21f4d8c7b5ff4ed36be5, type: 2}
+  - {fileID: 11400000, guid: 0f4aa9995efa21f4d8c7b5ff4ed36be5, type: 2}
+  - {fileID: 11400000, guid: 0f4aa9995efa21f4d8c7b5ff4ed36be5, type: 2}
+  - {fileID: 11400000, guid: f34fc971013c35c438ae161eb9692b7b, type: 2}
+  loadOut:
+  - {fileID: 11400000, guid: 075871bb9be5f564a9a8012994ee1af1, type: 2}
+  - {fileID: 11400000, guid: f6dd0db528dd5ad4394993510df25cb8, type: 2}
+  - {fileID: 11400000, guid: 3319934fefe4a8a42880e651d97168cd, type: 2}
+  - {fileID: 11400000, guid: 3319934fefe4a8a42880e651d97168cd, type: 2}
+  - {fileID: 11400000, guid: 3319934fefe4a8a42880e651d97168cd, type: 2}
   recipeBook: {fileID: 11400000, guid: d49b8ea2f49090c4a8817febab152854, type: 2}
-  loadOutRecipes: []
+  loadOutRecipes:
+  - {fileID: 11400000, guid: 515f153fc4f217d48bfd72073caf08be, type: 2}
   inventoryRecipes: []

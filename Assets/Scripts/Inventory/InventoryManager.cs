@@ -7,14 +7,14 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private SO_Inventory inventory;
     [SerializeField] private List<SO_Ingredient> ingredientTestList;
     [SerializeField] private SO_RecipeBook recipeBook;
-    
+    [SerializeField] private int inventorySize = 40;
     //temporary for testing
     void Start()
     {
         Debug.LogWarning("Temporary Code! Remove when done testing!");
 
         inventory.flushData();
-
+        inventory.createInventorySize(inventorySize);
         for (int i = 0; i <ingredientTestList.Count; i++ )
         {
             inventory.AddToInventory(ingredientTestList[i]);
@@ -28,9 +28,9 @@ public class InventoryManager : MonoBehaviour
     //kind of temporary, automatically fills the equipment out for the player
     void Autofill()
     {
-        while (inventory.inventory.Count > 0 && inventory.loadOut.Count < 5)
+        for(int i = 0; i < 5; i++)
         {
-            inventory.equipIngredient(inventory.inventory[0]);
+            inventory.reEquipIngredient(i, i);
         }
     }
 
@@ -38,17 +38,5 @@ public class InventoryManager : MonoBehaviour
     public void FillRecipeBook()
     {
         recipeBook.fillGameRecipes();
-    }
-
-
-    
-    private void Update()
-    {
-        //REMOVE THIS WHEN DONE WITH TESTING!!!
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.LogWarning("Temporary Code! Remove when done testing!");
-            inventory.reEquipIngredient(0, 0);
-        }
     }
 }

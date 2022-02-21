@@ -54,7 +54,7 @@ MonoBehaviour:
   travelTime: 15
   timeTravelled: 0
   travelFrom: {x: 0, y: 0, z: 0}
-  travelTo: {x: 2, y: 1, z: 0}
+  travelTo: {x: -3, y: 3, z: 0}
 --- !u!212 &6875221557319204663
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
     {
         _currentHealth = _maxHealth;
         playerStats.onPlayerStatsChanged(this);
+        playerStats.location = transform.position;
     }
     private void OnEnable()
     {

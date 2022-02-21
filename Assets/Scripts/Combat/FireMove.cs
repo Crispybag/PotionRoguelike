@@ -5,7 +5,10 @@ using UnityEngine;
 public class FireMove : MonoBehaviour
 {
     [SerializeField] private GameObject baseMovePrefab;
-    float timeChanneling;
+    [SerializeField] private SO_PlayerStats playerStats;
+    float cooldownTimer;
+    float channelTimer;
+    bool isChanneling = false;
     EnemyStats enemyStats;
     GameObject instantiatedMove;
     void Start()
@@ -16,20 +19,38 @@ public class FireMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //get current combo
+        //Increase the time it is channeling
+        cooldownTimer += Time.deltaTime;
 
-        timeChanneling += Time.deltaTime;
-
-        
-
-        //if channel time is longer than the move cast time divided by how fast the enemy crafts
+        //check if we're not already out of the current combo
         if (enemyStats.currentMove >= enemyStats.currentCombo.moves.Count) return;
 
-        if (timeChanneling / enemyStats.scriptableEnemy.craftingSpeed <= enemyStats.currentCombo.moves[enemyStats.currentMove].castTime) return;
+        //if channel time is longer than the move cast time divided by how fast the enemy crafts
+        if (cooldownTimer / enemyStats.scriptableEnemy.craftingSpeed <= enemyStats.currentCombo.moves[enemyStats.currentMove].castTime) return;
+        
+        //start channeling once cooldown is off
+        channelTimer += Time.deltaTime;
+        
+        //do channeling stuff once
+        if (!isChanneling)
+        {
+            isChanneling = true;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+        }
+
+        if (channelTimer <= enemyStats.currentCombo.moves[enemyStats.currentMove].channelTime) return;
+
+
         Debug.Log("Do Move! " + enemyStats.currentCombo.moves[enemyStats.currentMove].name);
         enemyStats.currentCombo.RegisterShot(ref enemyStats.currentMove, ref enemyStats.lastShotFired);
 
-        timeChanneling = 0;
+        //refresh timers
+        cooldownTimer = 0;
+        channelTimer = 0;
+        isChanneling = false;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+
+        //instantiate the move
         instantiatedMove = Instantiate(baseMovePrefab, gameObject.transform);
         Setup(enemyStats.currentCombo.moves[enemyStats.currentMove]);
 
@@ -37,7 +58,7 @@ public class FireMove : MonoBehaviour
 
     void Setup(SO_Move pMove)
     {
-        instantiatedMove.GetComponent<MoveStats>().Setup(pMove, enemyStats.moveManager);
+        instantiatedMove.GetComponent<MoveStats>().Setup(pMove, enemyStats.moveManager, playerStats);
     }
 
 }

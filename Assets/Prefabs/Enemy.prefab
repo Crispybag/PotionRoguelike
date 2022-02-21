@@ -122,3 +122,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMovePrefab: {fileID: 4049264082728836772, guid: 5193aef8c3e9d014c8d9ad26d8a43212, type: 3}
+  playerStats: {fileID: 11400000, guid: efb2c46033c637a40919479472eb3902, type: 2}

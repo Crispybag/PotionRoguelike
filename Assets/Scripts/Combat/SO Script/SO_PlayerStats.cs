@@ -8,7 +8,7 @@ public class SO_PlayerStats : ScriptableObject
     // Start is called before the first frame update
 
     public UnityEvent<PlayerManager> onStatsChanged;
-
+    public Vector3 location;
    
     public void onPlayerStatsChanged(PlayerManager playerManager)
     {

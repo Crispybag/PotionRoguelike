@@ -14,5 +14,6 @@ public class SO_Move : ScriptableObject
     public int shielding;
     public float castTime;
     public float travelTime;
+    public float channelTime;
     public List<Debuff> debuffs;
 }

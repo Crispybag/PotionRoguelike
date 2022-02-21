@@ -9,15 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8273908d3ec8f0d409a3c029f30ab639, type: 3}
-  m_Name: pew
+  m_Script: {fileID: 11500000, guid: a7d77f8168f0eb445b9c9e158ed15f7d, type: 3}
+  m_Name: Inventory Selector
   m_EditorClassIdentifier: 
-  name: pew
-  sprite: {fileID: 21300000, guid: d8e412a3743479241a07fd10a4f33b81, type: 3}
-  damage: 5
-  healing: 0
-  shielding: 0
-  castTime: 4
-  travelTime: 20
-  channelTime: 1
-  debuffs: 
+  onCursorSelected:
+    m_PersistentCalls:
+      m_Calls: []
