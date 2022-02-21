@@ -10,6 +10,16 @@ public class ScenesManager : MonoBehaviour
         SceneManager.LoadScene(sceneIndex, LoadSceneMode.Single);
     }
 
+    public static void LoadSceneAdditive(int sceneIndex)
+    {
+        SceneManager.LoadScene(sceneIndex, LoadSceneMode.Additive);
+    }
+
+    public static void CloseScene(int sceneIndex)
+    {
+        SceneManager.UnloadSceneAsync(sceneIndex);
+    }
+
     public static void ReloadScene()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;

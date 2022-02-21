@@ -17,11 +17,11 @@ public abstract class Movement : MonoBehaviour
     private bool wantsToMove;
     protected float _lerpVal;
 
+    float _timeValue = 0f;
 
     public bool CanMove(Vector3 direction)
     {
         Debug.Log(gameObject.name + "reached here");
-        doubleTap = true;
         //where I want to go
         Vector3Int goalTile = GridObject.ToVector3Int(transform.position) + GridObject.ToVector3Int(direction);
         foreach (GameObject obj in GridManager.mapManager.getObjectsOnBoard())
@@ -97,8 +97,8 @@ public abstract class Movement : MonoBehaviour
         }
     }
 
-    float _timeValue = 0f;
-    bool doubleTap = false;
+
+
     // Update is called once per frame
     protected virtual void Update()
     {

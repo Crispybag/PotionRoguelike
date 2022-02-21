@@ -62,23 +62,19 @@ public class PlayerMovement : Movement
         }
     }
 
-    float prevHoriAxisVal = 0;
-    float prevVertAxisVal = 0;
 
     protected override void Update()
     {
         base.Update();
 
 
-        Vector3 futureWalkDir = new Vector3(0, 0, 0);
-
         //break loop if player doesnt have any inputs
         if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
         {
 
             //determine which direction the mouse will walk in based on input
-            
-            futureWalkDir = generateWalkDir();
+
+            Vector3 futureWalkDir = generateWalkDir();
             _moveDir = futureWalkDir;
             //accept new input when the lerp is finished
             if (_lerpVal >= 1.0f) CanMove(_moveDir);
