@@ -5,7 +5,7 @@ using UnityEngine;
 public class SO_EnemyCombo : ScriptableObject
 {
     //always fire these attacks in order
-    public string name;
+    public string comboName;
     public List<SO_Move> moves;
 
 

@@ -18,7 +18,10 @@ public class GameManager : MonoBehaviour
 
         foreach(SO_Ingredient ingredient in loadOut)
         {
-         
+            if (ingredient == null)
+            {
+                continue;
+            }
             baseIngredientPrefab.GetComponent<IngredientStats>().ingredientStats = ingredient;
             baseIngredientPrefab.GetComponent<IngredientStats>().Setup();
             baseIngredientPrefab.GetComponent<IngredientSpawning>().RespawnIngredient(baseIngredientPrefab);

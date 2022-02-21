@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Combat/Move")]
 public class SO_Move : ScriptableObject
 {
-    public string name;
+    public string moveName;
     public Sprite sprite;
     public enum Debuff { SLOW, STUN };
 
