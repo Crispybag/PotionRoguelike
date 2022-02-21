@@ -23,6 +23,8 @@ public class MapEnemy : MonoBehaviour
     private float currentTime = 0;
 
 
+
+
     public void Setup()
     {
         this.GetComponent<SpriteRenderer>().sprite = enemy.sprite;
