@@ -110,8 +110,14 @@ public class CraftingManager : MonoBehaviour
         else if(craftableRecipes.Count > 0)
         {
             Debug.Log("Found a recipe that can be crafted! : " + craftableRecipes[0].title);
+            //if there is only one possible recipe left
+            if (possibleRecipes.Count == 1)
+            {
+                setCraftingRecipe();
+            }
             return;
         }
+
     }
 
 

@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    //build observer
-    public int  _currentHealth, _currentShield, _maxHealth;
-    [SerializeField] private SO_PlayerStats playerStats;
 
+    [Header("Scriptable Objects")]//build observer
+    [SerializeField] private SO_PlayerStats playerStats;
     [SerializeField] private SO_PlayerMoveManager playerMoveManager;
     [SerializeField] private SO_EnemyMoveTriggerManager moveManager;
+
+    [Header("Public Variables")]//build observer
+    public int _currentHealth; 
+    public int _currentShield; 
+    public int _maxHealth;
 
     private void Start()
     {
         _currentHealth = _maxHealth;
         playerStats.onPlayerStatsChanged(this);
+        playerStats.location = transform.position;
     }
     private void OnEnable()
     {

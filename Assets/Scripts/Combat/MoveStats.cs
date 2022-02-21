@@ -13,8 +13,8 @@ public class MoveStats : MonoBehaviour
     [HideInInspector] public int shielding;
     [HideInInspector] public List<SO_Move.Debuff> debuffs;
     [HideInInspector] public float travelTime;
-
     [HideInInspector] public float timeTravelled;
+
 
     private SO_EnemyMoveTriggerManager manager;
     public Vector3 travelFrom;
@@ -30,10 +30,10 @@ public class MoveStats : MonoBehaviour
         transform.position = Vector3.Lerp(travelTo, travelFrom, timeTravelled / travelTime);
         sr = GetComponent<SpriteRenderer>(); 
     }
-     public void Setup(SO_Move moveData, SO_EnemyMoveTriggerManager pManager)
+     public void Setup(SO_Move moveData, SO_EnemyMoveTriggerManager pManager, SO_PlayerStats pStats)
     {
         travelFrom = transform.position;
-        travelTo = transform.position + new Vector3(0, -6, 0);
+        travelTo = pStats.location;
         damage = moveData.damage;
         debuffs = moveData.debuffs;
         healing = moveData.healing;

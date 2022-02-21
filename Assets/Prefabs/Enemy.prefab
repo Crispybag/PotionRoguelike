@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptableEnemy: {fileID: 11400000, guid: 0514621c2553e4845bbe6b944ebe22dd, type: 2}
   enemyName: Slime
-  currentHealth: 50
+  currentHealth: 25
   currentShield: 0
   moveManager: {fileID: 11400000, guid: d6c89f59f0a2434409cf21811a327b8b, type: 2}
   playerManager: {fileID: 11400000, guid: 8fe55836746e67f44845a32f3c388d99, type: 2}
@@ -122,3 +122,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMovePrefab: {fileID: 4049264082728836772, guid: 5193aef8c3e9d014c8d9ad26d8a43212, type: 3}
+  playerStats: {fileID: 11400000, guid: efb2c46033c637a40919479472eb3902, type: 2}

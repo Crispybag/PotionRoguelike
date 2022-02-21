@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private List<SO_Ingredient> loadOut;
+    [SerializeField] private SO_Inventory inventory;
+    private List<SO_Ingredient> loadOut = new List<SO_Ingredient>();
     [SerializeField] private GameObject baseIngredientPrefab;
 
     private void Start()
     {
         if (!baseIngredientPrefab.GetComponent<IngredientStats>()) return;
 
+        
+        foreach (SO_Ingredient ingredient in inventory.loadOut)
+        { loadOut.Add(ingredient); }
 
         foreach(SO_Ingredient ingredient in loadOut)
         {
