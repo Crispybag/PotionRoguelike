@@ -123,6 +123,7 @@ public class MapManager : MonoBehaviour
         Vector3[] secondPos = createPath(endPosition, encounterPosition);
 
         Vector3[] allPos = firstPos.Concat(secondPos).ToArray();
+
         return allPos;
     }
 
