@@ -20,6 +20,26 @@ MonoBehaviour:
   - Name: Desktop
     Value: 1036
   Exists: 1
+--- !u!114 &-5520154823567242600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Audio/FMOD/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 637799542553147463
+  FileSizes:
+  - Name: Desktop
+    Value: 1036
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33,15 +53,15 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 1258801265054419430}
-  - {fileID: 113911264686948603}
+  - {fileID: 398044477167724290}
+  - {fileID: -5520154823567242600}
   EditorEvents: []
   EditorParameters: []
   MasterBanks:
-  - {fileID: 113911264686948603}
+  - {fileID: -5520154823567242600}
   StringsBanks:
-  - {fileID: 1258801265054419430}
-  cacheTime: 637810667351713725
+  - {fileID: 398044477167724290}
+  cacheTime: 637799542553177541
   cacheVersion: 10
 --- !u!114 &113911264686948603
 MonoBehaviour:
@@ -62,6 +82,26 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 1036
+  Exists: 1
+--- !u!114 &398044477167724290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Audio/FMOD/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 637799542553177541
+  FileSizes:
+  - Name: Desktop
+    Value: 712
   Exists: 1
 --- !u!114 &1258801265054419430
 MonoBehaviour:
