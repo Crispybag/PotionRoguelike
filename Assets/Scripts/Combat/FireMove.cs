@@ -39,9 +39,6 @@ public class FireMove : MonoBehaviour
         }
 
         if (channelTimer <= enemyStats.currentCombo.moves[enemyStats.currentMove].channelTime) return;
-
-
-        Debug.Log("Do Move! " + enemyStats.currentCombo.moves[enemyStats.currentMove].moveName);
         enemyStats.currentCombo.RegisterShot(ref enemyStats.currentMove, ref enemyStats.lastShotFired);
 
         //refresh timers

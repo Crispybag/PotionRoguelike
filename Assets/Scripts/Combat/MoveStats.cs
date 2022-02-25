@@ -12,6 +12,7 @@ public class MoveStats : MonoBehaviour
     [HideInInspector] public int healing;
     [HideInInspector] public int shielding;
     [HideInInspector] public List<SO_Move.Debuff> debuffs;
+    [HideInInspector] public List<float> debuffDurations;
     [HideInInspector] public float travelTime;
     [HideInInspector] public float timeTravelled;
 
@@ -40,6 +41,7 @@ public class MoveStats : MonoBehaviour
         shielding = moveData.shielding;
         sr.sprite = moveData.sprite;
         travelTime = moveData.travelTime;
+        debuffDurations = moveData.debuffDurations;
         manager = pManager;
     }
 

@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
             }
             baseIngredientPrefab.GetComponent<IngredientStats>().ingredientStats = ingredient;
             baseIngredientPrefab.GetComponent<IngredientStats>().Setup();
-            baseIngredientPrefab.GetComponent<IngredientSpawning>().RespawnIngredient(baseIngredientPrefab);
+            GridManager.mapManager.SpawnGridObject(baseIngredientPrefab);
             //Instantiate(baseIngredientPrefab, new Vector3(-3, 0, 0), transform.rotation);
         }
     }

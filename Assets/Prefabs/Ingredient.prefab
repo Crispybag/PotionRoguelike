@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 44091997056576408}
   - component: {fileID: 44091997056576411}
-  - component: {fileID: 44091997056576410}
   - component: {fileID: 44091997056576413}
   - component: {fileID: 44091997056576412}
   - component: {fileID: 44091997056576415}
@@ -89,18 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &44091997056576410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44091997056576414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85e3a2bd0526437419d425d767752f76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &44091997056576413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fccdfbb6fb906a41950831994359235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridIngredient: {fileID: 44091997056576412}
+  distToDestroy: 0.3
 --- !u!114 &44091997056576412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c9e52c570d6f340bee7558e91bafc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStackable: 0
 --- !u!114 &44091997056576415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ece55dbef5d0a8448c188552d32dd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amountOfGarbage: 1
 --- !u!114 &-2332013808161210630
 MonoBehaviour:
   m_ObjectHideFlags: 0

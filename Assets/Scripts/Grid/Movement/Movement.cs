@@ -10,8 +10,8 @@ public abstract class Movement : MonoBehaviour
     
     //[SerializeField] protected Tilemap _map;
     //Lerp vectors
-    private Vector3 _startPosition;
-    private Vector3 _endPosition;
+    protected Vector3 _startPosition;
+    protected Vector3 _endPosition;
 
     protected Vector3 _moveDir;
     private bool wantsToMove;
@@ -21,33 +21,50 @@ public abstract class Movement : MonoBehaviour
 
     public bool CanMove(Vector3 direction)
     {
-        Debug.Log(gameObject.name + "reached here");
         //where I want to go
         Vector3Int goalTile = GridObject.ToVector3Int(transform.position) + GridObject.ToVector3Int(direction);
         foreach (GameObject obj in GridManager.mapManager.getObjectsOnBoard())
         {
+            if (obj == null) continue;
             //check if there is an object on the location
             if (GridObject.ToVector3Int(obj.transform.position) == goalTile)
             {
 
+                GridObject gObj = null;
+                if (obj.GetComponent<GridObject>()) gObj = obj.GetComponent<GridObject>();
+
+                //when it doesnt contain a gridobject script
+                else
+                {
+                    continue;
+                }
+
+                //also allow it to move when the gameobject is stackable, no movement needed
+                if(gObj.isStackable)
+                {
+                    continue;
+                }
+
                 //if it doesnt have a movement script
                 if (!obj.GetComponent<Movement>()) return false;
-
                 wantsToMove = obj.GetComponent<Movement>().CanMove(direction);
+
+
+               
+                //when it does contain a grid object and the object wont budge nor is it stackable
                 if (!wantsToMove) 
                 { 
                     return false; 
                 }
                 else
                 {
-                    Debug.Log(gameObject.name + " wants to move to " + (transform.position + direction).ToString());
                     _moveDir = direction;
                     updateLerp(direction);
                     return true;
                 }
             }
         }
-        Debug.Log(gameObject.name + " wants to move to " + (transform.position + direction).ToString());
+        
         wantsToMove = true;
         _moveDir = direction;
         updateLerp(direction);
@@ -91,6 +108,7 @@ public abstract class Movement : MonoBehaviour
     {
         foreach (GameObject obj in GridManager.mapManager.getObjectsOnBoard())
         {
+            if (!obj.GetComponent<Movement>()) continue;
             Movement m = obj.GetComponent<Movement>();
             m._lerpVal = 1f;
             obj.transform.position = Vector3.Lerp(m._startPosition, m._endPosition, m._lerpVal);

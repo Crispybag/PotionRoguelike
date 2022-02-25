@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8273908d3ec8f0d409a3c029f30ab639, type: 3}
   m_Name: slowpew
   m_EditorClassIdentifier: 
-  name: 
+  moveName: 
   sprite: {fileID: 21300000, guid: 9a10caf34d61fbc47a4686c4bb8fa4e3, type: 3}
   damage: 1
   healing: 0
   shielding: 0
   castTime: 8
   travelTime: 20
-  debuffs: 
+  channelTime: 0
+  debuffs: 02000000
+  debuffDurations:
+  - 5

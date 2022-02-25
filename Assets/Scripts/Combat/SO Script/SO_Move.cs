@@ -7,7 +7,7 @@ public class SO_Move : ScriptableObject
 {
     public string moveName;
     public Sprite sprite;
-    public enum Debuff { SLOW, STUN };
+    public enum Debuff { FROZEN, POISONED, BURNED, CONFUSED, BLIND};
 
     public int damage;
     public int healing;
@@ -16,4 +16,5 @@ public class SO_Move : ScriptableObject
     public float travelTime;
     public float channelTime;
     public List<Debuff> debuffs;
+    public List<float> debuffDurations;
 }

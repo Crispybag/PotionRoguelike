@@ -2,37 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-public class FallOffMap : MonoBehaviour
+public class GridIngredient : GridObject
 {
     private Tilemap _map;
 
     private void Start()
     {
-        _map = GridManager.mapManager.GetTilemap();
+        _map = gridManager.GetTilemap();
     }
     //make sure objects get deleted once they fall off the map
-    private void fallAndRemove()
+    public bool checkForFallAndRemove(Vector3 pushDirection)
     {
+        Vector3Int iPushDirection = ToVector3Int(pushDirection);
+
         //vectors to find edges
         Vector3Int mapOffset = new Vector3Int(Mathf.RoundToInt(_map.transform.position.x), Mathf.RoundToInt(_map.transform.position.y));
         Vector3Int intPos = new Vector3Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), Mathf.RoundToInt(transform.position.z));
 
         //destroy if it cant find a tile below it
-        if (!GridManager.mapManager.GetTilemap().GetTile(intPos - mapOffset))
+        if (!gridManager.GetTilemap().GetTile(intPos - mapOffset + iPushDirection))
         {
             //make ingredientspawning do its thing if its there
             if (gameObject.GetComponent<IngredientSpawning>()) gameObject.GetComponent<IngredientSpawning>().OnGameObjectDestroy();
-            
-            if(intPos.y < _map.origin.y)
-            {
-                // go to crafting recipe
-                FindObjectOfType<CraftingManager>().AddIngredient(gameObject);
-            }
-            Destroy(this.gameObject);
+            return true;
         }
+
+        return false;
     }
-    void Update()
+
+    public void DestroyIngredient(Vector3 pushDirection)
     {
-        fallAndRemove();
+        if (pushDirection.x == 0 && pushDirection.y < 0)
+        {
+            // go to crafting recipe (change later if able)
+            FindObjectOfType<CraftingManager>().AddIngredient(gameObject);
+        }
+
+        Destroy(this.gameObject);
+
     }
+
 }

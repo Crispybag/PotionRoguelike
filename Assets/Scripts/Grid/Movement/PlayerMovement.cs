@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : Movement
 {
+
+    [SerializeField] SO_OnPlayerMoved onPlayerMoved;
+    [SerializeField] GridPlayer gridPlayer;
+
     // Start is called before the first frame update
     private Vector3 oldestWalkDir;
     [SerializeField]
@@ -11,18 +15,16 @@ public class PlayerMovement : Movement
     float _fastTapLimiter = 0.5f;
     protected override void updateLerp(Vector3 walkDir)
     {
-        float hori = walkDir.x;
-        float vert = walkDir.y;
-
-        //check if the mouse doesnt go off grid
-        Vector3Int intPos = GridObject.ToVector3Int(transform.position);
-        Vector3Int intDir = new Vector3Int(Mathf.RoundToInt(hori), Mathf.RoundToInt(vert), 0);
-        Vector3Int goalTile = intPos + intDir;
-        Vector3Int mapOffset = GridObject.ToVector3Int(GridManager.mapManager.GetTilemap().transform.position);
-
-        if (GridManager.mapManager.GetTilemap().GetTile(goalTile - mapOffset))
+        if (!gridPlayer.checkForBoardFallOff(walkDir))
         {
-            oldestWalkDir = new Vector3(hori, vert, 0);
+            foreach (GameObject obj in GridManager.mapManager.getObjectsOnBoard())
+            {
+                if (GridObject.ToVector3Int(obj.transform.position) != GridObject.ToVector3Int(transform.position + walkDir)) continue;
+                if (checkForHazardousTerrain(obj)) break;
+                
+            }
+            oldestWalkDir = new Vector3(walkDir.x, walkDir.y, 0);
+            onPlayerMoved.OnPlayerMoved(this);
             base.updateLerp(walkDir);
         }
 
@@ -94,7 +96,22 @@ public class PlayerMovement : Movement
         return (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W));   
     }
 
+    private bool checkForHazardousTerrain(GameObject obj)
+    {
+        if (!obj.GetComponent<GridObject>()) return false;
+        GridObject gObj = obj.GetComponent<GridObject>();
 
+        if (!gObj.isStackable) return false;
+        if(gObj is GridHazard)
+        {
+            GridHazard hazard = gObj as GridHazard;
+            hazard.PlayerSteppedOnHazard();
+            return true;
+        }
+        return false;
+
+
+    }
 
 
 

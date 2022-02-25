@@ -22,7 +22,6 @@ public class SO_EnemyPhase :ScriptableObject
         //always pick at random
         currentEnemyCombo = enemyCombos[Random.Range(0, enemyCombos.Count)];
         lastShotFired = false;
-        Debug.Log("Do Combo! " + currentEnemyCombo.comboName);
     }
 
 
