@@ -34,8 +34,8 @@ public class CombatUIManager : MonoBehaviour
 
     void UpdateTextPlayer(PlayerManager player)
     {
-        playerHealthtext.text = player._currentHealth.ToString();
-        playerShieldtext.text = player._currentShield.ToString();
+        playerHealthtext.text = player.currentHealth.ToString();
+        playerShieldtext.text = player.currentShield.ToString();
     }
 
     void Start()

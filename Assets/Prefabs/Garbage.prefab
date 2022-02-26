@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3686372803579754830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1529517, y: 0.52093416, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c9e52c570d6f340bee7558e91bafc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onGridManager: {fileID: 11400000, guid: dd4c21c5ad0b35d49b3ddd9964ca33e3, type: 2}
+  isStackable: 0
 --- !u!114 &1950984541789785081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,5 +112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fccdfbb6fb906a41950831994359235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onGridManager: {fileID: 11400000, guid: dd4c21c5ad0b35d49b3ddd9964ca33e3, type: 2}
   gridIngredient: {fileID: 1667483933858832900}
   distToDestroy: 0.3

@@ -15,17 +15,19 @@ public class PlayerMovement : Movement
     float _fastTapLimiter = 0.5f;
     protected override void updateLerp(Vector3 walkDir)
     {
+        if (!onGridManager.OnRequestGridManager()) return;
+
         if (!gridPlayer.checkForBoardFallOff(walkDir))
         {
-            foreach (GameObject obj in GridManager.mapManager.getObjectsOnBoard())
+            foreach (GameObject obj in _gridManager.getObjectsOnBoard())
             {
                 if (GridObject.ToVector3Int(obj.transform.position) != GridObject.ToVector3Int(transform.position + walkDir)) continue;
                 if (checkForHazardousTerrain(obj)) break;
                 
             }
             oldestWalkDir = new Vector3(walkDir.x, walkDir.y, 0);
-            onPlayerMoved.OnPlayerMoved(this);
             base.updateLerp(walkDir);
+            onPlayerMoved.OnPlayerMoved(this);
         }
 
     }

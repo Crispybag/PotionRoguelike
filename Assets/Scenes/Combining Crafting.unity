@@ -354,6 +354,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3d187b9cda2bc43b8ead5ac286d6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onGridManager: {fileID: 11400000, guid: dd4c21c5ad0b35d49b3ddd9964ca33e3, type: 2}
+  startPosition: {x: 0, y: 0, z: 0}
   onPlayerMoved: {fileID: 11400000, guid: 63cba8ff9613a2c4583b1d97e8f86cc0, type: 2}
   gridPlayer: {fileID: 163709537}
   _fastTapLimiter: 0.5
@@ -436,6 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f4a0a338e936e42aec077a55410f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onGridManager: {fileID: 11400000, guid: dd4c21c5ad0b35d49b3ddd9964ca33e3, type: 2}
   isStackable: 0
 --- !u!1 &208334073
 GameObject:
@@ -547,7 +550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   craftingPot: {fileID: 1151541452}
-  craftingManager: {fileID: 0}
+  craftingManager: {fileID: 1838686124}
   currentIngredients: []
   ingredientPrefab: {fileID: 1303509813996512951, guid: 41b9a3d0821cef5458f0b6ee4e63a5a0, type: 3}
   tierBlocks:
@@ -691,7 +694,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy:
   - {fileID: 11400000, guid: 0514621c2553e4845bbe6b944ebe22dd, type: 2}
-  - {fileID: 11400000, guid: 105b4efdef200f64e970e600c609ca5a, type: 2}
   baseEnemyPrefab: {fileID: 3661300169536816202, guid: a8d5aeddfcaf30d458c6291748f63998, type: 3}
   statUpdater: {fileID: 11400000, guid: 3fc65623983612f4a8f2e799bcebdcb6, type: 2}
 --- !u!4 &319794052
@@ -1714,63 +1716,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117452640}
   m_CullTransparentMesh: 1
---- !u!1001 &1118268766
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 931468748238760769, guid: 771478c50095e1345886aeddeff69e53, type: 3}
-      propertyPath: m_Name
-      value: Test Fire Hazard
-      objectReference: {fileID: 0}
-    - target: {fileID: 931468748238760780, guid: 771478c50095e1345886aeddeff69e53, type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 931468748238760780, guid: 771478c50095e1345886aeddeff69e53, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 931468748238760780, guid: 771478c50095e1345886aeddeff69e53, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 931468748238760780, guid: 771478c50095e1345886aeddeff69e53, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 931468748238760780, guid: 771478c50095e1345886aeddeff69e53, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 931468748238760780, guid: 771478c50095e1345886aeddeff69e53, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 931468748238760780, guid: 771478c50095e1345886aeddeff69e53, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 931468748238760780, guid: 771478c50095e1345886aeddeff69e53, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 931468748238760780, guid: 771478c50095e1345886aeddeff69e53, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 931468748238760780, guid: 771478c50095e1345886aeddeff69e53, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 931468748238760780, guid: 771478c50095e1345886aeddeff69e53, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 771478c50095e1345886aeddeff69e53, type: 3}
 --- !u!1 &1151541452
 GameObject:
   m_ObjectHideFlags: 0
@@ -2614,13 +2559,14 @@ MonoBehaviour:
   moveManager: {fileID: 11400000, guid: d6c89f59f0a2434409cf21811a327b8b, type: 2}
   hazardManager: {fileID: 11400000, guid: d3a0fe2c9b16c7c4baa6b632e635e7e5, type: 2}
   playerMovementManager: {fileID: 11400000, guid: 63cba8ff9613a2c4583b1d97e8f86cc0, type: 2}
+  SOgridManager: {fileID: 11400000, guid: dd4c21c5ad0b35d49b3ddd9964ca33e3, type: 2}
   _fireTilePrefab: {fileID: 931468748238760769, guid: 771478c50095e1345886aeddeff69e53, type: 3}
-  _currentHealth: 5
-  _currentShield: 0
-  _maxHealth: 10
-  currentDebuffs: 02000000
-  currentDebuffTimes:
-  - 5
+  _poisonTilePrefab: {fileID: 931468748238760769, guid: 150b4463059380b49b5cf2b201897a82, type: 3}
+  currentHealth: 10
+  currentShield: 0
+  maxHealth: 10
+  currentDebuffs: 
+  currentDebuffTimes: []
 --- !u!4 &1675179874
 Transform:
   m_ObjectHideFlags: 0
@@ -3069,6 +3015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecd54fce778e1b47b33ddfc319a6630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onGridManagerChanged: {fileID: 11400000, guid: dd4c21c5ad0b35d49b3ddd9964ca33e3, type: 2}
   _tilemap: {fileID: 2054987952}
   _garbagePrefab: {fileID: 3686372803579754830, guid: 2e0a06e8b7e646741b93c38ce1e18031, type: 3}
   _gameSpeed: 2
@@ -3137,6 +3084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: cbde04cde7b90044ba0aa589afd4e20a, type: 2}
+  gridManagerChanged: {fileID: 11400000, guid: dd4c21c5ad0b35d49b3ddd9964ca33e3, type: 2}
   baseIngredientPrefab: {fileID: 44091997056576414, guid: 55da9beab1a4d9b478324ff57bd99fdf, type: 3}
 --- !u!1 &1839782610
 GameObject:

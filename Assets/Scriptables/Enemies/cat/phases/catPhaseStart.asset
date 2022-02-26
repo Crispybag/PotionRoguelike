@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5dec5fe510411a48b1f91f89278831b, type: 3}
-  m_Name: catPhase3
+  m_Name: catPhaseStart
   m_EditorClassIdentifier: 
   requirementType: 0
-  healthRequirement: 1
+  healthRequirement: 0
   timeRequirement: 0
   enemyCombos:
-  - {fileID: 11400000, guid: 3680502ecb769b04b94935fe1dda7d44, type: 2}
-  isStartingPhase: 0
+  - {fileID: 11400000, guid: c3fe097b8e450b84b84111234ef59ba0, type: 2}
+  isStartingPhase: 1

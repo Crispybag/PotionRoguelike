@@ -15,8 +15,11 @@ public class GridFireHazard : GridHazard
     {
         base.affectPlayer(ref pHealth);
         pHealth -= damage;
-        GridManager.mapManager.SpawnGridObject(gameObject);
-        GridManager.mapManager.RemoveObjectsFromBoard(gameObject);
+        if (onGridManager.OnRequestGridManager())
+        {
+            gridManager.SpawnGridObject(gameObject);
+            gridManager.RemoveObjectsFromBoard(gameObject);
+        }
         Destroy(gameObject);
 
     }

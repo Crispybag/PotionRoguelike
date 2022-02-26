@@ -16,7 +16,7 @@ public class IngredientMovement : Movement
     protected override void Update()
     {
         base.Update();
-        if (_lerpVal > distToDestroy && isFalling) gridIngredient.DestroyIngredient(_endPosition - _startPosition);
+        if (_lerpVal > distToDestroy && isFalling) gridIngredient.DestroyIngredient(_endPosition - startPosition);
     }
 
 }

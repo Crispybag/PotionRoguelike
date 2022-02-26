@@ -105,8 +105,8 @@ MonoBehaviour:
   moveManager: {fileID: 11400000, guid: d6c89f59f0a2434409cf21811a327b8b, type: 2}
   playerManager: {fileID: 11400000, guid: 8fe55836746e67f44845a32f3c388d99, type: 2}
   enemyStatManager: {fileID: 11400000, guid: 3fc65623983612f4a8f2e799bcebdcb6, type: 2}
-  currentPhase: {fileID: 11400000, guid: 7efca1da02128ea429900fa2fcfc6a3d, type: 2}
-  currentCombo: {fileID: 11400000, guid: 3680502ecb769b04b94935fe1dda7d44, type: 2}
+  currentPhase: {fileID: 11400000, guid: cd9e4c8f670d07f40a5b394f047e90a7, type: 2}
+  currentCombo: {fileID: 11400000, guid: c3fe097b8e450b84b84111234ef59ba0, type: 2}
   lastShotFired: 0
   currentMove: 0
 --- !u!114 &1008941838019493254

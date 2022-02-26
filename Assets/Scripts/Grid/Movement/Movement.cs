@@ -5,12 +5,16 @@ using UnityEngine.Tilemaps;
 
 public abstract class Movement : MonoBehaviour
 {
+    [SerializeField] protected SO_OnGridManagerChanged onGridManager;
+    protected GridManager _gridManager;   
+
+
     private float _playerSpeed;
     private float _jitteriness;
     
     //[SerializeField] protected Tilemap _map;
     //Lerp vectors
-    protected Vector3 _startPosition;
+    public Vector3 startPosition;
     protected Vector3 _endPosition;
 
     protected Vector3 _moveDir;
@@ -21,9 +25,11 @@ public abstract class Movement : MonoBehaviour
 
     public bool CanMove(Vector3 direction)
     {
+        if (!onGridManager.OnRequestGridManager()) return false;
+
         //where I want to go
         Vector3Int goalTile = GridObject.ToVector3Int(transform.position) + GridObject.ToVector3Int(direction);
-        foreach (GameObject obj in GridManager.mapManager.getObjectsOnBoard())
+        foreach (GameObject obj in _gridManager.getObjectsOnBoard())
         {
             if (obj == null) continue;
             //check if there is an object on the location
@@ -75,11 +81,12 @@ public abstract class Movement : MonoBehaviour
     
     void Start()
     {
+        if (!onGridManager.OnRequestGridManager()) return;
         _lerpVal = 1.0f;
-        _startPosition = transform.position;
+        startPosition = transform.position;
         _endPosition = transform.position;
-        _playerSpeed = GridManager.mapManager.GetGameSpeed();
-        _jitteriness = GridManager.mapManager.jitteriness;
+        _playerSpeed = _gridManager.GetGameSpeed();
+        _jitteriness = _gridManager.jitteriness;
 
     }
 
@@ -89,7 +96,7 @@ public abstract class Movement : MonoBehaviour
 
             int hori = Mathf.RoundToInt(walkDir.x);
             int vert = Mathf.RoundToInt(walkDir.y);
-            _startPosition = transform.position;
+            startPosition = transform.position;
             _endPosition = transform.position + new Vector3(hori, vert, 0);
             _lerpVal = 0f;
 
@@ -106,12 +113,14 @@ public abstract class Movement : MonoBehaviour
 
     protected void snapAllToEnd()
     {
-        foreach (GameObject obj in GridManager.mapManager.getObjectsOnBoard())
+        if (!onGridManager.OnRequestGridManager()) return;
+
+        foreach (GameObject obj in _gridManager.getObjectsOnBoard())
         {
             if (!obj.GetComponent<Movement>()) continue;
             Movement m = obj.GetComponent<Movement>();
             m._lerpVal = 1f;
-            obj.transform.position = Vector3.Lerp(m._startPosition, m._endPosition, m._lerpVal);
+            obj.transform.position = Vector3.Lerp(m.startPosition, m._endPosition, m._lerpVal);
         }
     }
 
@@ -126,11 +135,26 @@ public abstract class Movement : MonoBehaviour
         _lerpVal += _playerSpeed * Time.deltaTime + _jitteriness * (1-_lerpVal) * _playerSpeed * Time.deltaTime;
         
         //lerp the player between the 2 coordinates
-        transform.position = Vector3.Lerp(_startPosition, _endPosition, _lerpVal);
+        transform.position = Vector3.Lerp(startPosition, _endPosition, _lerpVal);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        GridManager.mapManager.RemoveObjectsFromBoard(gameObject);
+
+        if(onGridManager.OnRequestGridManager())  _gridManager.RemoveObjectsFromBoard(gameObject);
+        onGridManager.onGridManagerChanged.RemoveListener(getGridManager);
     }
+
+    private void OnEnable()
+    {
+        onGridManager.onGridManagerChanged.AddListener(getGridManager);
+    }
+
+
+    private void getGridManager(GridManager gridManager)
+    {
+        _gridManager = gridManager;
+    }
+
+
 }

@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5dec5fe510411a48b1f91f89278831b, type: 3}
-  m_Name: catPhase3
+  m_Script: {fileID: 11500000, guid: b8277bd3d9e9d9f4abe31d09a524a3ee, type: 3}
+  m_Name: SO_GridManager
   m_EditorClassIdentifier: 
-  requirementType: 0
-  healthRequirement: 1
-  timeRequirement: 0
-  enemyCombos:
-  - {fileID: 11400000, guid: 3680502ecb769b04b94935fe1dda7d44, type: 2}
-  isStartingPhase: 0
+  onGridManagerChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  requestGridManager:
+    m_PersistentCalls:
+      m_Calls: []
+  foundGridManager: 0

@@ -11,22 +11,27 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private SO_EnemyMoveTriggerManager moveManager;
     [SerializeField] private SO_OnPlayerSteppedOnHazard hazardManager;
     [SerializeField] private SO_OnPlayerMoved playerMovementManager;
-
-
+    [SerializeField] private SO_OnGridManagerChanged SOgridManager;
+    
 
     [Header("Public Variables")]//build observer
     [SerializeField] GameObject _fireTilePrefab;
+    [SerializeField] GameObject _poisonTilePrefab;
 
-
-    public int _currentHealth; 
-    public int _currentShield; 
-    public int _maxHealth;
+    public int currentHealth; 
+    public int currentShield; 
+    public int maxHealth;
 
     public List<SO_Move.Debuff> currentDebuffs = new List<SO_Move.Debuff>();
     public List<float> currentDebuffTimes = new List<float>();
+
+    private GridManager gridManager;
+    private SO_Move.Debuff _currentlyHandledDebuff = SO_Move.Debuff.NONE;
+
+
     private void Start()
     {
-        _currentHealth = _maxHealth;
+        currentHealth = maxHealth;
         playerStats.onPlayerStatsChanged(this);
         playerStats.location = transform.position;
     }
@@ -36,6 +41,7 @@ public class PlayerManager : MonoBehaviour
         playerMoveManager.onMoveReachedEnd.AddListener(usePotion);
         hazardManager.onPlayerSteppedOnHazard.AddListener(onHazardStepped);
         playerMovementManager.onPlayerMoved.AddListener(onPlayerMoved);
+        SOgridManager.onGridManagerChanged.AddListener(onGridManagerChanged);
     }
 
     private void OnDisable()
@@ -44,19 +50,20 @@ public class PlayerManager : MonoBehaviour
         playerMoveManager.onMoveReachedEnd.RemoveListener(usePotion);
         hazardManager.onPlayerSteppedOnHazard.RemoveListener(onHazardStepped);
         playerMovementManager.onPlayerMoved.RemoveListener(onPlayerMoved);
+        SOgridManager.onGridManagerChanged.AddListener(onGridManagerChanged);
     }
 
     private void usePotion(PotionStats potion)
     {
         if (potion.potionEffect == SO_Potion.PotionEffect.HEAL)
         {
-            _currentHealth += potion.strength;
-            if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
+            currentHealth += potion.strength;
+            if (currentHealth > maxHealth) currentHealth = maxHealth;
         }
 
         if (potion.potionEffect == SO_Potion.PotionEffect.SHIELD)
         {
-            _currentShield += potion.strength;
+            currentShield += potion.strength;
         }
         playerStats.onPlayerStatsChanged(this);
     }
@@ -80,22 +87,26 @@ public class PlayerManager : MonoBehaviour
         {
             currentDebuffs.Add(debuff);
             currentDebuffTimes.Add(debuffTime);
-            onDebuffStart(debuff);
+            _currentlyHandledDebuff = debuff;
+            //request a gridmanager call
+            if(SOgridManager.OnRequestGridManager()) handleDebuffs(debuff);
         }
 
 
     }
 
-    private void onDebuffStart(SO_Move.Debuff debuff)
+
+    private void onPlayerMoved(PlayerMovement movement)
     {
-        switch (debuff)
+        foreach(SO_Move.Debuff debuff in currentDebuffs)
         {
-            case SO_Move.Debuff.BURNED:
-                GridManager.mapManager.SpawnGridObject(_fireTilePrefab);
-                break;        
+            if (debuff == SO_Move.Debuff.POISONED)
+            {
+                Instantiate(_poisonTilePrefab, movement.startPosition, transform.rotation);
+            }
         }
-
     }
+
 
     private void RegisterHit(MoveStats move)
     {
@@ -113,26 +124,45 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-
-        if(_currentShield > 0 && move.damage > 0) 
+        if(currentShield > 0 && move.damage > 0) 
         { 
-            _currentShield--;
+            currentShield--;
             playerStats.onPlayerStatsChanged(this); 
             return; 
         }
-        _currentHealth -= move.damage;
+        currentHealth -= move.damage;
         playerStats.onPlayerStatsChanged(this);
     }
 
     private void onHazardStepped(GridHazard hazard)
     {
-        hazard.affectPlayer(ref _currentHealth);
+        hazard.affectPlayer(ref currentHealth);
         playerStats.onPlayerStatsChanged(this);
     }
 
-    private void onPlayerMoved(PlayerMovement pMovement)
+
+
+    void handleDebuffs(SO_Move.Debuff debuff)
     {
-        
+        switch (_currentlyHandledDebuff)
+        {
+            case SO_Move.Debuff.BURNED:
+                gridManager.SpawnGridObject(_fireTilePrefab);
+                break;
+            case SO_Move.Debuff.POISONED:
+                //Instantiate(_poisonTilePrefab, new Vector3(-900, -900, 0), transform.rotation);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+
+
+    private void onGridManagerChanged(GridManager manager)
+    {
+        gridManager = manager;
     }
 
     private void updateTimers()

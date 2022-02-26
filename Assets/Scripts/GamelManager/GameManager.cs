@@ -5,9 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private SO_Inventory inventory;
+    [SerializeField] private SO_OnGridManagerChanged gridManagerChanged;
     private List<SO_Ingredient> loadOut = new List<SO_Ingredient>();
     [SerializeField] private GameObject baseIngredientPrefab;
-
+    private GridManager _gridManager;
     private void Start()
     {
         if (!baseIngredientPrefab.GetComponent<IngredientStats>()) return;
@@ -24,9 +25,24 @@ public class GameManager : MonoBehaviour
             }
             baseIngredientPrefab.GetComponent<IngredientStats>().ingredientStats = ingredient;
             baseIngredientPrefab.GetComponent<IngredientStats>().Setup();
-            GridManager.mapManager.SpawnGridObject(baseIngredientPrefab);
+            if (gridManagerChanged.OnRequestGridManager()) _gridManager.SpawnGridObject(baseIngredientPrefab);
             //Instantiate(baseIngredientPrefab, new Vector3(-3, 0, 0), transform.rotation);
         }
+    }
+
+    private void GetGridManager(GridManager pGridManager)
+    {
+        _gridManager = pGridManager;
+    }
+
+    private void OnEnable()
+    {
+        gridManagerChanged.onGridManagerChanged.AddListener(GetGridManager);
+    }
+    
+    private void OnDisable()
+    {
+        gridManagerChanged.onGridManagerChanged.RemoveListener(GetGridManager);
     }
 
 

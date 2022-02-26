@@ -18,6 +18,17 @@ public class SO_Enemy : ScriptableObject
         foreach (SO_EnemyPhase phase in enemyPhases)
         {
 
+            if(isLastShotFired)
+            {
+                int i = 0;
+            }
+
+            //dont change phases when it isnt done yet with the initial phase
+            if(currentEnemyPhase.isStartingPhase && !isLastShotFired) { break; }
+
+            //ignore starting phase
+            if (phase.isStartingPhase) continue;
+
             //prioritize time based phase requirement
             if(phase.requirementType == SO_EnemyPhase.RequirementType.TIME)
             {
@@ -37,9 +48,11 @@ public class SO_Enemy : ScriptableObject
             //cant do health requirements after a time requirement has been selected
             if (currentEnemyPhase.requirementType == SO_EnemyPhase.RequirementType.TIME) continue;
 
+
             //needs to be equal or lower than current hp
             if (phase.healthRequirement < percentageHealth) continue;
-            if (phase.healthRequirement >= currentEnemyPhase.healthRequirement) continue;
+            
+            if (phase.healthRequirement > currentEnemyPhase.healthRequirement && !currentEnemyPhase.isStartingPhase) continue;
 
             //set current enemy phase to value with highest hp requirement
             Debug.Log("Go to phase: " + phase.name);

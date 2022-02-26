@@ -6,8 +6,9 @@ public class GridIngredient : GridObject
 {
     private Tilemap _map;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         _map = gridManager.GetTilemap();
     }
     //make sure objects get deleted once they fall off the map

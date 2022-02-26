@@ -44,7 +44,7 @@ public class EnemyStats : MonoBehaviour
             }
         }
         //if no first phase is assigned, assigned first index
-        currentPhase = scriptableEnemy.enemyPhases[0];
+        if( currentPhase == null) currentPhase = scriptableEnemy.enemyPhases[0];
         
         //fire first combo
         currentPhase.StartCombo(ref currentCombo, ref lastShotFired);

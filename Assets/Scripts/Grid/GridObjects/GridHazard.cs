@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class GridHazard : GridObject
 {
+    //[SerializeField] protected SO_OnGridManagerChanged onGridManager;
     [SerializeField] SO_OnPlayerSteppedOnHazard hazardManager;
     [SerializeField] SO_PlayerStats playerStats;
-    
     [SerializeField] SO_Move.Debuff debuffType;
-    
     
     
     public void PlayerSteppedOnHazard()
@@ -29,18 +28,30 @@ public class GridHazard : GridObject
         {
             if (debuff == debuffType) return;
         }
-        GridManager.mapManager.RemoveObjectsFromBoard(gameObject);
-        Destroy(gameObject);
+        if (onGridManager.OnRequestGridManager()) removeDebuffFromBoard();
+
     }
 
-    public void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         playerStats.onStatsChanged.AddListener(wearOut);
     }
 
-    public void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         playerStats.onStatsChanged.RemoveListener(wearOut);
     }
+
+    private void removeDebuffFromBoard()
+    {
+        
+        gridManager.RemoveObjectsFromBoard(gameObject);
+        Destroy(gameObject);
+    }
+
+
+
 
 }

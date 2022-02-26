@@ -5,22 +5,19 @@ using UnityEngine.Tilemaps;
 public class GridManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    private List<GameObject> objectsOnBoard;
-    public static GridManager mapManager;
+    [SerializeField] SO_OnGridManagerChanged onGridManagerChanged;
+
+    private List<GameObject> _objectsOnBoard;
+    //public static GridManager gridManager;
     [SerializeField] private Tilemap _tilemap;
     [SerializeField] private GameObject _garbagePrefab;
     [SerializeField] private float _gameSpeed = 4;
     [SerializeField] public float jitteriness = 6;
 
-
     private Tilemap _map;
-
-
     private void Awake()
     {
-        if (mapManager != null) { Destroy(mapManager.gameObject);}
-        mapManager = this;
-        objectsOnBoard = new List<GameObject>();
+        _objectsOnBoard = new List<GameObject>();
         _map = GetTilemap();
     }
 
@@ -31,7 +28,7 @@ public class GridManager : MonoBehaviour
 
     public void AddObjectsOnBoard(GameObject obj)
     {
-        objectsOnBoard.Add(obj);
+        _objectsOnBoard.Add(obj);
     }
 
     public float GetGameSpeed()
@@ -41,7 +38,7 @@ public class GridManager : MonoBehaviour
 
     public void RemoveObjectsFromBoard(GameObject obj)
     {
-        objectsOnBoard.Remove(obj);
+        _objectsOnBoard.Remove(obj);
     }
 
     public Tilemap GetTilemap()
@@ -50,12 +47,12 @@ public class GridManager : MonoBehaviour
 
     public List<GameObject> getObjectsOnBoard()
     {
-        return objectsOnBoard;
+        return _objectsOnBoard;
     }
 
     private void refreshList()
     {
-        foreach(GameObject obj in objectsOnBoard)
+        foreach(GameObject obj in _objectsOnBoard)
         {
             if (obj == null)
             {
@@ -77,7 +74,7 @@ public class GridManager : MonoBehaviour
                 bool isAvailable = true;
                 Vector3Int position = GridObject.ToVector3Int(new Vector3(x + _map.origin.x, y + _map.origin.y, 0));
                 //check if any objects are on this position
-                foreach (GameObject obj in GridManager.mapManager.getObjectsOnBoard())
+                foreach (GameObject obj in getObjectsOnBoard())
                 {
                     //return false if spot isnt available
                     if (GridObject.ToVector3Int(obj.transform.position) == position)
@@ -110,7 +107,7 @@ public class GridManager : MonoBehaviour
     //respawn ingredient at new place
     public void SpawnGridObject(GameObject gObject)
     {
-        if (_map == null) _map = mapManager.GetTilemap();
+        if (_map == null) _map = GetTilemap();
         //make sure it found a proper place to spawn
 
         List<Vector3Int> possibleSpawnCoords = GenerateAvailablePlaces();
@@ -124,6 +121,25 @@ public class GridManager : MonoBehaviour
         GameObject newIngredient = Instantiate(gObject, new Vector3(respawnPos.x, respawnPos.y, transform.position.z), gameObject.transform.rotation);
         newIngredient.name = gObject.name;
     }
+
+    //make a decoupled nonsingletone way of returning the grid manager
+    private void OnEnable()
+    {
+        onGridManagerChanged.requestGridManager.AddListener(onGridManagerRequest);
+    }
+    private void OnDisable()
+    {
+        onGridManagerChanged.requestGridManager.RemoveListener(onGridManagerRequest);
+    }
+
+    //this invokes functions only if a grid manager actually exists, so it doesnt do functions when it doesnt have a response call
+    //I do need to figure out a way in case it can't find anything
+    private void onGridManagerRequest(bool e)
+    {
+        onGridManagerChanged.OnGridManagerChanged(this);
+        onGridManagerChanged.foundGridManager = true;
+    }
+
 
     // Update is called once per frame
     void Update()

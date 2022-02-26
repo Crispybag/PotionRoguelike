@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class GridObject : MonoBehaviour
 {
+    [SerializeField] protected SO_OnGridManagerChanged onGridManager;
     protected GridManager gridManager;
-    
     //value to make sure the grid object is added to the game board
     bool isAdded = false;
     //allows for other objects to enter the same space
@@ -26,28 +26,43 @@ public abstract class GridObject : MonoBehaviour
         return outVector;
     }
 
-
-
-
-    private void Awake()
+    protected void setGridManager(GridManager pGridManager)
     {
-        //Add Game Object to Board
-        if (GridManager.mapManager != null && GridManager.mapManager.getObjectsOnBoard() != null)
+        gridManager = pGridManager;
+    }
+
+    
+    protected void Awake()
+    {
+        onGridManager.onGridManagerChanged.AddListener(setGridManager);
+        if(onGridManager.OnRequestGridManager())
         {
-            gridManager = GridManager.mapManager;
             gridManager.AddObjectsOnBoard(gameObject);
             isAdded = true;
         }
+        
     }
-
+    
     protected virtual void Start()
     {
         //In Case the Awake fails for whatever reason
         if (!isAdded)
         {
-            gridManager = GridManager.mapManager;
-            gridManager.AddObjectsOnBoard(gameObject);
+            if (onGridManager.OnRequestGridManager())
+            {
+                gridManager.AddObjectsOnBoard(gameObject);
+                isAdded = true;
+            }
         }
     }
-    
+
+    protected virtual void OnEnable()
+    {
+
+    }
+    protected virtual void OnDisable()
+    {
+        onGridManager.onGridManagerChanged.RemoveListener(setGridManager);
+
+    }
 }

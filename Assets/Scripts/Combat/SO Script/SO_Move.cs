@@ -7,7 +7,7 @@ public class SO_Move : ScriptableObject
 {
     public string moveName;
     public Sprite sprite;
-    public enum Debuff { FROZEN, POISONED, BURNED, CONFUSED, BLIND};
+    public enum Debuff { FROZEN, POISONED, BURNED, CONFUSED, BLIND, NONE};
 
     public int damage;
     public int healing;

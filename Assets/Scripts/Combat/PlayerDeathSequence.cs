@@ -18,7 +18,7 @@ public class PlayerDeathSequence : MonoBehaviour
     //call this function when player's health is changed
     void onPlayerDeath(PlayerManager playerManager)
     {
-        if (playerManager._currentHealth <= 0)
+        if (playerManager.currentHealth <= 0)
         {
             startEndSequence();
         }
