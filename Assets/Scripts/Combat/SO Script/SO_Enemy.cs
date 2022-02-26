@@ -26,6 +26,9 @@ public class SO_Enemy : ScriptableObject
             //dont change phases when it isnt done yet with the initial phase
             if(currentEnemyPhase.isStartingPhase && !isLastShotFired) { break; }
 
+            //ignore if it is the same phase
+            if (currentEnemyPhase == phase) continue;
+
             //ignore starting phase
             if (phase.isStartingPhase) continue;
 
