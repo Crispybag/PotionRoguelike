@@ -73,13 +73,13 @@ public class MapManager : MonoBehaviour
         if (mapManager.enemies != null && mapManager.enemies.Count != 0)
         {
             Debug.Log("Found"  + mapManager.enemies.Count + " enemies!");
-            Dictionary<Vector3, SO_Enemy> newEnemies = new Dictionary<Vector3, SO_Enemy>();
-            foreach (KeyValuePair<Vector3, SO_Enemy> enemy in mapManager.enemies)
+            Dictionary<SO_Enemy, Vector3> newEnemies = new Dictionary<SO_Enemy, Vector3>();
+            foreach (KeyValuePair<SO_Enemy, Vector3> enemy in mapManager.enemies)
             {
                 GameObject newEnemy = Instantiate(prefab);
-                newEnemy.GetComponent<MapEnemy>().enemy = enemy.Value;
+                newEnemy.GetComponent<MapEnemy>().enemy = enemy.Key;
                 newEnemy.GetComponent<MapEnemy>().Setup();
-                newEnemy.transform.position = enemy.Key;
+                newEnemy.transform.position = enemy.Value;
                 newEnemies.Add(enemy.Key, enemy.Value);
             }
             mapManager.enemies.Clear();
@@ -102,7 +102,11 @@ public class MapManager : MonoBehaviour
             int randomPos = Random.Range(0, availablePositions.Count);
             Vector3 newPos = availablePositions[randomPos].transform.position;
             GameObject newEnemy = Instantiate(prefab);
-            newEnemy.GetComponent<MapEnemy>().enemy = enemies[0];
+
+            int randomEnemy = Random.Range(0, enemies.Count);
+            newEnemy.GetComponent<MapEnemy>().enemy = enemies[randomEnemy];
+            enemies.Remove(enemies[randomEnemy]);
+
             newEnemy.GetComponent<MapEnemy>().Setup();
             newEnemy.transform.position = newPos;
             Debug.Log("New enemy at : " + newPos);
@@ -136,8 +140,8 @@ public class MapManager : MonoBehaviour
             sortEnemies[i].GetComponent<MapEnemy>().SetWalkPath(positions[0], positions[1], positions[2], positions[3], positions[4]);
             sortEnemies[i + 1].GetComponent<MapEnemy>().SetWalkPath(positions[5], positions[6], positions[7], positions[8], positions[9]);
 
-            mapManager.enemies.Add(positions[4], sortEnemies[i].GetComponent<MapEnemy>().enemy);
-            mapManager.enemies.Add(positions[9], sortEnemies[i + 1].GetComponent<MapEnemy>().enemy);
+            mapManager.enemies.Add(sortEnemies[i].GetComponent<MapEnemy>().enemy, positions[4]);
+            mapManager.enemies.Add(sortEnemies[i + 1].GetComponent<MapEnemy>().enemy, positions[9]);
 
             mapManager.publicEnemies.Add(sortEnemies[i].GetComponent<MapEnemy>().enemy);
             mapManager.publicEnemies.Add(sortEnemies[i + 1].GetComponent<MapEnemy>().enemy);
@@ -178,9 +182,9 @@ public class MapManager : MonoBehaviour
     {
         //copy over current encounter positions
         List<Vector3> encounterPos = new List<Vector3>();
-        foreach (KeyValuePair<Vector3, SO_Enemy> enemy in mapManager.enemies)
+        foreach (KeyValuePair<SO_Enemy, Vector3> enemy in mapManager.enemies)
         {
-            encounterPos.Add(enemy.Key);
+            encounterPos.Add(enemy.Value);
         }
 
 
@@ -195,8 +199,8 @@ public class MapManager : MonoBehaviour
             //createBracket(encounterPos[i], encounterPos[i + 1]);
             Vector3[] positions = BezierCurve.createBracket(encounterPos[i], encounterPos[i + 1]);
 
-            mapManager.enemies.Add(positions[4], sortEnemies[i].GetComponent<MapEnemy>().enemy);
-            mapManager.enemies.Add(positions[9], sortEnemies[i + 1].GetComponent<MapEnemy>().enemy);
+            mapManager.enemies.Add(sortEnemies[i].GetComponent<MapEnemy>().enemy, positions[4]);
+            mapManager.enemies.Add(sortEnemies[i + 1].GetComponent<MapEnemy>().enemy, positions[9]);
 
             mapManager.publicEnemies.Add(sortEnemies[i].GetComponent<MapEnemy>().enemy);
             mapManager.publicEnemies.Add(sortEnemies[i+ 1].GetComponent<MapEnemy>().enemy);

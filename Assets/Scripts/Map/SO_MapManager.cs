@@ -13,7 +13,7 @@ public class bezierCurves
 [CreateAssetMenu(menuName = "Manager/MapManager")]
 public class SO_MapManager : ScriptableObject
 {
-    public Dictionary<Vector3, SO_Enemy> enemies = new Dictionary<Vector3, SO_Enemy>();
+    public Dictionary<SO_Enemy, Vector3> enemies = new Dictionary<SO_Enemy, Vector3>();
     [SerializeField]public List<bezierCurves> beziers = new List<bezierCurves>();
     [SerializeField] public List<SO_Enemy> publicEnemies = new List<SO_Enemy>();
 }
