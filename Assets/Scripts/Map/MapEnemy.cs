@@ -23,7 +23,7 @@ public class MapEnemy : MonoBehaviour
     private float currentTime = 0;
 
 
-
+    private bool hasSetWalkPath = false;
 
     public void Setup()
     {
@@ -50,11 +50,17 @@ public class MapEnemy : MonoBehaviour
         newPath2.endPos = pos5;
 
         paths[1] = newPath2;
+
+        hasSetWalkPath = true;
     }
 
     public void Update()
     {
-        updatePosition();
+        if (hasSetWalkPath)
+        {
+            updatePosition();
+        }
+
     }
 
     public void updatePosition()
