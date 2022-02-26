@@ -2790,9 +2790,9 @@ MonoBehaviour:
   SOgridManager: {fileID: 11400000, guid: dd4c21c5ad0b35d49b3ddd9964ca33e3, type: 2}
   _fireTilePrefab: {fileID: 931468748238760769, guid: 771478c50095e1345886aeddeff69e53, type: 3}
   _poisonTilePrefab: {fileID: 931468748238760769, guid: 150b4463059380b49b5cf2b201897a82, type: 3}
-  currentHealth: 10
+  currentHealth: 1553
   currentShield: 0
-  maxHealth: 10
+  maxHealth: 1966
   currentDebuffs: 
   currentDebuffTimes: []
 --- !u!4 &1675179874

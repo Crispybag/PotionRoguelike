@@ -18,7 +18,7 @@ MonoBehaviour:
   healing: 0
   shielding: 0
   castTime: 2
-  travelTime: 20
+  travelTime: 1.45
   channelTime: 0
   debuffs: 0200000001000000
   debuffDurations:
