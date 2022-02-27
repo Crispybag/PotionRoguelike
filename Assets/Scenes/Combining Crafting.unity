@@ -358,7 +358,6 @@ MonoBehaviour:
   startPosition: {x: 0, y: 0, z: 0}
   onPlayerMoved: {fileID: 11400000, guid: 63cba8ff9613a2c4583b1d97e8f86cc0, type: 2}
   gridPlayer: {fileID: 163709537}
-  _fastTapLimiter: 0.5
 --- !u!212 &163709535
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3020,6 +3019,7 @@ MonoBehaviour:
   _garbagePrefab: {fileID: 3686372803579754830, guid: 2e0a06e8b7e646741b93c38ce1e18031, type: 3}
   _gameSpeed: 2
   jitteriness: 6
+  _fastTapLimiter: 0.9
 --- !u!156049354 &1838686122
 Grid:
   m_ObjectHideFlags: 0

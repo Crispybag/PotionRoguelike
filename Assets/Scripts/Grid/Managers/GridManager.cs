@@ -13,6 +13,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GameObject _garbagePrefab;
     [SerializeField] private float _gameSpeed = 4;
     [SerializeField] public float jitteriness = 6;
+    [SerializeField]
+    [Range(0f, 1f)]
+    public float _fastTapLimiter = 0.5f;
 
     private Tilemap _map;
     private void Awake()
@@ -136,6 +139,13 @@ public class GridManager : MonoBehaviour
     private void OnDisable()
     {
         onGridManagerChanged.requestGridManager.RemoveListener(onGridManagerRequest);
+    }
+
+
+    private void OnValidate()
+    {
+        Debug.Log("does work?");
+        onGridManagerChanged.OnGridManagerChanged(this);
     }
 
     //this invokes functions only if a grid manager actually exists, so it doesnt do functions when it doesnt have a response call

@@ -20,7 +20,6 @@ MonoBehaviour:
   castTime: 8
   travelTime: 20
   channelTime: 0
-  debuffs: 0200000001000000
+  debuffs: 02000000
   debuffDurations:
   - 5
-  - 10

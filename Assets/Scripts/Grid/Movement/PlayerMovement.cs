@@ -10,9 +10,7 @@ public class PlayerMovement : Movement
 
     // Start is called before the first frame update
     private Vector3 oldestWalkDir;
-    [SerializeField]
-    [Range(0f, 1f)]
-    float _fastTapLimiter = 0.5f;
+    
     protected override void updateLerp(Vector3 walkDir)
     {
         if (!onGridManager.OnRequestGridManager()) return;
@@ -36,13 +34,19 @@ public class PlayerMovement : Movement
     //it prioritizes new movement that it wasnt going into
     private Vector3 accountForDiagonal(float hori, float vert)
     {
+        Debug.Log("hori and vert: " + hori + " " + vert);
+        Debug.Log("_moveDir values: " + (int)_moveDir.x + " " + (int)_moveDir.y);
         //was moving vertically
-        if (oldestWalkDir.x == 0)
+        if ((int)_moveDir.x != hori)
         {
             return new Vector3(hori, 0, 0);
 
         }
-        else if (oldestWalkDir.y == 0) { return new Vector3(0, vert, 0); }
+        else if ((int)_moveDir.y != vert) 
+        { 
+            return new Vector3(0, vert, 0); 
+        }
+
         else
         {
             Debug.LogError("oldestWalkDir is diagonal");
@@ -56,7 +60,16 @@ public class PlayerMovement : Movement
         //if both keys are held
         if (Input.GetAxisRaw("Vertical") != 0 && Input.GetAxisRaw("Horizontal") != 0)
         {
-            return accountForDiagonal(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            if (CustomGetAxisDown())
+            {
+
+                return accountForDiagonal(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            }
+            else
+            {
+                if (_moveDir != new Vector3(0, 0, 0)) return _moveDir;
+                else return oldestWalkDir;
+            }
         }
 
         //if one key is held
@@ -81,12 +94,16 @@ public class PlayerMovement : Movement
             Vector3 futureWalkDir = generateWalkDir();
             _moveDir = futureWalkDir;
             //accept new input when the lerp is finished
-            if (_lerpVal >= 1.0f) CanMove(_moveDir);
+            if (_lerpVal >= 1.0f)
+            {
+                CanMove(_moveDir);
+            }
             else if (CustomGetAxisDown())
             {
-               snapAllToEnd();
-               CanMove(_moveDir);
-                
+                if (_lerpVal < _fastTapLimiter) return;
+                snapAllToEnd();
+                CanMove(_moveDir);
+
             }
         }
     }
@@ -94,7 +111,6 @@ public class PlayerMovement : Movement
     private bool CustomGetAxisDown()
     {
         //hard limiter to prevent extremely jittery turns
-        if (_lerpVal < _fastTapLimiter) return false;
         return (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W));   
     }
 

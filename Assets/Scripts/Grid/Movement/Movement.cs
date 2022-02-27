@@ -22,6 +22,7 @@ public abstract class Movement : MonoBehaviour
     protected float _lerpVal;
 
     float _timeValue = 0f;
+    protected float _fastTapLimiter = 0.5f;
 
     public bool CanMove(Vector3 direction)
     {
@@ -87,6 +88,7 @@ public abstract class Movement : MonoBehaviour
         _endPosition = transform.position;
         _playerSpeed = _gridManager.GetGameSpeed();
         _jitteriness = _gridManager.jitteriness;
+        _fastTapLimiter = _gridManager._fastTapLimiter;
 
     }
 
@@ -124,8 +126,6 @@ public abstract class Movement : MonoBehaviour
         }
     }
 
-
-
     // Update is called once per frame
     protected virtual void Update()
     {
@@ -154,6 +154,9 @@ public abstract class Movement : MonoBehaviour
     private void getGridManager(GridManager gridManager)
     {
         _gridManager = gridManager;
+        _playerSpeed = _gridManager.GetGameSpeed();
+        _jitteriness = _gridManager.jitteriness;
+        _fastTapLimiter = _gridManager._fastTapLimiter;
     }
 
 
