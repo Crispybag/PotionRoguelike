@@ -66,17 +66,25 @@ public class GridManager : MonoBehaviour
     private List<Vector3Int> GenerateAvailablePlaces()
     {
         List<Vector3Int> possibleSpawnCoords = new List<Vector3Int>();
-        for (int x = 0; x < _map.size.x - 1; x++)
+        for (int x = 0; x < _map.size.x; x++)
         {
             //dont spawn on top row (-1)
-            for (int y = 0; y < _map.size.y - 1; y++)
+            for (int y = 0; y < _map.size.y; y++)
             {
                 bool isAvailable = true;
                 Vector3Int position = GridObject.ToVector3Int(new Vector3(x + _map.origin.x, y + _map.origin.y, 0));
+                //break loop immeadiately if no tile is present on the coordinates
+                if(_map.GetTile(position) == null || _map.GetTile(new Vector3Int(position.x, position.y + 1, position.z)) == null)
+                {
+                    isAvailable = false;
+                    continue;
+                }
                 //check if any objects are on this position
                 foreach (GameObject obj in getObjectsOnBoard())
                 {
-                    //return false if spot isnt available
+                    if (obj.GetComponent<GridObject>().isStackable) continue;
+                    
+                        //return false if spot isnt available
                     if (GridObject.ToVector3Int(obj.transform.position) == position)
                     {
                         isAvailable = false;
@@ -84,11 +92,9 @@ public class GridManager : MonoBehaviour
                     }
                     if (!obj.GetComponent<Movement>())
                     {
-                        if (!obj.GetComponent<GridObject>().isStackable)
-                        {
-                            isAvailable = false;
-                            break;
-                        }
+
+                        isAvailable = false;
+                        break;
                     }
 
                     //also make sure it doesnt spawn on a tile where an ingredient is currently moving towards
