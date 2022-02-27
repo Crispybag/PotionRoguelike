@@ -6,7 +6,7 @@ public class IngredientMovement : Movement
 {
     [SerializeField] GridIngredient gridIngredient;
     bool isFalling;
-    [SerializeField]float distToDestroy = 0.3f;
+    //[SerializeField]float distToDestroy = 0.3f;
     protected override void updateLerp(Vector3 walkDir)
     {
         base.updateLerp(walkDir);
@@ -16,7 +16,7 @@ public class IngredientMovement : Movement
     protected override void Update()
     {
         base.Update();
-        if (_lerpVal > distToDestroy && isFalling) gridIngredient.DestroyIngredient(_endPosition - startPosition);
+        if (_lerpVal > _fastTapLimiter && isFalling) gridIngredient.DestroyIngredient(_endPosition - startPosition);
     }
 
 }

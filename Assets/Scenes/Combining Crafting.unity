@@ -3017,9 +3017,9 @@ MonoBehaviour:
   onGridManagerChanged: {fileID: 11400000, guid: dd4c21c5ad0b35d49b3ddd9964ca33e3, type: 2}
   _tilemap: {fileID: 2054987952}
   _garbagePrefab: {fileID: 3686372803579754830, guid: 2e0a06e8b7e646741b93c38ce1e18031, type: 3}
-  _gameSpeed: 2
+  _gameSpeed: 2.5
   jitteriness: 6
-  _fastTapLimiter: 0.9
+  _fastTapLimiter: 1
 --- !u!156049354 &1838686122
 Grid:
   m_ObjectHideFlags: 0
