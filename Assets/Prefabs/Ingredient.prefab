@@ -103,7 +103,6 @@ MonoBehaviour:
   onGridManager: {fileID: 11400000, guid: dd4c21c5ad0b35d49b3ddd9964ca33e3, type: 2}
   startPosition: {x: 0, y: 0, z: 0}
   gridIngredient: {fileID: 44091997056576412}
-  distToDestroy: 0.3
 --- !u!114 &44091997056576412
 MonoBehaviour:
   m_ObjectHideFlags: 0

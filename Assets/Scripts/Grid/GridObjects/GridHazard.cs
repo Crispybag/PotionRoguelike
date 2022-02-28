@@ -22,22 +22,33 @@ public class GridHazard : GridObject
         //but it would be nice if I could write what the tiles do in their respective classes, so might still use this later
     }
 
+    /// <summary>
+    /// Makes sure all debuff tiles are removed from board as soon as the time of the debuff runs out
+    /// </summary>
+    /// <param name="manager"> reference to the player manager for debuff timers </param>
     public void wearOut(PlayerManager manager)
     {
         foreach (SO_Move.Debuff debuff in manager.currentDebuffs)
         {
             if (debuff == debuffType) return;
         }
+
         if (onGridManager.OnRequestGridManager()) removeDebuffFromBoard();
 
     }
 
+    /// <summary>
+    /// setup all scriptable events
+    /// </summary>
     protected override void OnEnable()
     {
         base.OnEnable();
         playerStats.onStatsChanged.AddListener(wearOut);
     }
 
+    /// <summary>
+    /// clear all scriptable events
+    /// </summary>
     protected override void OnDisable()
     {
         base.OnDisable();

@@ -11,6 +11,10 @@ public class PlayerMovement : Movement
     // Start is called before the first frame update
     private Vector3 oldestWalkDir;
     
+    /// <summary>
+    /// Once a tile has been succesfully found, update all necessary values and check for step on hazardous material (and make sure that player doesnt fall)
+    /// </summary>
+    /// <param name="walkDir"></param>
     protected override void updateLerp(Vector3 walkDir)
     {
         if (!onGridManager.OnRequestGridManager()) return;
@@ -30,41 +34,53 @@ public class PlayerMovement : Movement
 
     }
 
-    //System to make player move only horizontally or vertically when both movements are put in
-    //it prioritizes new movement that it wasnt going into
-    private Vector3 accountForDiagonal(float hori, float vert)
-    {
-        Debug.Log("hori and vert: " + hori + " " + vert);
-        Debug.Log("_moveDir values: " + (int)_moveDir.x + " " + (int)_moveDir.y);
-        //was moving vertically
+    /// <summary>
+    /// returns vector based on most recent input
+    /// </summary>
+    /// <param name="hori"></param>
+    /// <param name="vert"></param>
+    /// <returns></returns>
+    private Vector3 GetRecentInputVector(float hori, float vert)
+    {        
+        //if x changed since last movement
         if ((int)_moveDir.x != hori)
         {
             return new Vector3(hori, 0, 0);
 
         }
+
+        //if y changed since last movement
         else if ((int)_moveDir.y != vert) 
         { 
             return new Vector3(0, vert, 0); 
         }
 
+        //if player somehow bruhs it up and press both at exact same frame
         else
         {
-            Debug.LogError("oldestWalkDir is diagonal");
-            return new Vector3(hori, vert, 0);
+            Debug.LogError("Congratulations, you somehow fucked up the input, go vertical");
+            return new Vector3(0, vert, 0);
         }
     }
 
-    //determine what the resulting walk direction should be
+    /// <summary>
+    /// generate final walk direction based on input
+    /// </summary>
+    /// <returns></returns>
     private Vector3 generateWalkDir()
     {
         //if both keys are held
         if (Input.GetAxisRaw("Vertical") != 0 && Input.GetAxisRaw("Horizontal") != 0)
         {
+
+            //if player tapped this frame, get the newest walk direction
             if (CustomGetAxisDown())
             {
 
-                return accountForDiagonal(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+                return GetRecentInputVector(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             }
+
+            //if the player didnt, return oldest walk direction
             else
             {
                 if (_moveDir != new Vector3(0, 0, 0)) return _moveDir;
@@ -108,12 +124,21 @@ public class PlayerMovement : Movement
         }
     }
 
+    /// <summary>
+    /// basically returns true if an arrow key or wasd got slammed
+    /// </summary>
+    /// <returns></returns>
     private bool CustomGetAxisDown()
     {
         //hard limiter to prevent extremely jittery turns
         return (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W));   
     }
 
+    /// <summary>
+    /// check if the player is about to step on a hazard
+    /// </summary>
+    /// <param name="obj">object player steps on</param>
+    /// <returns></returns>
     private bool checkForHazardousTerrain(GameObject obj)
     {
         if (!obj.GetComponent<GridObject>()) return false;

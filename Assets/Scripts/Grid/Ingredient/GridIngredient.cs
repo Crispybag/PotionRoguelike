@@ -12,6 +12,7 @@ public class GridIngredient : GridObject
         _map = gridManager.GetTilemap();
     }
     //make sure objects get deleted once they fall off the map
+    
     public bool checkForFallAndRemove(Vector3 pushDirection)
     {
         Vector3Int iPushDirection = ToVector3Int(pushDirection);

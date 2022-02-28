@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DataFile" id="{1c7654a2-3ebf-407e-9191-9614470ef9d4}">
+		<property name="assetPath">
+			<value>SFX/mousesteps.ftm</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{2792c844-a607-43fb-bfb1-b64d9b302211}</destination>
+		</relationship>
+	</object>
+</objects>

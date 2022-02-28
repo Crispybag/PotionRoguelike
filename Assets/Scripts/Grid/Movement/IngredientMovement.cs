@@ -16,7 +16,7 @@ public class IngredientMovement : Movement
     protected override void Update()
     {
         base.Update();
-        if (_lerpVal > _fastTapLimiter && isFalling) gridIngredient.DestroyIngredient(_endPosition - startPosition);
+        if ((_lerpVal > _fastTapLimiter || _lerpVal >= 1.0f) && isFalling) gridIngredient.DestroyIngredient(_endPosition - startPosition);
     }
 
 }

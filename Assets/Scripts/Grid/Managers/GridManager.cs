@@ -6,7 +6,7 @@ public class GridManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] SO_OnGridManagerChanged onGridManagerChanged;
-
+    [SerializeField] SO_PlayerStats onPlayerStatsChanged;
     private List<GameObject> _objectsOnBoard;
     //public static GridManager gridManager;
     [SerializeField] private Tilemap _tilemap;
@@ -16,7 +16,8 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     [Range(0f, 1f)]
     public float _fastTapLimiter = 0.5f;
-
+    [SerializeField] [Range(0f,1f)]float slowStrength = 0.5f;
+    private bool isFrozen;
     private Tilemap _map;
     private void Awake()
     {
@@ -135,16 +136,18 @@ public class GridManager : MonoBehaviour
     private void OnEnable()
     {
         onGridManagerChanged.requestGridManager.AddListener(onGridManagerRequest);
+        onPlayerStatsChanged.onStatsChanged.AddListener(changePlayerSpeed);
     }
     private void OnDisable()
     {
         onGridManagerChanged.requestGridManager.RemoveListener(onGridManagerRequest);
+        onPlayerStatsChanged.onStatsChanged.RemoveListener(changePlayerSpeed);
+
     }
 
 
     private void OnValidate()
     {
-        Debug.Log("does work?");
         onGridManagerChanged.OnGridManagerChanged(this);
     }
 
@@ -155,6 +158,47 @@ public class GridManager : MonoBehaviour
         onGridManagerChanged.OnGridManagerChanged(this);
         onGridManagerChanged.foundGridManager = true;
     }
+
+    private void changePlayerSpeed(PlayerManager playerManager)
+    {
+        if (!isFrozen)
+        {
+            foreach(SO_Move.Debuff debuff in playerManager.currentDebuffs)
+            {
+                if(debuff == SO_Move.Debuff.FROZEN)
+                {
+                    isFrozen = true;
+                    _gameSpeed *= 1 - slowStrength;
+                    _fastTapLimiter++;
+                    onGridManagerChanged.OnGridManagerChanged(this);
+
+
+                    return;
+                }
+            }
+
+        }
+        else
+        {
+            bool stillFrozen = false;
+            foreach (SO_Move.Debuff debuff in playerManager.currentDebuffs)
+            {
+                if (debuff == SO_Move.Debuff.FROZEN) 
+                {
+                    stillFrozen = true;
+                    break;
+                }
+            }
+            if (stillFrozen) return;
+            _gameSpeed /= 1 - slowStrength;
+            _fastTapLimiter--;
+            onGridManagerChanged.OnGridManagerChanged(this);
+
+            isFrozen = false;
+        }
+    }
+
+    
 
 
     // Update is called once per frame

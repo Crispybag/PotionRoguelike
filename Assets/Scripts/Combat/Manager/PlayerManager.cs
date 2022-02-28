@@ -153,6 +153,10 @@ public class PlayerManager : MonoBehaviour
                 //Instantiate(_poisonTilePrefab, new Vector3(-900, -900, 0), transform.rotation);
                 break;
 
+            case SO_Move.Debuff.FROZEN:
+                break;
+
+
             default:
                 break;
         }
