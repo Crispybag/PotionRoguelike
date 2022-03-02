@@ -25,6 +25,11 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         sortedEnemies = new SortedDictionary<int, GameObject>();
+        BezierCurve.dotPrefab = dotPrefab;
+        if (mapManager.enemies != null && mapManager.enemies.Count != 0)
+        {
+            setup();
+        }
     }
 
     public void ClearMap()
@@ -36,43 +41,11 @@ public class MapManager : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
-    void OldStart()
-    {
-        mapManager.enemies.Clear();
-        mapManager.beziers.Clear();
-        mapManager.publicEnemies.Clear();
-
-        BezierCurve.dotPrefab = dotPrefab;
-
-        Dictionary<int, GameObject> unsortedEnemies = new Dictionary<int, GameObject>();
-        //loop through all enemies to spawn them
-        foreach (SO_Enemy enemy in enemies)
-        {
-            int randomPos = Random.Range(0, availablePositions.Count);
-            Vector3 newPos = availablePositions[randomPos].transform.position;
-            GameObject newEnemy = Instantiate(prefab);
-            newEnemy.GetComponent<MapEnemy>().enemy = enemy;
-            newEnemy.GetComponent<MapEnemy>().Setup();
-            newEnemy.transform.position = newPos;
-
-            unsortedEnemies.Add(int.Parse(availablePositions[randomPos].name), newEnemy);
-            RemovePositions(randomPos);
-        }
-
-        //sort enemies based on spawn position (makes sure an enemy beside them is chosen)
-        sortedEnemies = new SortedDictionary<int, GameObject>(unsortedEnemies);
-
-        CreateStartingBrackets();
-    }
-
 
     public void setup()
     {
-        Debug.Log("Running setup!");
         if (mapManager.enemies != null && mapManager.enemies.Count != 0)
         {
-            Debug.Log("Found"  + mapManager.enemies.Count + " enemies!");
             Dictionary<SO_Enemy, Vector3> newEnemies = new Dictionary<SO_Enemy, Vector3>();
             foreach (KeyValuePair<SO_Enemy, Vector3> enemy in mapManager.enemies)
             {
@@ -87,7 +60,6 @@ public class MapManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Creating enemies!");
             test();
         }
     }
@@ -95,9 +67,8 @@ public class MapManager : MonoBehaviour
 
     public void test()
     {
-
         //spawn 8, later needs to be 7 so the player also spawns
-        for(int i =0; i < 8; i++)
+        for(int i =0; i <= 7; i++)
         {
             int randomPos = Random.Range(0, availablePositions.Count);
             Vector3 newPos = availablePositions[randomPos].transform.position;
@@ -114,13 +85,9 @@ public class MapManager : MonoBehaviour
             RemovePositions(randomPos);
         }
 
-        Debug.Log("sorted: " + sortedEnemies.Count);
-        Debug.Log("enemies : " + mapManager.enemies.Count);
         foreach (KeyValuePair<int, GameObject> enemy in sortedEnemies)
         {
             sortEnemies.Add(enemy.Value);
-            Debug.Log("Added enemy at : " + enemy.Value.transform.position);
-            //mapManager.enemies.Add(enemy.Value.transform.position, enemy.Value.GetComponent<MapEnemy>().enemy);
         }
 
         CreateStartingBrackets();
