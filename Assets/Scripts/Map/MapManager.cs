@@ -38,6 +38,7 @@ public class MapManager : MonoBehaviour
         Debug.Log("Clearing map!");
         mapManager.enemies.Clear();
         mapManager.beziers.Clear();
+        BezierCurve.ClearBezierCurves();
         mapManager.publicEnemies.Clear();
     }
 
@@ -68,6 +69,13 @@ public class MapManager : MonoBehaviour
         {
             sortEnemies.Add(enemy.Value);
         }
+        Debug.Log("Found " + mapManager.beziers.Count + " bezier curves to spawn!");
+        foreach (bezierCurves curve in mapManager.beziers)
+        {
+            Debug.Log("This curve has " + curve.points.Length + " points");
+            BezierCurve.CreateDoubleBezier(curve.points[0], curve.points[1], curve.points[2], curve.points[3], curve.points[4], dotPrefab);
+        }
+        BezierCurve.createBezierDotsInstant();
 
     }
 
@@ -142,13 +150,13 @@ public class MapManager : MonoBehaviour
     {
         for (int i = 0; i < sortEnemies.Count; i += 2)
         {
-            Vector3[] positions = BezierCurve.createBracket(sortEnemies[i].transform.position, sortEnemies[i + 1].transform.position);
+            CreateBrackets(sortEnemies[i].transform.position, sortEnemies[i + 1].transform.position, sortEnemies[i].GetComponent<MapEnemy>().enemy, sortEnemies[i + 1].GetComponent<MapEnemy>().enemy, i);
+/*            Vector3[] positions = BezierCurve.createBracket(sortEnemies[i].transform.position, sortEnemies[i + 1].transform.position);
 
             Vector3 firstEndpoint = BezierCurve.getBezierPos(positions[2], positions[3], positions[4], 0.75f);
             Vector3 secondEndpoint = BezierCurve.getBezierPos(positions[7], positions[8], positions[9], 0.75f);
 
-            sortEnemies[i].GetComponent<MapEnemy>().SetWalkPath(positions[0], positions[1], positions[2], positions[3], firstEndpoint);
-            sortEnemies[i + 1].GetComponent<MapEnemy>().SetWalkPath(positions[5], positions[6], positions[7], positions[8], secondEndpoint);
+
 
             mapManager.enemies.Add(sortEnemies[i].GetComponent<MapEnemy>().enemy, firstEndpoint);
             mapManager.enemies.Add(sortEnemies[i + 1].GetComponent<MapEnemy>().enemy, secondEndpoint);
@@ -162,6 +170,9 @@ public class MapManager : MonoBehaviour
             secondBezier.points = new[] { positions[5], positions[6], positions[7], positions[8], secondEndpoint };
             mapManager.beziers.Add(firstBezier);
             mapManager.beziers.Add(secondBezier);
+
+            sortEnemies[i].GetComponent<MapEnemy>().SetWalkPath(positions[0], positions[1], positions[2], positions[3], firstEndpoint);
+            sortEnemies[i + 1].GetComponent<MapEnemy>().SetWalkPath(positions[5], positions[6], positions[7], positions[8], secondEndpoint);*/
         }
         BezierCurve.StartDotting();
     }
@@ -200,38 +211,64 @@ public class MapManager : MonoBehaviour
             soEnemies.Add(enemy.GetComponent<MapEnemy>().enemy);
         }
 
-
         //clear it
         mapManager.publicEnemies.Clear();
         mapManager.enemies.Clear();
-        mapManager.beziers.Clear();
-        Debug.Log("Count of encounterpos: " + encounterPos.Count);
-        Debug.Log("Count of enemies: " + sortEnemies.Count);
+
         //we needed to copy it, since we adjust the original list size
         for (int i = 0; i < encounterPos.Count; i += 2)
         {
+            CreateBrackets(encounterPos[i], encounterPos[i + 1], soEnemies[i], soEnemies[i+1], i);
             //fill the encounter positions with new values, based on the previous encounter positions (new brackets)
             //createBracket(encounterPos[i], encounterPos[i + 1]);
-            Vector3[] positions = BezierCurve.createBracket(encounterPos[i], encounterPos[i + 1]);
+/*            Vector3[] positions = BezierCurve.createBracket(encounterPos[i], encounterPos[i + 1]);
 
-            mapManager.enemies.Add(soEnemies[i], positions[4]);
-            mapManager.enemies.Add(soEnemies[i + 1], positions[9]);
+            Vector3 firstEndpoint = BezierCurve.getBezierPos(positions[2], positions[3], positions[4], 0.75f);
+            Vector3 secondEndpoint = BezierCurve.getBezierPos(positions[7], positions[8], positions[9], 0.75f);
+
+            mapManager.enemies.Add(soEnemies[i], firstEndpoint);
+            mapManager.enemies.Add(soEnemies[i + 1], secondEndpoint);
 
             mapManager.publicEnemies.Add(soEnemies[i]);
             mapManager.publicEnemies.Add(soEnemies[i+ 1]);
 
             bezierCurves firstBezier = new bezierCurves();
-            firstBezier.points = new[] { positions[0], positions[1], positions[2], positions[3], positions[4] };
+            firstBezier.points = new[] { positions[0], positions[1], positions[2], positions[3], firstEndpoint };
             bezierCurves secondBezier = new bezierCurves();
-            secondBezier.points = new[] { positions[5], positions[6], positions[7], positions[8], positions[9] };
+            secondBezier.points = new[] { positions[5], positions[6], positions[7], positions[8], secondEndpoint };
             mapManager.beziers.Add(firstBezier);
             mapManager.beziers.Add(secondBezier);
-            Debug.Log(i);
-            sortEnemies[i].GetComponent<MapEnemy>().SetWalkPath(positions[0], positions[1], positions[2], positions[3], positions[4]);
-            sortEnemies[i + 1].GetComponent<MapEnemy>().SetWalkPath(positions[5], positions[6], positions[7], positions[8], positions[9]);
+
+            sortEnemies[i].GetComponent<MapEnemy>().SetWalkPath(positions[0], positions[1], positions[2], positions[3], firstEndpoint);
+            sortEnemies[i + 1].GetComponent<MapEnemy>().SetWalkPath(positions[5], positions[6], positions[7], positions[8], secondEndpoint);*/
         }
 
         BezierCurve.StartDotting();
+    }
+
+
+    public void CreateBrackets(Vector3 pos1, Vector3 pos2, SO_Enemy soEnemy1, SO_Enemy soEnemy2, int i)
+    {
+        Vector3[] positions = BezierCurve.createBracket(pos1, pos2);
+
+        Vector3 firstEndpoint = BezierCurve.getBezierPos(positions[2], positions[3], positions[4], 0.75f);
+        Vector3 secondEndpoint = BezierCurve.getBezierPos(positions[7], positions[8], positions[9], 0.75f);
+
+        mapManager.enemies.Add(soEnemy1, firstEndpoint);
+        mapManager.enemies.Add(soEnemy2, secondEndpoint);
+
+        mapManager.publicEnemies.Add(soEnemy1);
+        mapManager.publicEnemies.Add(soEnemy2);
+
+        bezierCurves firstBezier = new bezierCurves();
+        firstBezier.points = new[] { positions[0], positions[1], positions[2], positions[3], firstEndpoint };
+        bezierCurves secondBezier = new bezierCurves();
+        secondBezier.points = new[] { positions[5], positions[6], positions[7], positions[8], secondEndpoint };
+        mapManager.beziers.Add(firstBezier);
+        mapManager.beziers.Add(secondBezier);
+
+        sortEnemies[i].GetComponent<MapEnemy>().SetWalkPath(positions[0], positions[1], positions[2], positions[3], firstEndpoint);
+        sortEnemies[i + 1].GetComponent<MapEnemy>().SetWalkPath(positions[5], positions[6], positions[7], positions[8], secondEndpoint);
     }
 
 

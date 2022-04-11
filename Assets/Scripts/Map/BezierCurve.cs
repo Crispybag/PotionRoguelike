@@ -30,9 +30,12 @@ public class BezierCurve : MonoBehaviour
         CreateBezier(pos1, pos2, pos3, dot, ref newDots);
         CreateBezier(pos3, pos4, pos5, dot, ref newDots);
         brackets.Add(newDots);
-
     }
 
+    public static void ClearBezierCurves()
+    {
+        brackets.Clear();
+    }
 
     public static void StartDotting()
     {
@@ -105,6 +108,19 @@ public class BezierCurve : MonoBehaviour
             yield return new WaitForSeconds(timer);
         }
 
+    }
+
+    public static void createBezierDotsInstant()
+    {
+        //loop through all the dots inside the bracket
+        foreach (dotBrackets bracket in brackets)
+        {
+            for (int i = 0; i < bracket.dots.Count; i++)
+            {
+                GameObject dot = Instantiate(dotPrefab);
+                dot.transform.position = bracket.dots[i];
+            }
+        }
     }
 
 
