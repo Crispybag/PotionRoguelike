@@ -12,7 +12,6 @@ public class dotBrackets
 public class BezierCurve : MonoBehaviour
 {
 
-
     private static List<dotBrackets> brackets = new List<dotBrackets>();
     public static GameObject dotPrefab;
     static BezierCurve bezier;
