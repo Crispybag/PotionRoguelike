@@ -70,19 +70,10 @@ public class MapEnemy : MonoBehaviour
 
             this.gameObject.transform.position = BezierCurve.getBezierPos(paths[currentPath].startPos, paths[currentPath].midPos, paths[currentPath].endPos, currentTime);
             currentTime+= Time.deltaTime;
-            if (currentPath == 1)
+
+            if (currentTime > 1f)
             {
-                if (currentTime > 0.75f)
-                {
-                    currentTime = 0.75f;
-                }
-            }
-            else
-            {
-                if (currentTime > 1f)
-                {
-                    currentTime = 1;
-                }
+                currentTime = 1;
             }
 
         }
@@ -91,16 +82,7 @@ public class MapEnemy : MonoBehaviour
             if (currentPath <= paths.Length - 2)
             {
                 currentPath++;
-                if (currentPath == 1)
-                {
-                    Debug.Log("Setting slight offset");
-                    endPosition = BezierCurve.getBezierPos(paths[currentPath].startPos, paths[currentPath].midPos, paths[currentPath].endPos, 0.75f);
-                }
-                else
-                {
-                    endPosition = paths[currentPath].endPos;
-                }
-
+                endPosition = paths[currentPath].endPos;
                 currentTime = 0;
             }
         }
